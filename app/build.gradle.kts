@@ -77,6 +77,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.intuit)
+    implementation(libs.datastore)
+    implementation(libs.hilt.android)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
 
