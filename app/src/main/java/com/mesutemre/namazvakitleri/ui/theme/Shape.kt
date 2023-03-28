@@ -2,10 +2,12 @@ package com.mesutemre.namazvakitleri.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes
-import com.mesutemre.namazvakitleri.core.ext.sdp
+import androidx.compose.ui.unit.dp
 
 val Shapes = Shapes(
-    small = RoundedCornerShape(6.sdp),
-    medium = RoundedCornerShape(8.sdp),
-    large = RoundedCornerShape(10.sdp)
+    extraSmall = RoundedCornerShape(4.dp),
+    small = RoundedCornerShape(8.dp),
+    medium = RoundedCornerShape(16.dp),
+    large = RoundedCornerShape(24.dp),
+    extraLarge = RoundedCornerShape(32.dp)
 )

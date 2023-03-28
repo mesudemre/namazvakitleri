@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
             NamazvakitleriTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = NamazvakitleriTheme.colors.uiBackground
+                    color = MaterialTheme.colorScheme.background
                 ) {
                     Greeting("Android")
                 }
@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String) {
-    Text(text = "Hello $name!", color = NamazvakitleriTheme.colors.currentVakit)
+    Text(text = "Hello $name!", color = MaterialTheme.colorScheme.inversePrimary)
 }
 
 @Preview(showBackground = true)
