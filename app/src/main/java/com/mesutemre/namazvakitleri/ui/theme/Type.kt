@@ -8,24 +8,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.mesutemre.namazvakitleri.R
 
-private val Ubuntu = FontFamily(
+val Ubuntu = FontFamily(
     Font(R.font.ubuntu_light, FontWeight.Light),
     Font(R.font.ubuntu_regular, FontWeight.Normal),
     Font(R.font.ubuntu_medium, FontWeight.Medium),
     Font(R.font.ubuntu_bold, FontWeight.Bold)
 )
 
-
 // Set of Material typography styles to start with
 val Typography = Typography(
-    bodyLarge = TextStyle(
+    /*bodyLarge = TextStyle(
         fontFamily = Ubuntu,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     )
-    /* Other default text styles to override
+     Other default text styles to override
     h1 = TextStyle(
         fontFamily = Montserrat,
         fontSize = 96.sp,

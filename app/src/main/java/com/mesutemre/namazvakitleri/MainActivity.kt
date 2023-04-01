@@ -3,40 +3,13 @@ package com.mesutemre.namazvakitleri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
+import com.mesutemre.namazvakitleri.navigation.NamazvakitleriNavigationItem
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            NamazvakitleriTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+            NamazvakitleriApp(NamazvakitleriNavigationItem.ExampleScreen)
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!", color = MaterialTheme.colorScheme.inversePrimary)
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    NamazvakitleriTheme {
-        Greeting("Android")
     }
 }
