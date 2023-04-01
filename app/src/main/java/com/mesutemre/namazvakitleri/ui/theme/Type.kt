@@ -15,6 +15,36 @@ val Ubuntu = FontFamily(
     Font(R.font.ubuntu_bold, FontWeight.Bold)
 )
 
+val VakitInfo = TextStyle(
+    fontFamily = Ubuntu,
+    fontSize = 16.sp,
+    fontWeight = FontWeight.Normal,
+    lineHeight = 28.sp,
+    letterSpacing = 0.15.sp
+)
+
+val PageTitle = TextStyle(
+    fontFamily = Ubuntu,
+    fontSize = 16.sp,
+    fontWeight = FontWeight.SemiBold,
+    lineHeight = 24.sp,
+    letterSpacing = 0.15.sp
+)
+
+val AyetHadisTitle = TextStyle(
+    fontFamily = Ubuntu,
+    fontSize = 16.sp,
+    fontWeight = FontWeight.SemiBold,
+    lineHeight = 24.sp,
+    letterSpacing = 0.15.sp
+)
+
+val namazVakitleriTypographyPalette = NamazVakitleriTypography(
+    vakitInfo = VakitInfo,
+    title = PageTitle,
+    ayetHadisTitle = AyetHadisTitle
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     /*bodyLarge = TextStyle(

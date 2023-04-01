@@ -1,10 +1,13 @@
 package com.mesutemre.namazvakitleri.navigation
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -28,11 +31,25 @@ fun NamazvakitleriNavigation(
     ) {
         composable(route = NamazvakitleriNavigationItem.ExampleScreen.screenRoute) {
             NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
-                Text(
-                    text = "Merhabalar",
-                    style = NamazvakitleriTheme.typography.title,
-                    color = NamazvakitleriTheme.colors.currentVakit
-                )
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        text = "Merhabalar",
+                        style = NamazvakitleriTheme.typography.title,
+                        color = NamazvakitleriTheme.colors.currentVakit
+                    )
+                    Text(
+                        modifier = Modifier.padding(top = 16.dp),
+                        text = "Merhabalar",
+                        style = NamazvakitleriTheme.typography.vakitInfo,
+                        color = NamazvakitleriTheme.colors.normalVakit
+                    )
+                    Text(
+                        modifier = Modifier.padding(top = 16.dp),
+                        text = "Merhabalar",
+                        style = NamazvakitleriTheme.typography.ayetHadisTitle,
+                        color = NamazvakitleriTheme.colors.ayetHadisInfo
+                    )
+                }
             }
         }
 

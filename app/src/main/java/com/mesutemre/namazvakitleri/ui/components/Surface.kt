@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.unit.Dp
@@ -23,7 +22,7 @@ import kotlin.math.ln
 @Composable
 fun NamazvakitleriSurface(
     modifier: Modifier = Modifier,
-    shape: Shape = RectangleShape,
+    shape: Shape = NamazvakitleriTheme.shapes.surface,
     border: BorderStroke? = null,
     elevation: Dp = 0.dp,
     color: Color = NamazvakitleriTheme.colors.uiBackground,
@@ -31,7 +30,8 @@ fun NamazvakitleriSurface(
     content: @Composable () -> Unit
 ) {
     Box(
-        modifier = modifier.shadow(elevation = elevation, shape = shape, clip = false)
+        modifier = modifier
+            .shadow(elevation = elevation, shape = shape, clip = false)
             .zIndex(elevation.value)
             .then(if (border != null) Modifier.border(border, shape) else Modifier)
             .background(

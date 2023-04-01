@@ -5,9 +5,8 @@ import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = NamazvakitleriColors(
@@ -56,7 +55,6 @@ fun NamazvakitleriTheme(
     ProvideNamazvakitleriTheme(colors) {
         MaterialTheme(
             colors = debugColors(darkTheme),
-            shapes = Shapes,
             content = content
         )
     }
@@ -70,6 +68,10 @@ object NamazvakitleriTheme {
     val typography: NamazVakitleriTypography
         @Composable
         get() = LocalNamazvakitleriTypography.current
+
+    val shapes: NamazVakitleriShapes
+        @Composable
+        get() = LocalNamazvakitleriShapes.current
 }
 
 
@@ -81,25 +83,11 @@ fun ProvideNamazvakitleriTheme(
     val colorPalette = remember {
         colors.copy()
     }
-    val typographyPalette = NamazVakitleriTypography(
-        vakitInfo = TextStyle(
-            fontFamily = Ubuntu,
-            fontWeight = FontWeight.Normal,
-            fontSize = 16.sp,
-            lineHeight = 24.sp,
-            letterSpacing = 0.5.sp
-        ),
-        title = TextStyle(
-            fontFamily = Ubuntu,
-            fontWeight = FontWeight.Bold,
-            fontSize = 48.sp,
-            lineHeight = 24.sp,
-            letterSpacing = 0.5.sp
-        )
-    )
+
     colorPalette.update(colors)
     CompositionLocalProvider(
-        LocalNamazvakitleriTypography provides typographyPalette,
+        LocalNamazvakitleriTypography provides namazVakitleriTypographyPalette,
+        LocalNamazvakitleriShapes provides namazVakitleriShapePalette,
         LocalNamazvakitleriColors provides colorPalette, content = content
     )
 }
@@ -107,30 +95,29 @@ fun ProvideNamazvakitleriTheme(
 @Immutable
 data class NamazVakitleriTypography(
     val vakitInfo: TextStyle,
-    val title: TextStyle
+    val title: TextStyle,
+    val ayetHadisTitle: TextStyle
 )
 
-val LocalNamazvakitleriTypography = staticCompositionLocalOf {
-    NamazVakitleriTypography(
-        vakitInfo = TextStyle(
-            fontFamily = Ubuntu,
-            fontWeight = FontWeight.Normal,
-            fontSize = 16.sp,
-            lineHeight = 24.sp,
-            letterSpacing = 0.5.sp
-        ),
-        title = TextStyle(
-            fontFamily = Ubuntu,
-            fontWeight = FontWeight.Bold,
-            fontSize = 48.sp,
-            lineHeight = 24.sp,
-            letterSpacing = 0.5.sp
-        )
-    )
+@Immutable
+data class NamazVakitleriShapes(
+    val surface: Shape,
+    val small: Shape,
+    val circle: Shape,
+    val medium: Shape,
+    val large: Shape
+)
+
+private val LocalNamazvakitleriTypography = staticCompositionLocalOf<NamazVakitleriTypography> {
+    error("No Namazvakitleri typo provided")
 }
 
 private val LocalNamazvakitleriColors = staticCompositionLocalOf<NamazvakitleriColors> {
     error("No Namazvakitleri provided")
+}
+
+val LocalNamazvakitleriShapes = staticCompositionLocalOf<NamazVakitleriShapes> {
+    error("No Namazvakitleri shape provided")
 }
 
 /**
