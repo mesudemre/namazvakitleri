@@ -40,6 +40,7 @@ targetSdk = "33"
 accompanist = "0.28.0"
 intuitVersion = "1.1.0"
 dataStoreVersion = "1.0.0"
+androidx-coresplashscreen = "1.0.0"
 
 [libraries]
 
@@ -67,6 +68,7 @@ androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling
 androidx-compose-ui-util = { module = "androidx.compose.ui:ui-util" }
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "androidx-constraintlayout" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-corektx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-coresplashscreen" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle-compose" }
 androidx-lifecycle-runtime = "androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha04"
