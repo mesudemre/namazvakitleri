@@ -14,8 +14,8 @@ sealed class NamazvakitleriNavigationItem(
     object OnboardingWelcomeScreen :
         NamazvakitleriNavigationItem(screenRoute = "namazvakitleri_onboarding_welcome_screen")
 
-    object OnboardingCityListScreen :
-        NamazvakitleriNavigationItem(screenRoute = "namazvakitleri_onboarding_citylist_screen")
+    object OnboardingCitySelectionScreen :
+        NamazvakitleriNavigationItem(screenRoute = "namazvakitleri_onboarding_city_selection_screen")
 
     object OnboardingDistrictListScreen :
         NamazvakitleriNavigationItem(screenRoute = "namazvakitleri_onboarding_districtlist_screen")

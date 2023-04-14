@@ -21,6 +21,8 @@ private val DarkColorPalette = NamazvakitleriColors(
     onBoardingBackground = KoyuYesil,
     uiBackground = BlackNeutral,
     contentColor = White,
+    welcomeBackground = listOf(BlackNeutral,AcikMavi, AcikMaviNeutral1),
+    welcomeContinueText = BlackNeutral,
     isDark = true
 )
 
@@ -36,6 +38,8 @@ private val LightColorPalette = NamazvakitleriColors(
     onBoardingBackground = FistikYesil,
     uiBackground = White,
     contentColor = Neutral7,
+    welcomeBackground = listOf(White, Neutral1, Neutral2,AcikMavi, AcikMaviNeutral1),
+    welcomeContinueText = White,
     isDark = false
 )
 
@@ -96,7 +100,8 @@ fun ProvideNamazvakitleriTheme(
 data class NamazVakitleriTypography(
     val vakitInfo: TextStyle,
     val title: TextStyle,
-    val ayetHadisTitle: TextStyle
+    val ayetHadisTitle: TextStyle,
+    val onboardingInfoTextStyle: TextStyle
 )
 
 @Immutable
@@ -136,6 +141,8 @@ class NamazvakitleriColors(
     onBoardingBackground: Color,
     contentColor: Color,
     uiBackground: Color,
+    welcomeBackground: List<Color>,
+    welcomeContinueText: Color,
     isDark: Boolean
 ) {
     var gradientCircle by mutableStateOf(gradientCircle)
@@ -162,6 +169,10 @@ class NamazvakitleriColors(
         private set
     var isDark by mutableStateOf(isDark)
         private set
+    var welcomeBackground by mutableStateOf(welcomeBackground)
+        private set
+    var welcomeContinueText by mutableStateOf(welcomeContinueText)
+        private set
 
     fun update(other: NamazvakitleriColors) {
         gradientCircle = other.gradientCircle
@@ -175,6 +186,8 @@ class NamazvakitleriColors(
         onBoardingBackground = other.onBoardingBackground
         uiBackground = other.uiBackground
         contentColor = other.contentColor
+        welcomeBackground = other.welcomeBackground
+        welcomeContinueText = other.welcomeContinueText
         isDark = other.isDark
     }
 
@@ -190,6 +203,8 @@ class NamazvakitleriColors(
         onBoardingBackground = onBoardingBackground,
         uiBackground = uiBackground,
         contentColor = contentColor,
+        welcomeBackground = welcomeBackground,
+        welcomeContinueText = welcomeContinueText,
         isDark = isDark
     )
 }

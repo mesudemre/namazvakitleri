@@ -1,6 +1,5 @@
 package com.mesutemre.namazvakitleri.ui.theme
 
-import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -39,15 +38,24 @@ val AyetHadisTitle = TextStyle(
     letterSpacing = 0.15.sp
 )
 
+val OnboardingInfoTextStyle = TextStyle(
+    fontFamily = Ubuntu,
+    fontSize = 24.sp,
+    fontWeight = FontWeight.Bold,
+    lineHeight = 32.sp,
+    letterSpacing = 0.15.sp
+)
+
 val namazVakitleriTypographyPalette = NamazVakitleriTypography(
     vakitInfo = VakitInfo,
     title = PageTitle,
-    ayetHadisTitle = AyetHadisTitle
+    ayetHadisTitle = AyetHadisTitle,
+    onboardingInfoTextStyle = OnboardingInfoTextStyle
 )
 
 // Set of Material typography styles to start with
-val Typography = Typography(
-    /*bodyLarge = TextStyle(
+/*val Typography = Typography(
+    bodyLarge = TextStyle(
         fontFamily = Ubuntu,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
@@ -142,5 +150,5 @@ val Typography = Typography(
         lineHeight = 16.sp,
         letterSpacing = 1.sp
     )
-    */
-)
+
+)*/

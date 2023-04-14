@@ -22,13 +22,39 @@ android {
     }
 
     buildTypes {
+        create("alphaRelease")
+        create("betaRelease")
+
         release {
             getByName("release") {
                 isMinifyEnabled = true
+                isDebuggable = false
                 signingConfig = signingConfigs.getByName("debug")
                 proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro")
+                buildConfigField("String","baseApiUrl","\"https://ezanvakti.herokuapp.com/\"")
             }
+            getByName("alphaRelease") {
+                isMinifyEnabled = true
+                isDebuggable = true
+                signingConfig = signingConfigs.getByName("debug")
+                proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro")
+                buildConfigField("String","baseApiUrl","\"https://ezanvakti.herokuapp.com/\"")
+            }
+            getByName("betaRelease") {
+                isMinifyEnabled = true
+                isDebuggable = false
+                signingConfig = signingConfigs.getByName("debug")
+                proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro")
+                buildConfigField("String","baseApiUrl","\"https://ezanvakti.herokuapp.com/\"")
+            }
+        }
+        debug {
+            isMinifyEnabled = false
+            isDebuggable = true
+            buildConfigField("String","baseApiUrl","\"https://ezanvakti.herokuapp.com/\"")
         }
     }
     compileOptions {
@@ -74,7 +100,6 @@ dependencies {
     implementation(libs.androidx.compose.foundation.layout)
     implementation(libs.androidx.compose.ui.util)
     implementation(libs.androidx.compose.material)
-    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.animation)
     implementation(libs.androidx.compose.material.iconsExtended)
     implementation(libs.androidx.compose.ui.tooling.preview)
@@ -82,6 +107,13 @@ dependencies {
     implementation(libs.intuit)
     implementation(libs.datastore)
     implementation(libs.hilt.android)
+    implementation(libs.lottie)
+    implementation(libs.okhttp3)
+    implementation(libs.okhttp.logging)
+    implementation(libs.retrofit.base)
+    implementation(libs.retrofit.rxjava)
+    implementation(libs.retrofit.converter.scalars)
+    implementation(libs.gson)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
 

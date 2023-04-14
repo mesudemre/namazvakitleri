@@ -23,8 +23,7 @@ class MainActivity : ComponentActivity() {
             })
         }
         setContent {
-
-            NamazvakitleriApp(NamazvakitleriNavigationItem.ExampleScreen)
+            NamazvakitleriApp(NamazvakitleriNavigationItem.OnboardingWelcomeScreen)
         }
     }
 }
