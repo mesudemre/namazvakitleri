@@ -1,7 +1,10 @@
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -114,6 +117,11 @@ dependencies {
     implementation(libs.retrofit.rxjava)
     implementation(libs.retrofit.converter.scalars)
     implementation(libs.gson)
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
     debugImplementation(libs.androidx.compose.ui.tooling)
 
 
