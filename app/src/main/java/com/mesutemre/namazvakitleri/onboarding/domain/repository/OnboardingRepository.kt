@@ -5,8 +5,7 @@ import com.mesutemre.namazvakitleri.core.repository.BaseRepository
 import com.mesutemre.namazvakitleri.di.IoDispatcher
 import com.mesutemre.namazvakitleri.onboarding.data.local.OnboardingLocalDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.CityEntity
-import com.mesutemre.namazvakitleri.onboarding.data.mapper.CityDtoToCityDataMapper
-import com.mesutemre.namazvakitleri.onboarding.data.mapper.CityEntityToCityDataMapper
+import com.mesutemre.namazvakitleri.onboarding.data.mapper.CityDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.remote.OnboardingRemoteDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.repository.IOnboardingRepository
 import com.mesutemre.namazvakitleri.onboarding.domain.model.CityData
@@ -18,8 +17,7 @@ class OnboardingRepository @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     private val onboardingLocalDataSource: OnboardingLocalDataSource,
     private val onboardingRemoteDataSource: OnboardingRemoteDataSource,
-    private val cityDtoToCityDataMapper: CityDtoToCityDataMapper,
-    private val entityToCityDataMapper: CityEntityToCityDataMapper
+    private val cityDataMapper: CityDataMapper
 ) : BaseRepository(ioDispatcher), IOnboardingRepository {
 
     override suspend fun getCityListFromAPI(): Flow<BaseResourceEvent<List<CityData>>> {
@@ -27,7 +25,7 @@ class OnboardingRepository @Inject constructor(
             onboardingRemoteDataSource.getCityList()
         }, mapperCall = {
             it.map { data ->
-                cityDtoToCityDataMapper(data)
+                cityDataMapper.convertCityDtoToCityData(data)
             }
         })
     }
@@ -37,7 +35,7 @@ class OnboardingRepository @Inject constructor(
             onboardingLocalDataSource.getCityList()
         }, mapperCall = {
             it.map { data ->
-                entityToCityDataMapper(data)
+                cityDataMapper.convertCityEntityToCityData(data)
             }
         })
     }
