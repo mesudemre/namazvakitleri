@@ -1,5 +1,6 @@
 package com.mesutemre.namazvakitleri.core.repository
 
+import android.util.Log
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -10,7 +11,8 @@ class DbCall : IDBCall {
         emit(BaseResourceEvent.Loading())
         var response: T? = null
         try {
-            response = call.invoke()
+            response = call()
+            Log.d("RESPONSE",response.toString())
         } catch (t: Throwable) {
             emit(BaseResourceEvent.Error(t.message!!))
         }

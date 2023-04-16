@@ -40,13 +40,18 @@ class OnboardingRepository @Inject constructor(
         })
     }
 
-    override suspend fun saveCity(cityEntity: CityEntity) {
-        callDb(call = {
-            onboardingLocalDataSource.saveCity(cityEntity)
-        }, mapperCall = {})
+    override suspend fun saveCity(list: List<CityData>){
+         callDb(call = {
+            onboardingLocalDataSource.saveCity(*(list.map {
+                cityDataMapper.convertCityDataToCityEntity(it)
+            }).toTypedArray())
+        })
     }
 
     override suspend fun isCitiesSaved(): Flow<Boolean> = onboardingLocalDataSource.isCitiesSaved()
 
+    override suspend fun saveCityControl() {
+        onboardingLocalDataSource.saveCityForControl()
+    }
 
 }

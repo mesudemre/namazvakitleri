@@ -23,6 +23,10 @@ private val DarkColorPalette = NamazvakitleriColors(
     contentColor = White,
     welcomeBackground = listOf(BlackNeutral,AcikMavi, AcikMaviNeutral1),
     welcomeContinueText = BlackNeutral,
+    searchTextHintColor = SecondaryGrey,
+    searchTextColor = DarkGrey,
+    searchTextBackgroundColor = White,
+    searchTextBorderColor = AcikPembe,
     isDark = true
 )
 
@@ -40,6 +44,10 @@ private val LightColorPalette = NamazvakitleriColors(
     contentColor = Neutral7,
     welcomeBackground = listOf(White, Neutral1, Neutral2,AcikMavi, AcikMaviNeutral1),
     welcomeContinueText = White,
+    searchTextHintColor = SecondaryGrey,
+    searchTextColor = DarkGrey,
+    searchTextBackgroundColor = White,
+    searchTextBorderColor = AcikPembe,
     isDark = false
 )
 
@@ -101,7 +109,8 @@ data class NamazVakitleriTypography(
     val vakitInfo: TextStyle,
     val title: TextStyle,
     val ayetHadisTitle: TextStyle,
-    val onboardingInfoTextStyle: TextStyle
+    val onboardingInfoTextStyle: TextStyle,
+    val searchTextStyle: TextStyle
 )
 
 @Immutable
@@ -143,6 +152,10 @@ class NamazvakitleriColors(
     uiBackground: Color,
     welcomeBackground: List<Color>,
     welcomeContinueText: Color,
+    searchTextHintColor: Color,
+    searchTextColor: Color,
+    searchTextBackgroundColor: Color,
+    searchTextBorderColor: Color,
     isDark: Boolean
 ) {
     var gradientCircle by mutableStateOf(gradientCircle)
@@ -173,6 +186,14 @@ class NamazvakitleriColors(
         private set
     var welcomeContinueText by mutableStateOf(welcomeContinueText)
         private set
+    var searchTextHintColor by mutableStateOf(searchTextHintColor)
+        private set
+    var searchTextColor by mutableStateOf(searchTextColor)
+        private set
+    var searchTextBackgroundColor by mutableStateOf(searchTextBackgroundColor)
+        private set
+    var searchTextBorderColor by mutableStateOf(searchTextBorderColor)
+        private set
 
     fun update(other: NamazvakitleriColors) {
         gradientCircle = other.gradientCircle
@@ -188,6 +209,10 @@ class NamazvakitleriColors(
         contentColor = other.contentColor
         welcomeBackground = other.welcomeBackground
         welcomeContinueText = other.welcomeContinueText
+        searchTextHintColor = other.searchTextHintColor
+        searchTextColor = other.searchTextColor
+        searchTextBackgroundColor = other.searchTextBackgroundColor
+        searchTextBorderColor = other.searchTextBorderColor
         isDark = other.isDark
     }
 
@@ -205,6 +230,10 @@ class NamazvakitleriColors(
         contentColor = contentColor,
         welcomeBackground = welcomeBackground,
         welcomeContinueText = welcomeContinueText,
+        searchTextHintColor = searchTextHintColor,
+        searchTextColor = searchTextColor,
+        searchTextBackgroundColor = searchTextBackgroundColor,
+        searchTextBorderColor = searchTextBorderColor,
         isDark = isDark
     )
 }

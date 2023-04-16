@@ -6,6 +6,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.mesutemre.namazvakitleri.R
+import com.mesutemre.namazvakitleri.core.ext.sdp
+import com.mesutemre.namazvakitleri.core.ext.ssp
 
 val Ubuntu = FontFamily(
     Font(R.font.ubuntu_light, FontWeight.Light),
@@ -46,11 +48,19 @@ val OnboardingInfoTextStyle = TextStyle(
     letterSpacing = 0.15.sp
 )
 
+val SearchTextStyle = TextStyle(
+    fontFamily = Ubuntu,
+    fontSize = 12.sp,
+    lineHeight = 24.sp,
+    letterSpacing = 0.15.sp
+)
+
 val namazVakitleriTypographyPalette = NamazVakitleriTypography(
     vakitInfo = VakitInfo,
     title = PageTitle,
     ayetHadisTitle = AyetHadisTitle,
-    onboardingInfoTextStyle = OnboardingInfoTextStyle
+    onboardingInfoTextStyle = OnboardingInfoTextStyle,
+    searchTextStyle = SearchTextStyle
 )
 
 // Set of Material typography styles to start with

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Namaz Vakitleri</string>
+    <string name="common_clear">Temizle</string>
+    <string name="common_search">Ara...</string>
     <string name="onboarding_welcome_screen_welcome">Namazvakti uygulamasına hoş geldiniz</string>
     <string name="onboarding_welcome_screen_start">Başla</string>
 </resources>

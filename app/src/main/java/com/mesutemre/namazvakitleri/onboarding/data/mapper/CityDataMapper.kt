@@ -20,4 +20,11 @@ class CityDataMapper @Inject constructor() {
             cityName = cityEntity.sehirAd ?: ""
         )
     }
+
+    fun convertCityDataToCityEntity(cityDto: CityData): CityEntity {
+        return CityEntity(
+            sehirId = cityDto.cityId,
+            sehirAd = cityDto.cityName
+        )
+    }
 }

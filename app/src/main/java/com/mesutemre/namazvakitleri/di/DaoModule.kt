@@ -1,6 +1,6 @@
 package com.mesutemre.namazvakitleri.di
 
-import com.mesutemre.namazvakitleri.core.database.Database
+import com.mesutemre.namazvakitleri.core.database.NamazvakitleriDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,5 +18,5 @@ object DaoModule {
 
     @Singleton
     @Provides
-    fun provideOnboardingDao(database: Database) = database.getOnBoardingDao()
+    fun provideOnboardingDao(database: NamazvakitleriDatabase) = database.getOnBoardingDao()
 }

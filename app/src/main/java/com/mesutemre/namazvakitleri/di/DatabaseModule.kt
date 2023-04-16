@@ -2,7 +2,7 @@ package com.mesutemre.namazvakitleri.di
 
 import android.content.Context
 import androidx.room.Room
-import com.mesutemre.namazvakitleri.core.database.Database
+import com.mesutemre.namazvakitleri.core.database.NamazvakitleriDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,8 +23,7 @@ class DatabaseModule {
     @Provides
     fun provideDatabase(@ApplicationContext context: Context) = Room.databaseBuilder(
         context,
-        Database::class.java,
-        "namazvakitleri"
-    )
-        .build();
+        NamazvakitleriDatabase::class.java,
+        "namazvakitleri_db"
+    ).build()
 }

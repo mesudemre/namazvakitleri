@@ -7,12 +7,9 @@ import com.mesutemre.namazvakitleri.onboarding.data.local.entity.CityEntity
 
 @Database(
     version = 1,
-    entities = arrayOf(
-        CityEntity::class
-    ),
-    exportSchema = false
+    entities = [CityEntity::class]
 )
-abstract class Database : RoomDatabase() {
+abstract class NamazvakitleriDatabase : RoomDatabase() {
 
     abstract fun getOnBoardingDao(): IOnboardingDao
 }

@@ -8,10 +8,9 @@ import androidx.room.PrimaryKey
 data class CityEntity(
 
     @PrimaryKey
-    @ColumnInfo(name = "id")
-    val sehirId: Int?,
+    @ColumnInfo(name = "sehirId")
+    val sehirId: Int? = 0,
 
     @ColumnInfo(name = "sehirAd")
-    val sehirAd:String?,
-
+    val sehirAd:String? = null
 )

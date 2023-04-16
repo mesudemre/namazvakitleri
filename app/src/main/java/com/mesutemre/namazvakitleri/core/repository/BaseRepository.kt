@@ -1,10 +1,12 @@
 package com.mesutemre.namazvakitleri.core.repository
 
+import android.util.Log
 import com.mesutemre.namazvakitleri.core.ext.convertRersourceEventType
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import retrofit2.Response
@@ -37,6 +39,14 @@ open class BaseRepository @Inject constructor(
             it.convertRersourceEventType {
                 mapperCall(it.data!!)
             }
+        }.flowOn(ioDispatcher)
+    }
+
+    open fun <T : Any> callDb(
+        call: suspend () -> T
+    ){
+         dbCall {
+            call.invoke()
         }.flowOn(ioDispatcher)
     }
 }
