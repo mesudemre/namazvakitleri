@@ -13,6 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.toLowerCase
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.ext.sdp
@@ -26,11 +28,11 @@ fun OnboardingCitySelectionScreen(
     viewModel: OnboardingCitySelectionViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState()
+    var searchText by remember {
+        mutableStateOf("")
+    }
 
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
-        var searchText by remember {
-            mutableStateOf("")
-        }
 
         Column(
             modifier = Modifier
@@ -56,16 +58,29 @@ fun OnboardingCitySelectionScreen(
                 is BaseResourceEvent.Error -> {
                 }
                 is BaseResourceEvent.Success -> {
-                    state.value.cityList.data?.let { list->
+                    state.value.cityList.data?.let { list ->
                         val citySize = list.size
-                        LazyColumn{
-                            itemsIndexed(list) { index, item ->
+                        var liste = remember {
+                            derivedStateOf {
+                                if (searchText.isEmpty()) list
+                                else list.filter {
+                                    it.cityName.toLowerCase(Locale.current).contains(
+                                        searchText.toLowerCase(
+                                            Locale.current
+                                        )
+                                    )
+                                }
+                            }
+                        }
+
+                        LazyColumn {
+                            itemsIndexed(liste.value) { index, item ->
                                 OnboardingRowItem(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(horizontal = 16.sdp), text = item.cityName
                                 )
-                                if (index<(citySize-1))
+                                if (index < (citySize - 1))
                                     Divider(
                                         modifier = Modifier
                                             .fillMaxWidth()
