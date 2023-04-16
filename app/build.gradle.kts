@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kapt)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -110,17 +111,22 @@ dependencies {
     implementation(libs.intuit)
     implementation(libs.datastore)
     implementation(libs.hilt.android)
+    implementation(libs.hilt.common)
+    implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.lottie)
     implementation(libs.okhttp3)
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit.base)
     implementation(libs.retrofit.rxjava)
     implementation(libs.retrofit.converter.scalars)
+    implementation(libs.retrofit.converter.gson)
     implementation(libs.gson)
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.hilt.compiler)
+    kapt(libs.hilt.common)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 

@@ -1,0 +1,31 @@
+package com.mesutemre.namazvakitleri.di
+
+import com.mesutemre.namazvakitleri.onboarding.data.local.OnboardingLocalDataSource
+import com.mesutemre.namazvakitleri.onboarding.data.mapper.CityDtoToCityDataMapper
+import com.mesutemre.namazvakitleri.onboarding.data.mapper.CityEntityToCityDataMapper
+import com.mesutemre.namazvakitleri.onboarding.data.remote.OnboardingRemoteDataSource
+import com.mesutemre.namazvakitleri.onboarding.data.repository.IOnboardingRepository
+import com.mesutemre.namazvakitleri.onboarding.domain.repository.OnboardingRepository
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import javax.inject.Singleton
+
+@InstallIn(SingletonComponent::class)
+@Module
+class RepositoryModule {
+
+    @Singleton
+    @Provides
+    fun provideOnboardingRepository(
+        @IoDispatcher ioDispatcher: CoroutineDispatcher,
+        localDataSource: OnboardingLocalDataSource,
+        remoteDataSource: OnboardingRemoteDataSource,
+        cityDtoToCityDataMapper: CityDtoToCityDataMapper,
+        cityEntityToCityDataMapper: CityEntityToCityDataMapper
+    ): IOnboardingRepository {
+        return OnboardingRepository(ioDispatcher, localDataSource, remoteDataSource,cityDtoToCityDataMapper,cityEntityToCityDataMapper)
+    }
+}

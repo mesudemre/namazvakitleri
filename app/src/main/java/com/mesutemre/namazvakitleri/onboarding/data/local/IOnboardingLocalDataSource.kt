@@ -1,16 +1,11 @@
 package com.mesutemre.namazvakitleri.onboarding.data.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.CityEntity
+import kotlinx.coroutines.flow.Flow
 
-@Dao
-interface IOnboardingDao {
+interface IOnboardingLocalDataSource {
 
-    @Query("SELECT * FROM CityEntity")
     suspend fun getCityList(): List<CityEntity>
-
-    @Insert
     suspend fun saveCity(cityEntity: CityEntity)
+    suspend fun isCitiesSaved(): Flow<Boolean>
 }

@@ -26,6 +26,7 @@ compose-compiler = "1.4.0"
 coroutines = "1.6.4"
 gradle-versions = "0.43.0"
 hilt = "2.43.2"
+hiltCommon = "1.0.0"
 hiltExt = "1.0.0"
 jdkDesugar = "1.2.2"
 junit = "4.13.2"
@@ -73,6 +74,7 @@ androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constr
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-corektx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "androidx-coresplashscreen" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
+androidx-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle-compose" }
 androidx-lifecycle-runtime = "androidx.lifecycle:lifecycle-runtime-ktx:2.6.0-alpha04"
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle-runtime-compose" }
@@ -92,7 +94,7 @@ androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "a
 androidx-window = { module = "androidx.window:window", version.ref = "androidx-window" }
 core-jdk-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "jdkDesugar" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
-hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-common = { module = "androidx.hilt:hilt-common", version.ref = "hiltCommon" }
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltExt" }
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
@@ -106,6 +108,7 @@ lottie = {module = "com.airbnb.android:lottie-compose", version.ref = "lottieVer
 retrofit-base = {module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion"}
 retrofit-rxjava = {module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofitVersion"}
 retrofit-converter-scalars = {module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofitVersion"}
+retrofit-converter-gson = {module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofitVersion"}
 gson = {module = "com.google.code.gson:gson", version.ref = "gsonVersion"}
 
 [plugins]
