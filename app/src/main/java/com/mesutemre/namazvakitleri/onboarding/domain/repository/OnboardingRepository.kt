@@ -4,7 +4,6 @@ import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.core.repository.BaseRepository
 import com.mesutemre.namazvakitleri.di.IoDispatcher
 import com.mesutemre.namazvakitleri.onboarding.data.local.OnboardingLocalDataSource
-import com.mesutemre.namazvakitleri.onboarding.data.local.entity.CityEntity
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.CityDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.remote.OnboardingRemoteDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.repository.IOnboardingRepository
@@ -40,12 +39,10 @@ class OnboardingRepository @Inject constructor(
         })
     }
 
-    override suspend fun saveCity(list: List<CityData>){
-         callDb(call = {
-            onboardingLocalDataSource.saveCity(*(list.map {
-                cityDataMapper.convertCityDataToCityEntity(it)
-            }).toTypedArray())
-        })
+    override suspend fun saveCity(list: List<CityData>) {
+        onboardingLocalDataSource.saveCity(*(list.map {
+            cityDataMapper.convertCityDataToCityEntity(it)
+        }).toTypedArray())
     }
 
     override suspend fun isCitiesSaved(): Flow<Boolean> = onboardingLocalDataSource.isCitiesSaved()

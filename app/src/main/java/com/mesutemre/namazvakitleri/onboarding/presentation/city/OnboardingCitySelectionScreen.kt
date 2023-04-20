@@ -33,7 +33,6 @@ fun OnboardingCitySelectionScreen(
     }
 
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()

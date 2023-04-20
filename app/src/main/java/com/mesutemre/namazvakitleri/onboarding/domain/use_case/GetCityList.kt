@@ -23,8 +23,8 @@ class GetCityList @Inject constructor(
                 if (it is BaseResourceEvent.Success) {
                     it.data?.let { list ->
                         onboardingRepository.saveCity(list)
+                        onboardingRepository.saveCityControl()
                     }
-                    onboardingRepository.saveCityControl()
                 }
             }
             list

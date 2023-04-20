@@ -39,12 +39,4 @@ open class BaseRepository @Inject constructor(
             }
         }.flowOn(ioDispatcher)
     }
-
-    open fun <T : Any> callDb(
-        call: suspend () -> T
-    ) {
-        dbCall {
-            call.invoke()
-        }.flowOn(ioDispatcher)
-    }
 }
