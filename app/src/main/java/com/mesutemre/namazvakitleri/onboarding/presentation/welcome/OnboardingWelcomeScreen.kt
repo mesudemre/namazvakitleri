@@ -1,5 +1,6 @@
 package com.mesutemre.namazvakitleri.onboarding.presentation.welcome
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,12 +16,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.*
 import com.mesutemre.namazvakitleri.R
+import com.mesutemre.namazvakitleri.core.ext.findActivity
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.navigation.NamazvakitleriNavigationItem
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
@@ -34,6 +37,10 @@ fun OnboardingWelcomeScreen(
         {
             navController.navigate(NamazvakitleriNavigationItem.OnboardingCitySelectionScreen.screenRoute)
         }
+    }
+    val context = LocalContext.current
+    BackHandler {
+        context.findActivity().finishAffinity()
     }
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
         ConstraintLayout(

@@ -4,4 +4,6 @@
     <string name="common_search">Ara...</string>
     <string name="onboarding_welcome_screen_welcome">Namazvakti uygulamasına hoş geldiniz</string>
     <string name="onboarding_welcome_screen_start">Başla</string>
+    <string name="common_close">Kapat</string>
+    <string name="city_not_found_filter">Aradığınız kriterde bir şehir bulunmamaktadır!</string>
 </resources>

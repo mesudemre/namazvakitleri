@@ -21,12 +21,13 @@ private val DarkColorPalette = NamazvakitleriColors(
     onBoardingBackground = KoyuYesil,
     uiBackground = BlackNeutral,
     contentColor = White,
-    welcomeBackground = listOf(BlackNeutral,AcikMavi, AcikMaviNeutral1),
+    welcomeBackground = listOf(BlackNeutral, AcikMavi, AcikMaviNeutral1),
     welcomeContinueText = BlackNeutral,
     searchTextHintColor = SecondaryGrey,
     searchTextColor = DarkGrey,
     searchTextBackgroundColor = White,
     searchTextBorderColor = AcikPembe,
+    errorColor = Error,
     isDark = true
 )
 
@@ -42,12 +43,13 @@ private val LightColorPalette = NamazvakitleriColors(
     onBoardingBackground = FistikYesil,
     uiBackground = White,
     contentColor = Neutral7,
-    welcomeBackground = listOf(White, Neutral1, Neutral2,AcikMavi, AcikMaviNeutral1),
+    welcomeBackground = listOf(White, Neutral1, Neutral2, AcikMavi, AcikMaviNeutral1),
     welcomeContinueText = White,
     searchTextHintColor = SecondaryGrey,
     searchTextColor = DarkGrey,
     searchTextBackgroundColor = White,
     searchTextBorderColor = AcikPembe,
+    errorColor = Error,
     isDark = false
 )
 
@@ -110,7 +112,8 @@ data class NamazVakitleriTypography(
     val title: TextStyle,
     val ayetHadisTitle: TextStyle,
     val onboardingInfoTextStyle: TextStyle,
-    val searchTextStyle: TextStyle
+    val searchTextStyle: TextStyle,
+    val errorTextStyle: TextStyle
 )
 
 @Immutable
@@ -156,6 +159,7 @@ class NamazvakitleriColors(
     searchTextColor: Color,
     searchTextBackgroundColor: Color,
     searchTextBorderColor: Color,
+    errorColor: Color,
     isDark: Boolean
 ) {
     var gradientCircle by mutableStateOf(gradientCircle)
@@ -194,6 +198,8 @@ class NamazvakitleriColors(
         private set
     var searchTextBorderColor by mutableStateOf(searchTextBorderColor)
         private set
+    var errorColor by mutableStateOf(errorColor)
+        private set
 
     fun update(other: NamazvakitleriColors) {
         gradientCircle = other.gradientCircle
@@ -213,6 +219,7 @@ class NamazvakitleriColors(
         searchTextColor = other.searchTextColor
         searchTextBackgroundColor = other.searchTextBackgroundColor
         searchTextBorderColor = other.searchTextBorderColor
+        errorColor = other.errorColor
         isDark = other.isDark
     }
 
@@ -234,6 +241,7 @@ class NamazvakitleriColors(
         searchTextColor = searchTextColor,
         searchTextBackgroundColor = searchTextBackgroundColor,
         searchTextBorderColor = searchTextBorderColor,
+        errorColor = errorColor,
         isDark = isDark
     )
 }

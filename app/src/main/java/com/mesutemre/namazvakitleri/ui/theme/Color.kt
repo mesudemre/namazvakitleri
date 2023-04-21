@@ -24,10 +24,10 @@ val AcikPembe = Color(0xFFEFB8C8)
 val SecondaryGrey = Color(0xFFDDDDDD)
 val DarkGrey = Color(0xFF666566)
 val Yellow = Color(0xFFFFEB3B)
-val Pink =  Color(0xFFEE7CEE)
+val Pink = Color(0xFFEE7CEE)
 val KoyuYesil = Color(0xFF009688)
 val uiBackground = Color(0x1fffffff)
 val Neutral7 = Color(0xde000000)
-
+val Error = Color(0xFFF44336)
 
 const val AlphaNearOpaque = 0.95f

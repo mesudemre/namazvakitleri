@@ -20,6 +20,7 @@ import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.onboarding.presentation.components.SearchInput
+import com.mesutemre.namazvakitleri.ui.components.EmptyState
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 
@@ -31,7 +32,6 @@ fun OnboardingCitySelectionScreen(
     var searchText by remember {
         mutableStateOf("")
     }
-
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -55,6 +55,7 @@ fun OnboardingCitySelectionScreen(
                     )
                 }
                 is BaseResourceEvent.Error -> {
+
                 }
                 is BaseResourceEvent.Success -> {
                     state.value.cityList.data?.let { list ->
@@ -71,22 +72,28 @@ fun OnboardingCitySelectionScreen(
                                 }
                             }
                         }
-
-                        LazyColumn {
-                            itemsIndexed(liste.value) { index, item ->
-                                OnboardingRowItem(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 16.sdp), text = item.cityName
-                                )
-                                if (index < (citySize - 1))
-                                    Divider(
+                        if (liste.value.isEmpty()) {
+                            EmptyState(
+                                message = stringResource(id = R.string.city_not_found_filter),
+                                messageColor = NamazvakitleriTheme.colors.searchTextBackgroundColor
+                            )
+                        } else {
+                            LazyColumn {
+                                itemsIndexed(liste.value) { index, item ->
+                                    OnboardingRowItem(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(horizontal = 16.sdp),
-                                        thickness = (1 / 2).sdp,
-                                        color = NamazvakitleriTheme.colors.searchTextBackgroundColor
+                                            .padding(horizontal = 16.sdp), text = item.cityName
                                     )
+                                    if (index < (citySize - 1))
+                                        Divider(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(horizontal = 16.sdp),
+                                            thickness = (1 / 2).sdp,
+                                            color = NamazvakitleriTheme.colors.searchTextBackgroundColor
+                                        )
+                                }
                             }
                         }
                     }
