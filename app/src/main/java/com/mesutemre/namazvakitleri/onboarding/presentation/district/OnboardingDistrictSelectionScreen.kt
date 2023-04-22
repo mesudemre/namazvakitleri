@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.onboarding.presentation.city.OnboardingRowItem
+import com.mesutemre.namazvakitleri.onboarding.presentation.components.OnboardingStepper
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 
@@ -44,7 +45,7 @@ fun OnboardingDistrictSelectionScreen(
                 is BaseResourceEvent.Success -> {
                     districtList.value.districtList.data?.let { list ->
                         val size = list.size
-                        LazyColumn {
+                        LazyColumn(modifier = Modifier.weight(1f)) {
                             itemsIndexed(list) { index, item ->
                                 OnboardingRowItem(
                                     modifier = Modifier
@@ -64,6 +65,9 @@ fun OnboardingDistrictSelectionScreen(
                                     )
                             }
                         }
+                        Spacer(modifier = Modifier.height(12.sdp))
+                        OnboardingStepper(activeStep = 2)
+                        Spacer(modifier = Modifier.height(12.sdp))
                     }
                 }
                 else -> Unit

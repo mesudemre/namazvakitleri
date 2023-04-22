@@ -28,6 +28,8 @@ private val DarkColorPalette = NamazvakitleriColors(
     searchTextBackgroundColor = White,
     searchTextBorderColor = AcikPembe,
     errorColor = Error,
+    passiveStepper = SecondaryGrey,
+    activeStepper = White,
     isDark = true
 )
 
@@ -50,6 +52,8 @@ private val LightColorPalette = NamazvakitleriColors(
     searchTextBackgroundColor = White,
     searchTextBorderColor = AcikPembe,
     errorColor = Error,
+    passiveStepper = SecondaryGrey,
+    activeStepper = White,
     isDark = false
 )
 
@@ -160,6 +164,8 @@ class NamazvakitleriColors(
     searchTextBackgroundColor: Color,
     searchTextBorderColor: Color,
     errorColor: Color,
+    passiveStepper: Color,
+    activeStepper: Color,
     isDark: Boolean
 ) {
     var gradientCircle by mutableStateOf(gradientCircle)
@@ -200,6 +206,10 @@ class NamazvakitleriColors(
         private set
     var errorColor by mutableStateOf(errorColor)
         private set
+    var passiveStepper by mutableStateOf(passiveStepper)
+        private set
+    var activeStepper by mutableStateOf(activeStepper)
+        private set
 
     fun update(other: NamazvakitleriColors) {
         gradientCircle = other.gradientCircle
@@ -220,6 +230,8 @@ class NamazvakitleriColors(
         searchTextBackgroundColor = other.searchTextBackgroundColor
         searchTextBorderColor = other.searchTextBorderColor
         errorColor = other.errorColor
+        passiveStepper = other.passiveStepper
+        activeStepper = other.activeStepper
         isDark = other.isDark
     }
 
@@ -242,6 +254,8 @@ class NamazvakitleriColors(
         searchTextBackgroundColor = searchTextBackgroundColor,
         searchTextBorderColor = searchTextBorderColor,
         errorColor = errorColor,
+        passiveStepper = passiveStepper,
+        activeStepper = activeStepper,
         isDark = isDark
     )
 }

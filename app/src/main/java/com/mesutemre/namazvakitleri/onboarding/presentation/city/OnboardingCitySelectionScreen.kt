@@ -2,10 +2,7 @@ package com.mesutemre.namazvakitleri.onboarding.presentation.city
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.CircularProgressIndicator
@@ -22,6 +19,7 @@ import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.navigation.NamazvakitleriNavigationItem
+import com.mesutemre.namazvakitleri.onboarding.presentation.components.OnboardingStepper
 import com.mesutemre.namazvakitleri.onboarding.presentation.components.SearchInput
 import com.mesutemre.namazvakitleri.ui.components.EmptyState
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
@@ -82,7 +80,7 @@ fun OnboardingCitySelectionScreen(
                                 messageColor = NamazvakitleriTheme.colors.searchTextBackgroundColor
                             )
                         } else {
-                            LazyColumn {
+                            LazyColumn(modifier = Modifier.weight(1f)) {
                                 itemsIndexed(liste.value) { index, item ->
                                     OnboardingRowItem(
                                         modifier = Modifier
@@ -105,9 +103,12 @@ fun OnboardingCitySelectionScreen(
                                         )
                                 }
                             }
+
+                            Spacer(modifier = Modifier.height(12.sdp))
+                            OnboardingStepper(activeStep = 1)
+                            Spacer(modifier = Modifier.height(12.sdp))
                         }
                     }
-
                 }
                 else -> Unit
             }
