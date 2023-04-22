@@ -2,6 +2,7 @@ package com.mesutemre.namazvakitleri.di
 
 import com.mesutemre.namazvakitleri.onboarding.data.local.OnboardingLocalDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.CityDataMapper
+import com.mesutemre.namazvakitleri.onboarding.data.mapper.DistrictDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.remote.OnboardingRemoteDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.repository.IOnboardingRepository
 import com.mesutemre.namazvakitleri.onboarding.domain.repository.OnboardingRepository
@@ -22,8 +23,9 @@ class RepositoryModule {
         @IoDispatcher ioDispatcher: CoroutineDispatcher,
         localDataSource: OnboardingLocalDataSource,
         remoteDataSource: OnboardingRemoteDataSource,
-        cityDataMapper: CityDataMapper
+        cityDataMapper: CityDataMapper,
+        districtDataMapper: DistrictDataMapper
     ): IOnboardingRepository {
-        return OnboardingRepository(ioDispatcher, localDataSource, remoteDataSource,cityDataMapper)
+        return OnboardingRepository(ioDispatcher, localDataSource, remoteDataSource,cityDataMapper,districtDataMapper)
     }
 }

@@ -1,6 +1,7 @@
 package com.mesutemre.namazvakitleri.onboarding.presentation.city
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,9 +17,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toLowerCase
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
+import com.mesutemre.namazvakitleri.navigation.NamazvakitleriNavigationItem
 import com.mesutemre.namazvakitleri.onboarding.presentation.components.SearchInput
 import com.mesutemre.namazvakitleri.ui.components.EmptyState
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
@@ -26,6 +29,7 @@ import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 
 @Composable
 fun OnboardingCitySelectionScreen(
+    navController: NavController,
     viewModel: OnboardingCitySelectionViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState()
@@ -83,7 +87,13 @@ fun OnboardingCitySelectionScreen(
                                     OnboardingRowItem(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(horizontal = 16.sdp), text = item.cityName
+                                            .padding(horizontal = 16.sdp)
+                                            .clickable {
+                                                navController.navigate(
+                                                    NamazvakitleriNavigationItem.OnboardingDistrictListScreen.screenRoute
+                                                        .replace("{cityId}", item.cityId.toString())
+                                                )
+                                            }, text = item.cityName
                                     )
                                     if (index < (citySize - 1))
                                         Divider(

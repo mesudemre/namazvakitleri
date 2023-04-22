@@ -9,9 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.mesutemre.namazvakitleri.onboarding.presentation.city.OnboardingCitySelectionScreen
+import com.mesutemre.namazvakitleri.onboarding.presentation.district.OnboardingDistrictSelectionScreen
 import com.mesutemre.namazvakitleri.onboarding.presentation.welcome.OnboardingWelcomeScreen
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
@@ -64,19 +67,19 @@ fun NamazvakitleriNavigation(
         composable(
             route = NamazvakitleriNavigationItem.OnboardingCitySelectionScreen.screenRoute
         ) {
-            OnboardingCitySelectionScreen()
+            OnboardingCitySelectionScreen(navController = navController)
         }
 
         composable(
-            route = NamazvakitleriNavigationItem.OnboardingDistrictListScreen.screenRoute
+            route = NamazvakitleriNavigationItem.OnboardingDistrictListScreen.screenRoute,
+            arguments = listOf(
+                navArgument("cityId") {
+                    defaultValue = ""
+                    type = NavType.StringType
+                }
+            )
         ) {
-
-        }
-
-        composable(
-            route = NamazvakitleriNavigationItem.OnboardingDistrictListScreen.screenRoute
-        ) {
-
+            OnboardingDistrictSelectionScreen(navController = navController)
         }
     }
 }

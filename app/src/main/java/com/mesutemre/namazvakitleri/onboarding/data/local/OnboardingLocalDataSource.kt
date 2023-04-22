@@ -6,6 +6,7 @@ import com.mesutemre.namazvakitleri.core.Constants
 import com.mesutemre.namazvakitleri.core.ext.readBoolean
 import com.mesutemre.namazvakitleri.core.ext.saveData
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.CityEntity
+import com.mesutemre.namazvakitleri.onboarding.data.local.entity.DistrictEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -24,6 +25,15 @@ class OnboardingLocalDataSource @Inject constructor(
         dataStore.readBoolean(Constants.DataStoreConstants.CITY_LIST_KEY, false)
 
     override suspend fun saveCityForControl() {
-        dataStore.saveData(Constants.DataStoreConstants.CITY_LIST_KEY,true)
+        dataStore.saveData(Constants.DataStoreConstants.CITY_LIST_KEY, true)
     }
+
+    override suspend fun getDistrictListByCityId(cityId: Int): Map<CityEntity, List<DistrictEntity>> =
+        dao.getDistrictListByCityId(cityId)
+
+    override suspend fun saveDistrict(vararg districtEntity: DistrictEntity) {
+        dao.saveDistrict(*districtEntity)
+    }
+
+    override suspend fun isDistrictListSavedBefore(cityId: Int): Boolean = dao.isDistrictListSavedBefore(cityId)
 }
