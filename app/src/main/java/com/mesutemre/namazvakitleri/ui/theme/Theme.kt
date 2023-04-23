@@ -63,12 +63,6 @@ fun NamazvakitleriTheme(
     content: @Composable () -> Unit
 ) {
     val colors = if (darkTheme) DarkColorPalette else LightColorPalette
-    val sysUiController = rememberSystemUiController()
-    SideEffect {
-        sysUiController.setSystemBarsColor(
-            color = colors.uiBackground.copy(alpha = AlphaNearOpaque)
-        )
-    }
 
     ProvideNamazvakitleriTheme(colors) {
         MaterialTheme(

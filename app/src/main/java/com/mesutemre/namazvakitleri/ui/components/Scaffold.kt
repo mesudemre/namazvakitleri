@@ -1,6 +1,8 @@
 package com.mesutemre.namazvakitleri.ui.components
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
@@ -21,7 +23,7 @@ fun NamazvakitleriScaffold(
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.navigationBarsPadding(),
         scaffoldState = scaffoldState,
         topBar = topBar,
         floatingActionButton = floatingActionButton,

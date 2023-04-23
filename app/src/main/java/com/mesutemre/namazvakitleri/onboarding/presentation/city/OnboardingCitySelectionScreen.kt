@@ -46,7 +46,7 @@ fun OnboardingCitySelectionScreen(
                 onChange = {
                     searchText = it
                 },
-                modifier = Modifier.padding(16.sdp)
+                modifier = Modifier.statusBarsPadding().padding(16.sdp)
             )
 
             when (state.value.cityList) {

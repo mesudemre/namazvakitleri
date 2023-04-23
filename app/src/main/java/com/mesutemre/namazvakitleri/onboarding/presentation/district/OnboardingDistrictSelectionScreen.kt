@@ -31,6 +31,7 @@ fun OnboardingDistrictSelectionScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = NamazvakitleriTheme.colors.onBoardingBackground)
+                .statusBarsPadding()
         ) {
             Spacer(modifier = Modifier.height(16.sdp))
             when (districtList.value.districtList) {
