@@ -30,6 +30,7 @@ private val DarkColorPalette = NamazvakitleriColors(
     errorColor = Error,
     passiveStepper = SecondaryGrey,
     activeStepper = White,
+    onboardingCompleteBackgroundColor = listOf(Black,BlackNeutral,BlackNeutral,BlackNeutral,Orange),
     isDark = true
 )
 
@@ -54,6 +55,7 @@ private val LightColorPalette = NamazvakitleriColors(
     errorColor = Error,
     passiveStepper = SecondaryGrey,
     activeStepper = White,
+    onboardingCompleteBackgroundColor = listOf(White, Neutral1, Neutral2,Neutral2, Orange),
     isDark = false
 )
 
@@ -160,6 +162,7 @@ class NamazvakitleriColors(
     errorColor: Color,
     passiveStepper: Color,
     activeStepper: Color,
+    onboardingCompleteBackgroundColor: List<Color>,
     isDark: Boolean
 ) {
     var gradientCircle by mutableStateOf(gradientCircle)
@@ -204,6 +207,8 @@ class NamazvakitleriColors(
         private set
     var activeStepper by mutableStateOf(activeStepper)
         private set
+    var onboardingCompleteBackgroundColor by mutableStateOf(onboardingCompleteBackgroundColor)
+        private set
 
     fun update(other: NamazvakitleriColors) {
         gradientCircle = other.gradientCircle
@@ -226,6 +231,7 @@ class NamazvakitleriColors(
         errorColor = other.errorColor
         passiveStepper = other.passiveStepper
         activeStepper = other.activeStepper
+        onboardingCompleteBackgroundColor = other.onboardingCompleteBackgroundColor
         isDark = other.isDark
     }
 
@@ -250,6 +256,7 @@ class NamazvakitleriColors(
         errorColor = errorColor,
         passiveStepper = passiveStepper,
         activeStepper = activeStepper,
+        onboardingCompleteBackgroundColor = onboardingCompleteBackgroundColor,
         isDark = isDark
     )
 }

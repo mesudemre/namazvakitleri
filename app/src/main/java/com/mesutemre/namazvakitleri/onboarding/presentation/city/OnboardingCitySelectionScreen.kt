@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toLowerCase
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.ext.sdp
@@ -24,16 +23,18 @@ import com.mesutemre.namazvakitleri.onboarding.presentation.components.SearchInp
 import com.mesutemre.namazvakitleri.ui.components.EmptyState
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun OnboardingCitySelectionScreen(
     navController: NavController,
-    viewModel: OnboardingCitySelectionViewModel = hiltViewModel()
+    state: OnboardingCitySelecionState
 ) {
-    val state = viewModel.state.collectAsState()
     var searchText by remember {
         mutableStateOf("")
     }
+    val coroutineScope = rememberCoroutineScope()
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -44,12 +45,16 @@ fun OnboardingCitySelectionScreen(
                 hint = stringResource(id = R.string.common_search),
                 text = searchText,
                 onChange = {
-                    searchText = it
+                    coroutineScope.launch(Dispatchers.Default) {
+                        searchText = it
+                    }
                 },
-                modifier = Modifier.statusBarsPadding().padding(16.sdp)
+                modifier = Modifier
+                    .statusBarsPadding()
+                    .padding(16.sdp)
             )
 
-            when (state.value.cityList) {
+            when (state.cityList) {
                 is BaseResourceEvent.Loading -> {
                     CircularProgressIndicator(
                         modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
@@ -60,7 +65,7 @@ fun OnboardingCitySelectionScreen(
 
                 }
                 is BaseResourceEvent.Success -> {
-                    state.value.cityList.data?.let { list ->
+                    state.cityList.data?.let { list ->
                         val citySize = list.size
                         var liste = remember {
                             derivedStateOf {

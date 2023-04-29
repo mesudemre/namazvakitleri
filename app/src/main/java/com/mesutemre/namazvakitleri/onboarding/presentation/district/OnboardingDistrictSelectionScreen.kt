@@ -8,13 +8,12 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
+import com.mesutemre.namazvakitleri.navigation.NamazvakitleriNavigationItem
 import com.mesutemre.namazvakitleri.onboarding.presentation.city.OnboardingRowItem
 import com.mesutemre.namazvakitleri.onboarding.presentation.components.OnboardingStepper
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
@@ -23,9 +22,9 @@ import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 @Composable
 fun OnboardingDistrictSelectionScreen(
     navController: NavController,
-    viewModel: OnboardingDistrictSelectionViewModel = hiltViewModel()
+    state: OnboardingDistrictSelectionState
 ) {
-    val districtList = viewModel.state.collectAsState()
+    val districtList = state.districtList
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -34,7 +33,7 @@ fun OnboardingDistrictSelectionScreen(
                 .statusBarsPadding()
         ) {
             Spacer(modifier = Modifier.height(16.sdp))
-            when (districtList.value.districtList) {
+            when (districtList) {
                 is BaseResourceEvent.Loading -> {
                     CircularProgressIndicator(
                         modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
@@ -44,7 +43,7 @@ fun OnboardingDistrictSelectionScreen(
                 is BaseResourceEvent.Error -> {
                 }
                 is BaseResourceEvent.Success -> {
-                    districtList.value.districtList.data?.let { list ->
+                    districtList.data?.let { list ->
                         val size = list.size
                         LazyColumn(modifier = Modifier.weight(1f)) {
                             itemsIndexed(list) { index, item ->
@@ -53,7 +52,13 @@ fun OnboardingDistrictSelectionScreen(
                                         .fillMaxWidth()
                                         .padding(horizontal = 16.sdp)
                                         .clickable {
-
+                                            navController.navigate(
+                                                NamazvakitleriNavigationItem.OnboardingCompleteScreen.screenRoute
+                                                    .replace(
+                                                        "{districtId}",
+                                                        item.districtId.toString()
+                                                    )
+                                            )
                                         }, text = item.districtName
                                 )
                                 if (index < (size - 1))

@@ -6,4 +6,7 @@
     <string name="onboarding_welcome_screen_start">Başla</string>
     <string name="common_close">Kapat</string>
     <string name="city_not_found_filter">Aradığınız kriterde bir şehir bulunmamaktadır!</string>
+    <string name="onboarding_complete_screen_finish">Tamamla</string>
+    <string name="onboarding_complete_screen_welcome">Namaz vakitleri uygulamasına tekrardan hoş geldiniz.</string>
+    <string name="onboarding_complete_screen_description">Artık uygulamayı kullanmaya başlayabilirsiniz. Uygulamamızı puanlamayı unutmayın.</string>
 </resources>

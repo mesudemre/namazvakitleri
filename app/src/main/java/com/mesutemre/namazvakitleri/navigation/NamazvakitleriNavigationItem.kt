@@ -19,4 +19,7 @@ sealed class NamazvakitleriNavigationItem(
 
     object OnboardingDistrictListScreen :
         NamazvakitleriNavigationItem(screenRoute = "namazvakitleri_onboarding_districtlist_screen?cityId={cityId}")
+
+    object OnboardingCompleteScreen :
+            NamazvakitleriNavigationItem(screenRoute = "namazvakitleri_onboarding_complete_screen?districtId={districtId}")
 }
