@@ -2,6 +2,7 @@ package com.mesutemre.namazvakitleri.di
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import com.google.gson.Gson
 import com.mesutemre.namazvakitleri.onboarding.data.local.IOnboardingDao
 import com.mesutemre.namazvakitleri.onboarding.data.local.IOnboardingLocalDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.local.OnboardingLocalDataSource
@@ -27,10 +28,11 @@ object DataSourceModule {
     @Provides
     fun provideOnboardingLocalDataSource(
         dao: IOnboardingDao,
-        dataStore: DataStore<Preferences>
+        dataStore: DataStore<Preferences>,
+        gson: Gson
     ): IOnboardingLocalDataSource {
         return OnboardingLocalDataSource(
-            dao, dataStore
+            dao, dataStore, gson
         )
     }
 

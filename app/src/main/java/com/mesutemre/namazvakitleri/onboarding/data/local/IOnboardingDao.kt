@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.CityEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.DistrictEntity
+import com.mesutemre.namazvakitleri.onboarding.data.local.entity.HadisEntity
 
 @Dao
 interface IOnboardingDao {
@@ -24,4 +25,10 @@ interface IOnboardingDao {
 
     @Query("SELECT EXISTS(SELECT * FROM DistrictEntity WHERE ilId=:cityId)")
     suspend fun isDistrictListSavedBefore(cityId: Int): Boolean
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveHadis(vararg hadisEntity: HadisEntity)
+
+    @Query("SELECT h.id,h.content FROM HadisEntity h WHERE h.id=:id")
+    suspend fun getHadisById(id: Int): HadisEntity
 }

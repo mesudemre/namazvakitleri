@@ -18,6 +18,7 @@ import androidx.navigation.navArgument
 import com.mesutemre.namazvakitleri.onboarding.presentation.city.OnboardingCitySelectionScreen
 import com.mesutemre.namazvakitleri.onboarding.presentation.city.OnboardingCitySelectionViewModel
 import com.mesutemre.namazvakitleri.onboarding.presentation.complete.OnboardingCompleteScreen
+import com.mesutemre.namazvakitleri.onboarding.presentation.complete.OnboardingCompleteViewModel
 import com.mesutemre.namazvakitleri.onboarding.presentation.district.OnboardingDistrictSelectionScreen
 import com.mesutemre.namazvakitleri.onboarding.presentation.district.OnboardingDistrictSelectionViewModel
 import com.mesutemre.namazvakitleri.onboarding.presentation.welcome.OnboardingWelcomeScreen
@@ -100,7 +101,11 @@ fun NamazvakitleriNavigation(
                 }
             )
         ) {
-            OnboardingCompleteScreen(navController = navController)
+            val viewModel = hiltViewModel<OnboardingCompleteViewModel>()
+            OnboardingCompleteScreen(
+                navController = navController,
+                onComplete = viewModel::saveHadisListWithJson
+            )
         }
     }
 }

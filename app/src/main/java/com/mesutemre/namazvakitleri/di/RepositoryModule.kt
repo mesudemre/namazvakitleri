@@ -3,6 +3,7 @@ package com.mesutemre.namazvakitleri.di
 import com.mesutemre.namazvakitleri.onboarding.data.local.OnboardingLocalDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.CityDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.DistrictDataMapper
+import com.mesutemre.namazvakitleri.onboarding.data.mapper.HadisAssetDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.remote.OnboardingRemoteDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.repository.IOnboardingRepository
 import com.mesutemre.namazvakitleri.onboarding.domain.repository.OnboardingRepository
@@ -24,8 +25,16 @@ class RepositoryModule {
         localDataSource: OnboardingLocalDataSource,
         remoteDataSource: OnboardingRemoteDataSource,
         cityDataMapper: CityDataMapper,
-        districtDataMapper: DistrictDataMapper
+        districtDataMapper: DistrictDataMapper,
+        hadisAssetDataMapper: HadisAssetDataMapper
     ): IOnboardingRepository {
-        return OnboardingRepository(ioDispatcher, localDataSource, remoteDataSource,cityDataMapper,districtDataMapper)
+        return OnboardingRepository(
+            ioDispatcher,
+            localDataSource,
+            remoteDataSource,
+            cityDataMapper,
+            districtDataMapper,
+            hadisAssetDataMapper
+        )
     }
 }

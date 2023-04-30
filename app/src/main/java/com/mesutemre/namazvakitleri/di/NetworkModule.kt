@@ -1,6 +1,7 @@
 package com.mesutemre.namazvakitleri.di
 
 import android.content.Context
+import com.google.gson.Gson
 import com.mesutemre.namazvakitleri.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -55,5 +56,11 @@ class NetworkModule {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build();
+    }
+
+    @Singleton
+    @Provides
+    fun provideGson(): Gson {
+        return Gson()
     }
 }

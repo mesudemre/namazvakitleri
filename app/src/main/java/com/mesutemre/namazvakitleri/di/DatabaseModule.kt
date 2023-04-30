@@ -2,6 +2,7 @@ package com.mesutemre.namazvakitleri.di
 
 import android.content.Context
 import androidx.room.Room
+import com.mesutemre.namazvakitleri.core.database.MIGRATION1TO1_2
 import com.mesutemre.namazvakitleri.core.database.NamazvakitleriDatabase
 import dagger.Module
 import dagger.Provides
@@ -25,5 +26,6 @@ class DatabaseModule {
         context,
         NamazvakitleriDatabase::class.java,
         "namazvakitleri_db"
-    ).build()
+    ).addMigrations(MIGRATION1TO1_2)
+        .build()
 }

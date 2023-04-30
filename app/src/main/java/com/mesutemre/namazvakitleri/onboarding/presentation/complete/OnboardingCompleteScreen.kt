@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.*
@@ -23,7 +24,7 @@ import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun OnboardingCompleteScreen(navController: NavController) {
+fun OnboardingCompleteScreen(navController: NavController, onComplete: (String) -> Unit) {
     var animateFirstOne by remember {
         mutableStateOf(false)
     }
@@ -69,7 +70,7 @@ fun OnboardingCompleteScreen(navController: NavController) {
                 modifier = Modifier
                     .padding(start = 16.sdp, end = 16.sdp, bottom = 32.sdp)
             ) {
-                FinishInfoArea {}
+                FinishInfoArea(onComplete)
                 Spacer(modifier = Modifier.height(12.sdp))
                 OnboardingStepper(activeStep = 3)
             }
@@ -99,13 +100,20 @@ private fun ColumnScope.AnimArea() {
 }
 
 @Composable
-private fun FinishInfoArea(onClickNext: () -> Unit) {
+private fun FinishInfoArea(onComplete: (String) -> Unit) {
+    val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 14.sdp)
             .clickable {
-                onClickNext()
+                val json = context.assets
+                    .open("hadis.json")
+                    .bufferedReader()
+                    .use {
+                        it.readText()
+                    }
+                onComplete(json)
             },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
