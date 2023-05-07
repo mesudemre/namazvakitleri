@@ -31,4 +31,7 @@ interface IOnboardingDao {
 
     @Query("SELECT h.id,h.content FROM HadisEntity h WHERE h.id=:id")
     suspend fun getHadisById(id: Int): HadisEntity
+
+    @Query("SELECT * FROM DistrictEntity d WHERE d.ilceId=:districtId")
+    suspend fun getDistrictByDistrictId(districtId: Int): DistrictEntity
 }

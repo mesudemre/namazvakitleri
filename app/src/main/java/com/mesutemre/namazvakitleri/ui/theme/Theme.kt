@@ -7,7 +7,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = NamazvakitleriColors(
     gradientCircle = listOf(Pink, Yellow),
@@ -30,7 +29,15 @@ private val DarkColorPalette = NamazvakitleriColors(
     errorColor = Error,
     passiveStepper = SecondaryGrey,
     activeStepper = White,
-    onboardingCompleteBackgroundColor = listOf(Black,BlackNeutral,BlackNeutral,BlackNeutral,Orange),
+    onboardingCompleteBackgroundColor = listOf(
+        Black,
+        BlackNeutral,
+        BlackNeutral,
+        BlackNeutral,
+        Orange
+    ),
+    vakitInfoBackgroundColor = Lacivert,
+    shareButtonColor = White,
     isDark = true
 )
 
@@ -55,7 +62,9 @@ private val LightColorPalette = NamazvakitleriColors(
     errorColor = Error,
     passiveStepper = SecondaryGrey,
     activeStepper = White,
-    onboardingCompleteBackgroundColor = listOf(White, Neutral1, Neutral2,Neutral2, Orange),
+    onboardingCompleteBackgroundColor = listOf(White, Neutral1, Neutral2, Neutral2, Orange),
+    vakitInfoBackgroundColor = Lacivert,
+    shareButtonColor = DarkGrey,
     isDark = false
 )
 
@@ -113,7 +122,10 @@ data class NamazVakitleriTypography(
     val ayetHadisTitle: TextStyle,
     val onboardingInfoTextStyle: TextStyle,
     val searchTextStyle: TextStyle,
-    val errorTextStyle: TextStyle
+    val errorTextStyle: TextStyle,
+    val kalanSureSaatDakikaTextStyle: TextStyle,
+    val kalanSureSaniyeTextStyle: TextStyle,
+    val ayetHadisContent: TextStyle
 )
 
 @Immutable
@@ -163,6 +175,8 @@ class NamazvakitleriColors(
     passiveStepper: Color,
     activeStepper: Color,
     onboardingCompleteBackgroundColor: List<Color>,
+    vakitInfoBackgroundColor: Color,
+    shareButtonColor: Color,
     isDark: Boolean
 ) {
     var gradientCircle by mutableStateOf(gradientCircle)
@@ -209,6 +223,10 @@ class NamazvakitleriColors(
         private set
     var onboardingCompleteBackgroundColor by mutableStateOf(onboardingCompleteBackgroundColor)
         private set
+    var vakitInfoBackgroundColor by mutableStateOf(vakitInfoBackgroundColor)
+        private set
+    var shareButtonColor by mutableStateOf(shareButtonColor)
+        private set
 
     fun update(other: NamazvakitleriColors) {
         gradientCircle = other.gradientCircle
@@ -232,6 +250,8 @@ class NamazvakitleriColors(
         passiveStepper = other.passiveStepper
         activeStepper = other.activeStepper
         onboardingCompleteBackgroundColor = other.onboardingCompleteBackgroundColor
+        vakitInfoBackgroundColor = other.vakitInfoBackgroundColor
+        shareButtonColor = other.shareButtonColor
         isDark = other.isDark
     }
 
@@ -257,6 +277,8 @@ class NamazvakitleriColors(
         passiveStepper = passiveStepper,
         activeStepper = activeStepper,
         onboardingCompleteBackgroundColor = onboardingCompleteBackgroundColor,
+        vakitInfoBackgroundColor = vakitInfoBackgroundColor,
+        shareButtonColor = shareButtonColor,
         isDark = isDark
     )
 }

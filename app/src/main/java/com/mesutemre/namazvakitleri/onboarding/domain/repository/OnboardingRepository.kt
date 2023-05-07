@@ -3,26 +3,25 @@ package com.mesutemre.namazvakitleri.onboarding.domain.repository
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.core.repository.BaseRepository
 import com.mesutemre.namazvakitleri.di.IoDispatcher
-import com.mesutemre.namazvakitleri.onboarding.data.local.OnboardingLocalDataSource
+import com.mesutemre.namazvakitleri.onboarding.data.local.IOnboardingLocalDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.local.asset.HadisAssetData
-import com.mesutemre.namazvakitleri.onboarding.data.local.entity.HadisEntity
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.CityDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.DistrictDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.HadisAssetDataMapper
-import com.mesutemre.namazvakitleri.onboarding.data.remote.OnboardingRemoteDataSource
+import com.mesutemre.namazvakitleri.onboarding.data.remote.IOnboardingRemoteDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.repository.IOnboardingRepository
 import com.mesutemre.namazvakitleri.onboarding.domain.model.CityData
 import com.mesutemre.namazvakitleri.onboarding.domain.model.DistrictData
 import com.mesutemre.namazvakitleri.onboarding.domain.model.HadisData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
-import java.util.Calendar
+import java.util.*
 import javax.inject.Inject
 
 class OnboardingRepository @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-    private val onboardingLocalDataSource: OnboardingLocalDataSource,
-    private val onboardingRemoteDataSource: OnboardingRemoteDataSource,
+    private val onboardingLocalDataSource: IOnboardingLocalDataSource,
+    private val onboardingRemoteDataSource: IOnboardingRemoteDataSource,
     private val cityDataMapper: CityDataMapper,
     private val districtDataMapper: DistrictDataMapper,
     private val hadisAssetDataMapper: HadisAssetDataMapper
@@ -106,15 +105,30 @@ class OnboardingRepository @Inject constructor(
         saveHadisList(list)
     }
 
-    override suspend fun getHadisByDayOfMonth(): Flow<BaseResourceEvent<HadisData>>  {
+    override suspend fun getHadisByDayOfMonth(): Flow<BaseResourceEvent<HadisData>> {
         val calendar = Calendar.getInstance()
         return callDb(
-           call =  {
+            call = {
                 onboardingLocalDataSource.getHadisById(calendar.get(Calendar.DAY_OF_MONTH))
             },
             mapperCall = {
                 hadisAssetDataMapper.convertHadisEntityToHadisData(it)
             }
         )
+    }
+
+    override suspend fun getDistrictByDistrictId(districtId: Int): Flow<BaseResourceEvent<DistrictData>> {
+        return callDb(
+            call = {
+                onboardingLocalDataSource.getDistrictByDistrictId(districtId)
+            },
+            mapperCall = {
+                districtDataMapper.convertDistrictEntityToDistrictData(it)
+            }
+        )
+    }
+
+    override suspend fun saveSelectedDistrictToDataStore(districtData: DistrictData) {
+        onboardingLocalDataSource.saveSelectedDistrictToDataStore(districtData)
     }
 }

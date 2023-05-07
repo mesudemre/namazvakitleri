@@ -15,6 +15,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.mesutemre.namazvakitleri.dashboard.presentation.DashboardScreen
+import com.mesutemre.namazvakitleri.dashboard.presentation.DashboardViewModel
 import com.mesutemre.namazvakitleri.onboarding.presentation.city.OnboardingCitySelectionScreen
 import com.mesutemre.namazvakitleri.onboarding.presentation.city.OnboardingCitySelectionViewModel
 import com.mesutemre.namazvakitleri.onboarding.presentation.complete.OnboardingCompleteScreen
@@ -102,9 +104,21 @@ fun NamazvakitleriNavigation(
             )
         ) {
             val viewModel = hiltViewModel<OnboardingCompleteViewModel>()
+            val state = viewModel.state.collectAsStateWithLifecycle()
             OnboardingCompleteScreen(
                 navController = navController,
+                state = state.value,
                 onComplete = viewModel::saveHadisListWithJson
+            )
+        }
+
+        composable(
+            route = NamazvakitleriNavigationItem.DashboardScreen.screenRoute
+        ) {
+            val viewModel = hiltViewModel<DashboardViewModel>()
+            val state = viewModel.state.collectAsStateWithLifecycle()
+            DashboardScreen(
+                state = state.value
             )
         }
     }

@@ -9,4 +9,11 @@
     <string name="onboarding_complete_screen_finish">Tamamla</string>
     <string name="onboarding_complete_screen_welcome">Namaz vakitleri uygulamasına tekrardan hoş geldiniz.</string>
     <string name="onboarding_complete_screen_description">Artık uygulamayı kullanmaya başlayabilirsiniz. Uygulamamızı puanlamayı unutmayın.</string>
+    <string name="vakit_imsak">İmsak</string>
+    <string name="vakit_gunes">Güneş</string>
+    <string name="vakit_ogle">Öğle</string>
+    <string name="vakit_ikindi">İkindi</string>
+    <string name="vakit_aksam">Akşam</string>
+    <string name="vakit_yatsi">Yatsı</string>
+    <string name="dashboard_vakit_cikmasi">Vaktin Çıkmasına</string>
 </resources>

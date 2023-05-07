@@ -6,12 +6,15 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.mesutemre.namazvakitleri.core.Constants
 import com.mesutemre.namazvakitleri.core.ext.readBoolean
+import com.mesutemre.namazvakitleri.core.ext.readString
 import com.mesutemre.namazvakitleri.core.ext.saveData
 import com.mesutemre.namazvakitleri.onboarding.data.local.asset.HadisAssetData
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.CityEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.DistrictEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.HadisEntity
+import com.mesutemre.namazvakitleri.onboarding.domain.model.DistrictData
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class OnboardingLocalDataSource @Inject constructor(
@@ -53,4 +56,20 @@ class OnboardingLocalDataSource @Inject constructor(
     }
 
     override suspend fun getHadisById(id: Int): HadisEntity = dao.getHadisById(id)
+
+    override suspend fun getDistrictByDistrictId(districtId: Int): DistrictEntity =
+        dao.getDistrictByDistrictId(districtId)
+
+    override suspend fun saveSelectedDistrictToDataStore(districtData: DistrictData) {
+        dataStore.saveData(
+            Constants.DataStoreConstants.SELECTED_DISTRICT,
+            gson.toJson(districtData)
+        )
+    }
+
+    override suspend fun getSelectedDistrictFromDataStore(): DistrictData {
+        val json = dataStore.readString(Constants.DataStoreConstants.SELECTED_DISTRICT)
+        val type = object : TypeToken<DistrictData>() {}.type
+        return gson.fromJson(json.first(), type)
+    }
 }

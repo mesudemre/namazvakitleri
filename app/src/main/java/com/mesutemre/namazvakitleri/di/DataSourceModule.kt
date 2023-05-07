@@ -3,6 +3,12 @@ package com.mesutemre.namazvakitleri.di
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.google.gson.Gson
+import com.mesutemre.namazvakitleri.dashboard.data.local.DashboardLocalDataSource
+import com.mesutemre.namazvakitleri.dashboard.data.local.IDashboardDao
+import com.mesutemre.namazvakitleri.dashboard.data.local.IDashboardLocalDataSource
+import com.mesutemre.namazvakitleri.dashboard.data.remote.DashboardRemoteDataSource
+import com.mesutemre.namazvakitleri.dashboard.data.remote.IDashboardApi
+import com.mesutemre.namazvakitleri.dashboard.data.remote.IDashboardRemoteDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.local.IOnboardingDao
 import com.mesutemre.namazvakitleri.onboarding.data.local.IOnboardingLocalDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.local.OnboardingLocalDataSource
@@ -43,6 +49,26 @@ object DataSourceModule {
     ): IOnboardingRemoteDataSource {
         return OnboardingRemoteDataSource(
             api
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideDashboardRemoteDataSource(
+        api: IDashboardApi
+    ): IDashboardRemoteDataSource {
+        return DashboardRemoteDataSource(api)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDashboardLocalDataSource(
+        dao: IDashboardDao,
+        dataStore: DataStore<Preferences>
+    ): IDashboardLocalDataSource {
+        return DashboardLocalDataSource(
+            dao = dao,
+            dataStore = dataStore
         )
     }
 }

@@ -60,14 +60,42 @@ val ErrorTextStyle = TextStyle(
     letterSpacing = 0.15.sp
 )
 
+val KalanSureSaatDakikaTextStyle = TextStyle(
+    fontFamily = Ubuntu,
+    fontSize = 72.sp,
+    fontWeight = FontWeight.Normal,
+    lineHeight = 32.sp,
+    letterSpacing = 0.15.sp
+)
+
+val KalanSureSaniyeTextStyle = TextStyle(
+    fontFamily = Ubuntu,
+    fontSize = 32.sp,
+    fontWeight = FontWeight.Normal,
+    lineHeight = 32.sp,
+    letterSpacing = 0.15.sp
+)
+
+val AyetHadisContent = TextStyle(
+    fontFamily = Ubuntu,
+    fontSize = 16.sp,
+    fontWeight = FontWeight.Normal,
+    lineHeight = 18.sp,
+    letterSpacing = 0.15.sp
+)
+
 val namazVakitleriTypographyPalette = NamazVakitleriTypography(
     vakitInfo = VakitInfo,
     title = PageTitle,
     ayetHadisTitle = AyetHadisTitle,
     onboardingInfoTextStyle = OnboardingInfoTextStyle,
     searchTextStyle = SearchTextStyle,
-    errorTextStyle = ErrorTextStyle
+    errorTextStyle = ErrorTextStyle,
+    kalanSureSaatDakikaTextStyle = KalanSureSaatDakikaTextStyle,
+    kalanSureSaniyeTextStyle = KalanSureSaniyeTextStyle,
+    ayetHadisContent = AyetHadisContent
 )
+
 
 // Set of Material typography styles to start with
 /*val Typography = Typography(

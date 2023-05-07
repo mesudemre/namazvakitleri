@@ -3,31 +3,35 @@ package com.mesutemre.namazvakitleri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.lifecycleScope
 import com.mesutemre.namazvakitleri.navigation.NamazvakitleriNavigationItem
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: MainActivityViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen().apply {
             this.setKeepOnScreenCondition(object : SplashScreen.KeepOnScreenCondition {
                 override fun shouldKeepOnScreen(): Boolean {
-                    //TODO : Burada splash conditionu yazılacak
-                    return false
+                    return viewModel.loading.value
                 }
             })
         }
         setContent {
-            NamazvakitleriApp(NamazvakitleriNavigationItem.OnboardingWelcomeScreen)
+            NamazvakitleriApp(
+                /*if (viewModel.startDashboard.value) NamazvakitleriNavigationItem.DashboardScreen
+                else
+                    NamazvakitleriNavigationItem.OnboardingWelcomeScreen */
+                NamazvakitleriNavigationItem.DashboardScreen
+            )
         }
     }
 }

@@ -22,4 +22,6 @@ interface IOnboardingRepository {
     suspend fun saveHadisList(list: List<HadisAssetData>)
     suspend fun getAndSaveHadisList(jsonString: String)
     suspend fun getHadisByDayOfMonth(): Flow<BaseResourceEvent<HadisData>>
+    suspend fun getDistrictByDistrictId(districtId: Int): Flow<BaseResourceEvent<DistrictData>>
+    suspend fun saveSelectedDistrictToDataStore(districtData: DistrictData)
 }

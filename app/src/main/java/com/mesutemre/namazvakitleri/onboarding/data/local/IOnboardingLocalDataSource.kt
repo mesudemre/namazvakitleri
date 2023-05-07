@@ -4,6 +4,7 @@ import com.mesutemre.namazvakitleri.onboarding.data.local.asset.HadisAssetData
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.CityEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.DistrictEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.HadisEntity
+import com.mesutemre.namazvakitleri.onboarding.domain.model.DistrictData
 import kotlinx.coroutines.flow.Flow
 
 interface IOnboardingLocalDataSource {
@@ -18,4 +19,7 @@ interface IOnboardingLocalDataSource {
     suspend fun getHadisAssetDataList(jsonString: String): List<HadisAssetData>
     suspend fun saveHadisList(vararg hadisEntity: HadisEntity)
     suspend fun getHadisById(id: Int): HadisEntity
+    suspend fun getDistrictByDistrictId(districtId: Int): DistrictEntity
+    suspend fun saveSelectedDistrictToDataStore(districtData: DistrictData)
+    suspend fun getSelectedDistrictFromDataStore(): DistrictData
 }

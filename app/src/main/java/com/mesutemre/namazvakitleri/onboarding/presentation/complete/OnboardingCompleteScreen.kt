@@ -17,6 +17,8 @@ import androidx.navigation.NavController
 import com.airbnb.lottie.compose.*
 import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.ext.sdp
+import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
+import com.mesutemre.namazvakitleri.navigation.NamazvakitleriNavigationItem
 import com.mesutemre.namazvakitleri.onboarding.presentation.components.AnimatedText
 import com.mesutemre.namazvakitleri.onboarding.presentation.components.OnboardingStepper
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
@@ -24,7 +26,11 @@ import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun OnboardingCompleteScreen(navController: NavController, onComplete: (String) -> Unit) {
+fun OnboardingCompleteScreen(
+    navController: NavController,
+    state: OnboardingCompleteState,
+    onComplete: (String) -> Unit
+) {
     var animateFirstOne by remember {
         mutableStateOf(false)
     }
@@ -36,6 +42,12 @@ fun OnboardingCompleteScreen(navController: NavController, onComplete: (String) 
         animateFirstOne = true
         delay(500)
         animateSecondOne = true
+    }
+
+    LaunchedEffect(key1 = state.districtData) {
+        if (state.districtData is BaseResourceEvent.Success) {
+            navController.navigate(NamazvakitleriNavigationItem.DashboardScreen.screenRoute)
+        }
     }
 
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
