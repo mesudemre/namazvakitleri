@@ -31,47 +31,67 @@ class DashboardViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             async {
-                getDailyHadis().collectLatest { response ->
-                    _state.update {
-                        it.copy(
-                            gunlukHadis = response
-                        )
-                    }
-                }
+                loadDailyHadis()
             }
             async {
-                getDailyAyet().collectLatest { response ->
-                    _state.update {
-                        it.copy(
-                            gunlukAyet = response
-                        )
-                    }
-                }
+                loadDailyAyet()
             }
             async {
-                _state.update {
-                    it.copy(
-                        selectedDistrict = getSelectedDistrictFromDataStore()
-                    )
-                }
+                loadSelectedDistrict()
             }
             async {
-                getVakitInfoUseCase().collectLatest { response ->
-                    _state.update {
-                        it.copy(
-                            vakitInfo = response
-                        )
-                    }
-                }
+                loadVakitInfo()
             }
             async {
-                getTarihteBugunList().collectLatest { response ->
-                    _state.update {
-                        it.copy(
-                            tarihteBugunList = response
-                        )
-                    }
-                }
+                loadTarihteBugun()
+            }
+        }
+    }
+
+    suspend fun loadDailyHadis() {
+        getDailyHadis().collectLatest { response ->
+            _state.update {
+                it.copy(
+                    gunlukHadis = response
+                )
+            }
+        }
+    }
+
+    suspend fun loadDailyAyet() {
+        getDailyAyet().collectLatest { response ->
+            _state.update {
+                it.copy(
+                    gunlukAyet = response
+                )
+            }
+        }
+    }
+
+    suspend fun loadSelectedDistrict() {
+        _state.update {
+            it.copy(
+                selectedDistrict = getSelectedDistrictFromDataStore()
+            )
+        }
+    }
+
+    suspend fun loadVakitInfo() {
+        getVakitInfoUseCase().collectLatest { response ->
+            _state.update {
+                it.copy(
+                    vakitInfo = response
+                )
+            }
+        }
+    }
+
+    suspend fun loadTarihteBugun() {
+        getTarihteBugunList().collectLatest { response ->
+            _state.update {
+                it.copy(
+                    tarihteBugunList = response
+                )
             }
         }
     }
