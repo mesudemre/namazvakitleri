@@ -1,11 +1,11 @@
 package com.mesutemre.namazvakitleri.dashboard.data.remote
 
 import com.mesutemre.namazvakitleri.dashboard.data.remote.dto.TarihteBugunDto
-import com.mesutemre.namazvakitleri.dashboard.data.remote.dto.VakitInfoDto
 import retrofit2.Response
+import retrofit2.http.GET
 
-interface IDashboardRemoteDataSource {
+interface ITarihteBugunApi {
 
-    suspend fun getVakitListe(ilceId: String): Response<List<VakitInfoDto>>
+    @GET("/tarihtebugun")
     suspend fun getTarihteBugun(): Response<TarihteBugunDto>
 }

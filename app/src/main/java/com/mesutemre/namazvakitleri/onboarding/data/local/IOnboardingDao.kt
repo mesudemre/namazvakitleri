@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.mesutemre.namazvakitleri.onboarding.data.local.entity.AyetEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.CityEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.DistrictEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.HadisEntity
@@ -34,4 +35,10 @@ interface IOnboardingDao {
 
     @Query("SELECT * FROM DistrictEntity d WHERE d.ilceId=:districtId")
     suspend fun getDistrictByDistrictId(districtId: Int): DistrictEntity
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveAyet(vararg ayetEntity: AyetEntity)
+
+    @Query("SELECT h.id,h.content FROM AyetEntity h WHERE h.id=:id")
+    suspend fun getAyetById(id: Int): AyetEntity
 }

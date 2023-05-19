@@ -6,8 +6,7 @@ import com.mesutemre.namazvakitleri.dashboard.data.remote.dto.VakitInfoDto
 import com.mesutemre.namazvakitleri.dashboard.domain.model.VakitInfoData
 import com.mesutemre.namazvakitleri.dashboard.domain.model.VakitInfoTypeData
 import com.mesutemre.namazvakitleri.dashboard.domain.model.VakitType
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.util.*
 import javax.inject.Inject
 
 class VakitDataMapper @Inject constructor() {
@@ -18,55 +17,37 @@ class VakitDataMapper @Inject constructor() {
                 vakitLabel = R.string.vakit_imsak,
                 type = VakitType.IMSAK,
                 saat = vakitInfoDto.imsak,
-                isActive = controlIsVakitActive(
-                    vakitTarih = vakitInfoDto.miladiTarihKisa,
-                    oncekiVakitSaat = vakitInfoDto.yatsi
-                )
+                date = getDateOfVakit(vakitInfoDto.imsak)
             ),
             gunes = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_gunes,
                 type = VakitType.GUNES,
                 saat = vakitInfoDto.gunes,
-                isActive = controlIsVakitActive(
-                    vakitTarih = vakitInfoDto.miladiTarihKisa,
-                    oncekiVakitSaat = vakitInfoDto.imsak
-                )
+                date = getDateOfVakit(vakitInfoDto.gunes)
             ),
             ogle = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_ogle,
                 type = VakitType.OGLE,
                 saat = vakitInfoDto.ogle,
-                isActive = controlIsVakitActive(
-                    vakitTarih = vakitInfoDto.miladiTarihKisa,
-                    oncekiVakitSaat = vakitInfoDto.gunes
-                )
+                date = getDateOfVakit(vakitInfoDto.ogle)
             ),
             ikindi = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_ikindi,
                 type = VakitType.IKINDI,
                 saat = vakitInfoDto.ikindi,
-                isActive = controlIsVakitActive(
-                    vakitTarih = vakitInfoDto.miladiTarihKisa,
-                    oncekiVakitSaat = vakitInfoDto.ogle
-                )
+                date = getDateOfVakit(vakitInfoDto.ikindi)
             ),
             aksam = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_aksam,
                 type = VakitType.AKSAM,
                 saat = vakitInfoDto.aksam,
-                isActive = controlIsVakitActive(
-                    vakitTarih = vakitInfoDto.miladiTarihKisa,
-                    oncekiVakitSaat = vakitInfoDto.ikindi
-                )
+                date = getDateOfVakit(vakitInfoDto.aksam)
             ),
             yatsi = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_yatsi,
                 type = VakitType.YATSI,
                 saat = vakitInfoDto.yatsi,
-                isActive = controlIsVakitActive(
-                    vakitTarih = vakitInfoDto.miladiTarihKisa,
-                    oncekiVakitSaat = vakitInfoDto.aksam
-                )
+                date = getDateOfVakit(vakitInfoDto.yatsi)
             ),
             hicriTakvimInfo = vakitInfoDto.hicriTarihUzun,
             miladiTakvimInfo = vakitInfoDto.miladiTarihUzun,
@@ -94,55 +75,37 @@ class VakitDataMapper @Inject constructor() {
                 vakitLabel = R.string.vakit_imsak,
                 type = VakitType.IMSAK,
                 saat = vakitInfoEntity.imsak,
-                isActive = controlIsVakitActive(
-                    vakitTarih = vakitInfoEntity.miladiTarih,
-                    oncekiVakitSaat = vakitInfoEntity.yatsi
-                )
+                date = getDateOfVakit(vakitInfoEntity.imsak)
             ),
             gunes = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_gunes,
                 type = VakitType.GUNES,
                 saat = vakitInfoEntity.gunes,
-                isActive = controlIsVakitActive(
-                    vakitTarih = vakitInfoEntity.miladiTarih,
-                    oncekiVakitSaat = vakitInfoEntity.imsak
-                )
+                date = getDateOfVakit(vakitInfoEntity.gunes)
             ),
             ogle = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_ogle,
                 type = VakitType.OGLE,
                 saat = vakitInfoEntity.ogle,
-                isActive = controlIsVakitActive(
-                    vakitTarih = vakitInfoEntity.miladiTarih,
-                    oncekiVakitSaat = vakitInfoEntity.gunes
-                )
+                date = getDateOfVakit(vakitInfoEntity.ogle)
             ),
             ikindi = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_ikindi,
                 type = VakitType.IKINDI,
                 saat = vakitInfoEntity.ikindi,
-                isActive = controlIsVakitActive(
-                    vakitTarih = vakitInfoEntity.miladiTarih,
-                    oncekiVakitSaat = vakitInfoEntity.ogle
-                )
+                date = getDateOfVakit(vakitInfoEntity.ikindi)
             ),
             aksam = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_aksam,
                 type = VakitType.AKSAM,
                 saat = vakitInfoEntity.aksam,
-                isActive = controlIsVakitActive(
-                    vakitTarih = vakitInfoEntity.miladiTarih,
-                    oncekiVakitSaat = vakitInfoEntity.ikindi
-                )
+                date = getDateOfVakit(vakitInfoEntity.aksam)
             ),
             yatsi = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_yatsi,
                 type = VakitType.YATSI,
                 saat = vakitInfoEntity.yatsi,
-                isActive = controlIsVakitActive(
-                    vakitTarih = vakitInfoEntity.miladiTarih,
-                    oncekiVakitSaat = vakitInfoEntity.aksam
-                )
+                date = getDateOfVakit(vakitInfoEntity.yatsi)
             ),
             hicriTakvimInfo = vakitInfoEntity.hicriTarihUzun,
             miladiTakvimInfo = vakitInfoEntity.miladiTarihUzun,
@@ -150,13 +113,20 @@ class VakitDataMapper @Inject constructor() {
         )
     }
 
-    private fun controlIsVakitActive(
-        vakitTarih: String,
-        oncekiVakitSaat: String
-    ): Boolean {
-        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
-        val current = LocalDateTime.parse(LocalDateTime.now().format(formatter), formatter)
-        val oncekiVakit = LocalDateTime.parse("$vakitTarih $oncekiVakitSaat", formatter)
-        return current.isAfter(oncekiVakit)
+    private fun getDateOfVakit(
+        vakit: String
+    ): Long {
+        val saat = vakit.split(":")[0]
+        val dakika = vakit.split(":")[1]
+        val cal = Calendar.getInstance()
+        cal.set(
+            Calendar.getInstance().get(Calendar.YEAR),
+            Calendar.getInstance().get(Calendar.MONTH),
+            Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
+            saat.toInt(),
+            dakika.toInt(),
+            0
+        )
+        return cal.timeInMillis
     }
 }

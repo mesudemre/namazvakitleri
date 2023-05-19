@@ -29,7 +29,7 @@ import kotlinx.coroutines.delay
 fun OnboardingCompleteScreen(
     navController: NavController,
     state: OnboardingCompleteState,
-    onComplete: (String) -> Unit
+    onComplete: (String, String) -> Unit
 ) {
     var animateFirstOne by remember {
         mutableStateOf(false)
@@ -112,20 +112,26 @@ private fun ColumnScope.AnimArea() {
 }
 
 @Composable
-private fun FinishInfoArea(onComplete: (String) -> Unit) {
+private fun FinishInfoArea(onComplete: (String, String) -> Unit) {
     val context = LocalContext.current
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 14.sdp)
             .clickable {
-                val json = context.assets
+                val jsonHadis = context.assets
                     .open("hadis.json")
                     .bufferedReader()
                     .use {
                         it.readText()
                     }
-                onComplete(json)
+                val jsonAyet = context.assets
+                    .open("ayet.json")
+                    .bufferedReader()
+                    .use {
+                        it.readText()
+                    }
+                onComplete(jsonHadis, jsonAyet)
             },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End

@@ -1,6 +1,8 @@
 package com.mesutemre.namazvakitleri.onboarding.data.local
 
+import com.mesutemre.namazvakitleri.onboarding.data.local.asset.AyetAssetData
 import com.mesutemre.namazvakitleri.onboarding.data.local.asset.HadisAssetData
+import com.mesutemre.namazvakitleri.onboarding.data.local.entity.AyetEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.CityEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.DistrictEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.HadisEntity
@@ -22,4 +24,7 @@ interface IOnboardingLocalDataSource {
     suspend fun getDistrictByDistrictId(districtId: Int): DistrictEntity
     suspend fun saveSelectedDistrictToDataStore(districtData: DistrictData)
     suspend fun getSelectedDistrictFromDataStore(): DistrictData
+    suspend fun getAyetAssetDataList(jsonString: String): List<AyetAssetData>
+    suspend fun saveAyetList(vararg ayetEntity: AyetEntity)
+    suspend fun getAyetById(id: Int): AyetEntity
 }

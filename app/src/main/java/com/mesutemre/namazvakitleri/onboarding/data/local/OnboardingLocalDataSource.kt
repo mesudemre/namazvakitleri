@@ -8,7 +8,9 @@ import com.mesutemre.namazvakitleri.core.Constants
 import com.mesutemre.namazvakitleri.core.ext.readBoolean
 import com.mesutemre.namazvakitleri.core.ext.readString
 import com.mesutemre.namazvakitleri.core.ext.saveData
+import com.mesutemre.namazvakitleri.onboarding.data.local.asset.AyetAssetData
 import com.mesutemre.namazvakitleri.onboarding.data.local.asset.HadisAssetData
+import com.mesutemre.namazvakitleri.onboarding.data.local.entity.AyetEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.CityEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.DistrictEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.HadisEntity
@@ -71,5 +73,16 @@ class OnboardingLocalDataSource @Inject constructor(
         val json = dataStore.readString(Constants.DataStoreConstants.SELECTED_DISTRICT)
         val type = object : TypeToken<DistrictData>() {}.type
         return gson.fromJson(json.first(), type)
+    }
+
+    override suspend fun saveAyetList(vararg ayetEntity: AyetEntity) {
+        dao.saveAyet(*ayetEntity)
+    }
+
+    override suspend fun getAyetById(id: Int): AyetEntity = dao.getAyetById(id)
+
+    override suspend fun getAyetAssetDataList(jsonString: String): List<AyetAssetData> {
+        val listAyetType = object : TypeToken<List<AyetAssetData>>() {}.type
+        return gson.fromJson(jsonString, listAyetType)
     }
 }

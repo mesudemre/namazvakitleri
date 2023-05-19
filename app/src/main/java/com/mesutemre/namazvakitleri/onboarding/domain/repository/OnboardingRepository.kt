@@ -4,12 +4,15 @@ import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.core.repository.BaseRepository
 import com.mesutemre.namazvakitleri.di.IoDispatcher
 import com.mesutemre.namazvakitleri.onboarding.data.local.IOnboardingLocalDataSource
+import com.mesutemre.namazvakitleri.onboarding.data.local.asset.AyetAssetData
 import com.mesutemre.namazvakitleri.onboarding.data.local.asset.HadisAssetData
+import com.mesutemre.namazvakitleri.onboarding.data.mapper.AyetDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.CityDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.DistrictDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.HadisAssetDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.remote.IOnboardingRemoteDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.repository.IOnboardingRepository
+import com.mesutemre.namazvakitleri.onboarding.domain.model.AyetData
 import com.mesutemre.namazvakitleri.onboarding.domain.model.CityData
 import com.mesutemre.namazvakitleri.onboarding.domain.model.DistrictData
 import com.mesutemre.namazvakitleri.onboarding.domain.model.HadisData
@@ -24,7 +27,8 @@ class OnboardingRepository @Inject constructor(
     private val onboardingRemoteDataSource: IOnboardingRemoteDataSource,
     private val cityDataMapper: CityDataMapper,
     private val districtDataMapper: DistrictDataMapper,
-    private val hadisAssetDataMapper: HadisAssetDataMapper
+    private val hadisAssetDataMapper: HadisAssetDataMapper,
+    private val ayetDataMapper: AyetDataMapper
 ) : BaseRepository(ioDispatcher), IOnboardingRepository {
 
     override suspend fun getCityListFromAPI(): Flow<BaseResourceEvent<List<CityData>>> {
@@ -130,5 +134,31 @@ class OnboardingRepository @Inject constructor(
 
     override suspend fun saveSelectedDistrictToDataStore(districtData: DistrictData) {
         onboardingLocalDataSource.saveSelectedDistrictToDataStore(districtData)
+    }
+
+    override suspend fun saveAyetList(list: List<AyetAssetData>) {
+        onboardingLocalDataSource.saveAyetList(
+            *(
+                    list.map {
+                        ayetDataMapper.convertAyetAssetDataToAyetEntity(it)
+                    }).toTypedArray()
+        )
+    }
+
+    override suspend fun getAndSaveAyetList(jsonString: String) {
+        val list = onboardingLocalDataSource.getAyetAssetDataList(jsonString)
+        saveAyetList(list)
+    }
+
+    override suspend fun getAyetByDayOfMonth(): Flow<BaseResourceEvent<AyetData>> {
+        val calendar = Calendar.getInstance()
+        return callDb(
+            call = {
+                onboardingLocalDataSource.getAyetById(calendar.get(Calendar.DAY_OF_MONTH))
+            },
+            mapperCall = {
+                ayetDataMapper.convertAyetEntityToAyetData(it)
+            }
+        )
     }
 }

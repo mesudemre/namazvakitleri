@@ -9,4 +9,5 @@ interface IDashboardApi {
 
     @GET("vakitler/{ilceId}")
     suspend fun getVakitListe(@Path("ilceId") ilceId: String): Response<List<VakitInfoDto>>
+
 }

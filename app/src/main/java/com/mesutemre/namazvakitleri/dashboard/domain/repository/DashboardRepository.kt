@@ -3,9 +3,11 @@ package com.mesutemre.namazvakitleri.dashboard.domain.repository
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.core.repository.BaseRepository
 import com.mesutemre.namazvakitleri.dashboard.data.local.IDashboardLocalDataSource
+import com.mesutemre.namazvakitleri.dashboard.data.mapper.TarihteBugunDataMapper
 import com.mesutemre.namazvakitleri.dashboard.data.mapper.VakitDataMapper
 import com.mesutemre.namazvakitleri.dashboard.data.remote.IDashboardRemoteDataSource
 import com.mesutemre.namazvakitleri.dashboard.data.repository.IDashboardRepository
+import com.mesutemre.namazvakitleri.dashboard.domain.model.TarihteBugunData
 import com.mesutemre.namazvakitleri.dashboard.domain.model.VakitInfoData
 import com.mesutemre.namazvakitleri.di.IoDispatcher
 import com.mesutemre.namazvakitleri.onboarding.data.local.IOnboardingLocalDataSource
@@ -19,7 +21,8 @@ class DashboardRepository @Inject constructor(
     private val dashboardLocalDataSource: IDashboardLocalDataSource,
     private val dashboardRemoteDataSource: IDashboardRemoteDataSource,
     private val onboardingLocalDataSource: IOnboardingLocalDataSource,
-    private val vakitDataMapper: VakitDataMapper
+    private val vakitDataMapper: VakitDataMapper,
+    private val tarihteBugunDataMapper: TarihteBugunDataMapper
 ) : BaseRepository(ioDispatcher), IDashboardRepository {
 
     override suspend fun getVakitListe(ilceId: String): Flow<BaseResourceEvent<List<VakitInfoData>>> {
@@ -64,4 +67,58 @@ class DashboardRepository @Inject constructor(
 
     override suspend fun getSelectedDistrictFromStore(): DistrictData =
         onboardingLocalDataSource.getSelectedDistrictFromDataStore()
+
+    override suspend fun getVakitInfoOutOfCollection(
+        bugun: String,
+        yarin: String
+    ): List<VakitInfoData> {
+        val list = dashboardLocalDataSource.getVakitInfoOutOfCollection(bugun, yarin)
+        return list.map {
+            vakitDataMapper.convertVakitInfoEntityToVakitInfoData(it)
+        }
+    }
+
+    override suspend fun saveTarihteBugunTarih() {
+        dashboardLocalDataSource.saveDateForTarihteBugun()
+    }
+
+    override suspend fun checkTarihteBugunCallAPI(): Boolean =
+        dashboardLocalDataSource.checkTarihteBugunCallAPI()
+
+    override suspend fun getTarihteBugunListFromAPI(): Flow<BaseResourceEvent<List<TarihteBugunData>>> {
+        return callApi(
+            call = {
+                dashboardRemoteDataSource.getTarihteBugun()
+            },
+            mapperCall = {
+                it.itemList.map {
+                    tarihteBugunDataMapper.convertTarihteBugunDtoToTarihteBugunData(it)
+                }
+            }
+        )
+    }
+
+    override suspend fun getTarihteBugunListFromDB(): Flow<BaseResourceEvent<List<TarihteBugunData>>> {
+        return callDb(
+            call = {
+                dashboardLocalDataSource.getTarihteBugunList()
+            },
+            mapperCall = {
+                it.map { tarihteBugunEntity ->
+                    tarihteBugunDataMapper.convertTarihteBugunEntityToTarihteBugunData(
+                        tarihteBugunEntity
+                    )
+                }
+            }
+        )
+    }
+
+    override suspend fun saveTarihteBugunListToDb(tarihteBugunList: List<TarihteBugunData>) {
+        dashboardLocalDataSource.saveTarihteBugunList(
+            *(
+                    tarihteBugunList.map {
+                        tarihteBugunDataMapper.convertTarihteBugunDataToTarihteBugunEntity(it)
+                    }).toTypedArray()
+        )
+    }
 }

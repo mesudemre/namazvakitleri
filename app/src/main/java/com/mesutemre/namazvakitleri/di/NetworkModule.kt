@@ -1,12 +1,10 @@
 package com.mesutemre.namazvakitleri.di
 
-import android.content.Context
 import com.google.gson.Gson
 import com.mesutemre.namazvakitleri.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -28,6 +26,10 @@ class NetworkModule {
         BuildConfig.baseApiUrl
     }
 
+    val tarihteBugunApiUrl by lazy {
+        BuildConfig.tarihteBugunApiUrl
+    }
+
     private val loggingInterceptor = run {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.apply {
@@ -46,16 +48,27 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build();
+            .build()
 
     @Singleton
     @Provides
-    fun provideHttpClient(
-        @ApplicationContext context: Context
-    ): OkHttpClient {
+    @TarihteBugun
+    fun provideTarihteBugunRetrofit(client: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(tarihteBugunApiUrl)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+
+
+    @Singleton
+    @Provides
+    fun provideHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .build();
+            .build()
     }
 
     @Singleton

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.runtime.collectAsState
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
@@ -26,12 +27,15 @@ class MainActivity : ComponentActivity() {
             })
         }
         setContent {
-            NamazvakitleriApp(
-                /*if (viewModel.startDashboard.value) NamazvakitleriNavigationItem.DashboardScreen
-                else
-                    NamazvakitleriNavigationItem.OnboardingWelcomeScreen */
-                NamazvakitleriNavigationItem.DashboardScreen
-            )
+            val startDashboard = viewModel.startDashboard.collectAsState()
+            startDashboard.value?.let {
+                NamazvakitleriApp(
+                    if (it) NamazvakitleriNavigationItem.DashboardScreen
+                    else
+                        NamazvakitleriNavigationItem.OnboardingWelcomeScreen
+                )
+            }
+
         }
     }
 }

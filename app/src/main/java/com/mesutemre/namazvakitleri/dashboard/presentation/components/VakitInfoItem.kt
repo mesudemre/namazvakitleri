@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
@@ -19,12 +20,14 @@ fun VakitInfoItem(vakitAd: String, saat: String, isActive: Boolean) {
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = vakitAd, style = NamazvakitleriTheme.typography.vakitInfo,
+            text = vakitAd,
+            style = NamazvakitleriTheme.typography.vakitInfo.copy(fontWeight = FontWeight.SemiBold),
             color = if (isActive) NamazvakitleriTheme.colors.currentVakit else NamazvakitleriTheme.colors.normalVakit
         )
         Spacer(modifier = Modifier.height(4.sdp))
         Text(
-            text = saat, style = NamazvakitleriTheme.typography.vakitInfo,
+            text = saat,
+            style = NamazvakitleriTheme.typography.vakitInfo.copy(fontWeight = FontWeight.SemiBold),
             color = if (isActive) NamazvakitleriTheme.colors.currentVakit else NamazvakitleriTheme.colors.normalVakit
         )
     }

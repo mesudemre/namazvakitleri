@@ -9,6 +9,7 @@ import com.mesutemre.namazvakitleri.dashboard.data.local.IDashboardLocalDataSour
 import com.mesutemre.namazvakitleri.dashboard.data.remote.DashboardRemoteDataSource
 import com.mesutemre.namazvakitleri.dashboard.data.remote.IDashboardApi
 import com.mesutemre.namazvakitleri.dashboard.data.remote.IDashboardRemoteDataSource
+import com.mesutemre.namazvakitleri.dashboard.data.remote.ITarihteBugunApi
 import com.mesutemre.namazvakitleri.onboarding.data.local.IOnboardingDao
 import com.mesutemre.namazvakitleri.onboarding.data.local.IOnboardingLocalDataSource
 import com.mesutemre.namazvakitleri.onboarding.data.local.OnboardingLocalDataSource
@@ -55,9 +56,10 @@ object DataSourceModule {
     @Singleton
     @Provides
     fun provideDashboardRemoteDataSource(
-        api: IDashboardApi
+        api: IDashboardApi,
+        tarihteBugunApi: ITarihteBugunApi
     ): IDashboardRemoteDataSource {
-        return DashboardRemoteDataSource(api)
+        return DashboardRemoteDataSource(api, tarihteBugunApi)
     }
 
     @Singleton

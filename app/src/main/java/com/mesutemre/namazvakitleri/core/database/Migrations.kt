@@ -14,3 +14,9 @@ val MIGRATION1_2TO1_3 = object : Migration(1_2, 1_3) {
         database.execSQL("CREATE TABLE IF NOT EXISTS `VakitInfoEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `imsak` TEXT NOT NULL, `gunes` TEXT NOT NULL, `ogle` TEXT NOT NULL, `ikindi` TEXT NOT NULL, `aksam` TEXT NOT NULL, `yatsi` TEXT NOT NULL, `miladiTarih` TEXT NOT NULL, `hicriTarihUzun` TEXT NOT NULL, `miladiTarihUzun` TEXT NOT NULL)")
     }
 }
+
+val MIGRATION1_3TO1_4 = object : Migration(1_3, 1_4) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("CREATE TABLE IF NOT EXISTS `TarihteBugunEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `durum` TEXT NOT NULL, `olay` TEXT NOT NULL)")
+    }
+}

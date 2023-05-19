@@ -6,6 +6,6 @@ data class VakitInfoTypeData(
     @StringRes val vakitLabel: Int,
     val saat: String,
     val type: VakitType,
-    val isActive: Boolean = false
+    val date: Long
 )
 

@@ -1,7 +1,9 @@
 package com.mesutemre.namazvakitleri.onboarding.data.repository
 
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
+import com.mesutemre.namazvakitleri.onboarding.data.local.asset.AyetAssetData
 import com.mesutemre.namazvakitleri.onboarding.data.local.asset.HadisAssetData
+import com.mesutemre.namazvakitleri.onboarding.domain.model.AyetData
 import com.mesutemre.namazvakitleri.onboarding.domain.model.CityData
 import com.mesutemre.namazvakitleri.onboarding.domain.model.DistrictData
 import com.mesutemre.namazvakitleri.onboarding.domain.model.HadisData
@@ -24,4 +26,7 @@ interface IOnboardingRepository {
     suspend fun getHadisByDayOfMonth(): Flow<BaseResourceEvent<HadisData>>
     suspend fun getDistrictByDistrictId(districtId: Int): Flow<BaseResourceEvent<DistrictData>>
     suspend fun saveSelectedDistrictToDataStore(districtData: DistrictData)
+    suspend fun saveAyetList(list: List<AyetAssetData>)
+    suspend fun getAndSaveAyetList(jsonString: String)
+    suspend fun getAyetByDayOfMonth(): Flow<BaseResourceEvent<AyetData>>
 }

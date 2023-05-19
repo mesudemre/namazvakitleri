@@ -1,11 +1,13 @@
 package com.mesutemre.namazvakitleri.di
 
 import com.mesutemre.namazvakitleri.dashboard.data.local.IDashboardLocalDataSource
+import com.mesutemre.namazvakitleri.dashboard.data.mapper.TarihteBugunDataMapper
 import com.mesutemre.namazvakitleri.dashboard.data.mapper.VakitDataMapper
 import com.mesutemre.namazvakitleri.dashboard.data.remote.IDashboardRemoteDataSource
 import com.mesutemre.namazvakitleri.dashboard.data.repository.IDashboardRepository
 import com.mesutemre.namazvakitleri.dashboard.domain.repository.DashboardRepository
 import com.mesutemre.namazvakitleri.onboarding.data.local.IOnboardingLocalDataSource
+import com.mesutemre.namazvakitleri.onboarding.data.mapper.AyetDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.CityDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.DistrictDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.HadisAssetDataMapper
@@ -31,7 +33,8 @@ class RepositoryModule {
         remoteDataSource: IOnboardingRemoteDataSource,
         cityDataMapper: CityDataMapper,
         districtDataMapper: DistrictDataMapper,
-        hadisAssetDataMapper: HadisAssetDataMapper
+        hadisAssetDataMapper: HadisAssetDataMapper,
+        ayetDataMapper: AyetDataMapper
     ): IOnboardingRepository {
         return OnboardingRepository(
             ioDispatcher,
@@ -39,7 +42,8 @@ class RepositoryModule {
             remoteDataSource,
             cityDataMapper,
             districtDataMapper,
-            hadisAssetDataMapper
+            hadisAssetDataMapper,
+            ayetDataMapper
         )
     }
 
@@ -50,14 +54,16 @@ class RepositoryModule {
         dashboardLocalDataSource: IDashboardLocalDataSource,
         dashboardRemoteDataSource: IDashboardRemoteDataSource,
         onboardingLocalDataSource: IOnboardingLocalDataSource,
-        vakitDataMapper: VakitDataMapper
+        vakitDataMapper: VakitDataMapper,
+        tarihteBugunDataMapper: TarihteBugunDataMapper
     ): IDashboardRepository {
         return DashboardRepository(
             ioDispatcher = ioDispatcher,
             dashboardLocalDataSource = dashboardLocalDataSource,
             dashboardRemoteDataSource = dashboardRemoteDataSource,
             onboardingLocalDataSource = onboardingLocalDataSource,
-            vakitDataMapper = vakitDataMapper
+            vakitDataMapper = vakitDataMapper,
+            tarihteBugunDataMapper = tarihteBugunDataMapper
         )
     }
 }

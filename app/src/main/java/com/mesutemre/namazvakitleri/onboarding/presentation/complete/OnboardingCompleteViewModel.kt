@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.onboarding.domain.model.DistrictData
 import com.mesutemre.namazvakitleri.onboarding.domain.use_case.GetDistrictDataByDistrictId
+import com.mesutemre.namazvakitleri.onboarding.domain.use_case.SaveAyetList
 import com.mesutemre.namazvakitleri.onboarding.domain.use_case.SaveHadisList
 import com.mesutemre.namazvakitleri.onboarding.domain.use_case.SaveSelectedDistrictToDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,7 +23,8 @@ class OnboardingCompleteViewModel @Inject constructor(
     private val saveHadisList: SaveHadisList,
     private val savedStateHandle: SavedStateHandle,
     private val getDistrictDataByDistrictId: GetDistrictDataByDistrictId,
-    private val saveSelectedDistrictToDataStore: SaveSelectedDistrictToDataStore
+    private val saveSelectedDistrictToDataStore: SaveSelectedDistrictToDataStore,
+    private val saveAyetList: SaveAyetList
 ) : ViewModel() {
 
     val districtId = savedStateHandle.get<String>("districtId")
@@ -30,9 +32,10 @@ class OnboardingCompleteViewModel @Inject constructor(
     private val _state = MutableStateFlow(OnboardingCompleteState())
     val state: StateFlow<OnboardingCompleteState> = _state
 
-    fun saveHadisListWithJson(json: String) {
+    fun saveHadisListWithJson(jsonHadis: String, jsonAyet: String) {
         viewModelScope.launch {
-            async { saveHadisList(json) }
+            async { saveHadisList(jsonHadis) }
+            async { saveAyetList(jsonAyet) }
             async {
                 getDistrictDataByDistrictId(districtId?.toInt() ?: 0).collectLatest { response ->
                     if (response is BaseResourceEvent.Success) {
