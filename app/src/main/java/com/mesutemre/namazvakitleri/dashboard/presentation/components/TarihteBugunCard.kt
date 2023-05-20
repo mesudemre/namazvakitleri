@@ -65,7 +65,7 @@ fun TarihteBugunCard(
                         text = "Tarihte Bugün",
                         style = NamazvakitleriTheme.typography.ayetHadisTitle,
                         color = NamazvakitleriTheme.colors.normalVakit,
-                        modifier = Modifier.padding(start = 6.sdp)
+                        modifier = Modifier.padding(start = 12.sdp)
                     )
                 }
                 Icon(
@@ -93,14 +93,10 @@ fun TarihteBugunCard(
                             }
                         }
                         Column(modifier = Modifier.fillMaxWidth()) {
-                            liste.value.forEach { tarihteBugunItem ->
+                            liste.value.forEachIndexed { index, tarihteBugunItem ->
                                 TarihteBugunItem(item = tarihteBugunItem)
-                                Divider(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 6.sdp, vertical = 6.sdp),
-                                    color = NamazvakitleriTheme.colors.searchTextHintColor
-                                )
+                                if (index<2)
+                                    TarihteBugunDivider()
                             }
                         }
                     }
@@ -115,19 +111,9 @@ fun TarihteBugunCard(
 private fun TarihteBugünCardShimmer() {
     Column(modifier = Modifier.fillMaxWidth()) {
         TarihteBugünCardItemShimmer()
-        Divider(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 6.sdp, vertical = 6.sdp),
-            color = NamazvakitleriTheme.colors.searchTextHintColor
-        )
+        TarihteBugunDivider()
         TarihteBugünCardItemShimmer()
-        Divider(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 6.sdp, vertical = 6.sdp),
-            color = NamazvakitleriTheme.colors.searchTextHintColor
-        )
+        TarihteBugunDivider()
         TarihteBugünCardItemShimmer()
     }
 }
@@ -216,4 +202,14 @@ private fun TarihteBugünCardItemShimmer() {
             )
         }
     }
+}
+
+@Composable
+private fun TarihteBugunDivider() {
+    Divider(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 6.sdp, vertical = 6.sdp),
+        color = NamazvakitleriTheme.colors.searchTextHintColor
+    )
 }

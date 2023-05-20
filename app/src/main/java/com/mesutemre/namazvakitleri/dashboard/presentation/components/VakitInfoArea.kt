@@ -1,5 +1,6 @@
 package com.mesutemre.namazvakitleri.dashboard.presentation.components
 
+import androidx.compose.animation.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
@@ -16,6 +17,7 @@ import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 import kotlinx.coroutines.delay
 import java.util.*
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun VakitInfoArea(
     sonrakiVakit: Long,
@@ -82,14 +84,39 @@ fun VakitInfoArea(
                 style = NamazvakitleriTheme.typography.kalanSureSaniyeTextStyle,
                 color = NamazvakitleriTheme.colors.searchTextBackgroundColor
             )
-            Text(
-                text = String.format("%02d", seconds),
-                modifier = Modifier
-                    .padding(start = 12.sdp, bottom = 6.sdp)
-                    .align(Alignment.Bottom),
-                style = NamazvakitleriTheme.typography.kalanSureSaniyeTextStyle,
-                color = NamazvakitleriTheme.colors.searchTextBackgroundColor
-            )
+            var oldSecond by remember {
+                mutableStateOf(seconds)
+            }
+            SideEffect {
+                oldSecond = seconds
+            }
+            val secondString = String.format("%02d", seconds)
+            val oldSecondString = String.format("%02d", oldSecond)
+
+            for (i in secondString.indices) {
+                val oldChar = oldSecondString.getOrNull(i)
+                val newChar = secondString[i]
+                val char = if (oldChar == newChar) {
+                    oldSecondString[i]
+                } else {
+                    secondString[i]
+                }
+
+                AnimatedContent(
+                    modifier = Modifier
+                        .padding(start = 12.sdp, bottom = 6.sdp)
+                        .align(Alignment.Bottom),
+                    targetState = char, transitionSpec = {
+                        slideInVertically { it } with slideOutVertically { -it }
+                    }) {
+                    Text(
+                        text = char.toString(),
+                        style = NamazvakitleriTheme.typography.kalanSureSaniyeTextStyle,
+                        color = NamazvakitleriTheme.colors.searchTextBackgroundColor,
+                        softWrap = false
+                    )
+                }
+            }
         }
         TarihArea(miladiTarihUzun = miladiTarihUzun, hicriTarihUzun = hicriTarihUzun)
 
