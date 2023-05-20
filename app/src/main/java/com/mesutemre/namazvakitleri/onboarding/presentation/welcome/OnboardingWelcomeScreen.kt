@@ -26,6 +26,7 @@ import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.ext.findActivity
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.navigation.NamazvakitleriNavigationItem
+import com.mesutemre.namazvakitleri.onboarding.presentation.components.OnboardingStepper
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 
@@ -65,6 +66,8 @@ fun OnboardingWelcomeScreen(
                 WelcomeInfoArea {
                     onStartClick()
                 }
+                Spacer(modifier = Modifier.height(12.sdp))
+                OnboardingStepper(activeStep = 0)
             }
         }
     }

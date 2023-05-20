@@ -8,10 +8,21 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.mesutemre.namazvakitleri.dashboard.presentation.DashboardScreen
+import com.mesutemre.namazvakitleri.dashboard.presentation.DashboardViewModel
 import com.mesutemre.namazvakitleri.onboarding.presentation.city.OnboardingCitySelectionScreen
+import com.mesutemre.namazvakitleri.onboarding.presentation.city.OnboardingCitySelectionViewModel
+import com.mesutemre.namazvakitleri.onboarding.presentation.complete.OnboardingCompleteScreen
+import com.mesutemre.namazvakitleri.onboarding.presentation.complete.OnboardingCompleteViewModel
+import com.mesutemre.namazvakitleri.onboarding.presentation.district.OnboardingDistrictSelectionScreen
+import com.mesutemre.namazvakitleri.onboarding.presentation.district.OnboardingDistrictSelectionViewModel
 import com.mesutemre.namazvakitleri.onboarding.presentation.welcome.OnboardingWelcomeScreen
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
@@ -64,19 +75,51 @@ fun NamazvakitleriNavigation(
         composable(
             route = NamazvakitleriNavigationItem.OnboardingCitySelectionScreen.screenRoute
         ) {
-            OnboardingCitySelectionScreen()
+            val viewModel = hiltViewModel<OnboardingCitySelectionViewModel>()
+            val state = viewModel.state.collectAsStateWithLifecycle()
+            OnboardingCitySelectionScreen(navController = navController, state = state.value)
         }
 
         composable(
-            route = NamazvakitleriNavigationItem.OnboardingDistrictListScreen.screenRoute
+            route = NamazvakitleriNavigationItem.OnboardingDistrictListScreen.screenRoute,
+            arguments = listOf(
+                navArgument("cityId") {
+                    defaultValue = ""
+                    type = NavType.StringType
+                }
+            )
         ) {
-
+            val viewModel = hiltViewModel<OnboardingDistrictSelectionViewModel>()
+            val state = viewModel.state.collectAsStateWithLifecycle()
+            OnboardingDistrictSelectionScreen(navController = navController, state = state.value)
         }
 
         composable(
-            route = NamazvakitleriNavigationItem.OnboardingDistrictListScreen.screenRoute
+            route = NamazvakitleriNavigationItem.OnboardingCompleteScreen.screenRoute,
+            arguments = listOf(
+                navArgument(name = "districtId") {
+                    defaultValue = ""
+                    type = NavType.StringType
+                }
+            )
         ) {
+            val viewModel = hiltViewModel<OnboardingCompleteViewModel>()
+            val state = viewModel.state.collectAsStateWithLifecycle()
+            OnboardingCompleteScreen(
+                navController = navController,
+                state = state.value,
+                onComplete = viewModel::saveHadisListWithJson
+            )
+        }
 
+        composable(
+            route = NamazvakitleriNavigationItem.DashboardScreen.screenRoute
+        ) {
+            val viewModel = hiltViewModel<DashboardViewModel>()
+            val state = viewModel.state.collectAsStateWithLifecycle()
+            DashboardScreen(
+                state = state.value
+            )
         }
     }
 }

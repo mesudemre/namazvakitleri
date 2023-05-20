@@ -19,4 +19,8 @@ object DaoModule {
     @Singleton
     @Provides
     fun provideOnboardingDao(database: NamazvakitleriDatabase) = database.getOnBoardingDao()
+
+    @Singleton
+    @Provides
+    fun provideDashboardDao(database: NamazvakitleriDatabase) = database.getDashboardDao()
 }

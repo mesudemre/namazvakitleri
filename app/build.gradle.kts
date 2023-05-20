@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -34,31 +32,41 @@ android {
                 isMinifyEnabled = true
                 isDebuggable = false
                 signingConfig = signingConfigs.getByName("debug")
-                proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro")
-                buildConfigField("String","baseApiUrl","\"https://ezanvakti.herokuapp.com/\"")
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+                buildConfigField("String", "baseApiUrl", "\"https://ezanvakti.herokuapp.com/\"")
+                buildConfigField("String", "tarihteBugunApiUrl", "\"https://api.ubilisim.com/\"")
             }
             getByName("alphaRelease") {
                 isMinifyEnabled = true
                 isDebuggable = true
                 signingConfig = signingConfigs.getByName("debug")
-                proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro")
-                buildConfigField("String","baseApiUrl","\"https://ezanvakti.herokuapp.com/\"")
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+                buildConfigField("String", "baseApiUrl", "\"https://ezanvakti.herokuapp.com/\"")
+                buildConfigField("String", "tarihteBugunApiUrl", "\"https://api.ubilisim.com/\"")
             }
             getByName("betaRelease") {
                 isMinifyEnabled = true
                 isDebuggable = false
                 signingConfig = signingConfigs.getByName("debug")
-                proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro")
-                buildConfigField("String","baseApiUrl","\"https://ezanvakti.herokuapp.com/\"")
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+                buildConfigField("String", "baseApiUrl", "\"https://ezanvakti.herokuapp.com/\"")
+                buildConfigField("String", "tarihteBugunApiUrl", "\"https://api.ubilisim.com/\"")
             }
         }
         debug {
             isMinifyEnabled = false
             isDebuggable = true
-            buildConfigField("String","baseApiUrl","\"https://ezanvakti.herokuapp.com/\"")
+            buildConfigField("String", "baseApiUrl", "\"https://ezanvakti.herokuapp.com/\"")
+            buildConfigField("String", "tarihteBugunApiUrl", "\"https://api.ubilisim.com/\"")
         }
     }
     compileOptions {
