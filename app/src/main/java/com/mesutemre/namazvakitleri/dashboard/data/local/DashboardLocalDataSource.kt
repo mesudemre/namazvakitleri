@@ -4,10 +4,12 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.mesutemre.namazvakitleri.core.Constants
 import com.mesutemre.namazvakitleri.core.ext.readBoolean
+import com.mesutemre.namazvakitleri.core.ext.readInt
 import com.mesutemre.namazvakitleri.core.ext.readString
 import com.mesutemre.namazvakitleri.core.ext.saveData
 import com.mesutemre.namazvakitleri.dashboard.data.local.entity.TarihteBugunEntity
 import com.mesutemre.namazvakitleri.dashboard.data.local.entity.VakitInfoEntity
+import com.mesutemre.namazvakitleri.dashboard.domain.model.DashboardVakitPageType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import java.text.SimpleDateFormat
@@ -59,5 +61,17 @@ class DashboardLocalDataSource @Inject constructor(
     override suspend fun checkTarihteBugunCallAPI(): Boolean {
         return (dataStore.readString(Constants.DataStoreConstants.TARIHTE_BUGUN_KEY, "")
             .first() == SimpleDateFormat("dd.MM.yyyy").format(Date())).not()
+    }
+
+    override suspend fun saveVakitPageType(type: DashboardVakitPageType) {
+        dataStore.saveData(Constants.DataStoreConstants.VAKIT_TYPE_PAGE, type.type)
+    }
+
+    override suspend fun getVakitPageType(): DashboardVakitPageType {
+        return (DashboardVakitPageType from dataStore.readInt(
+            Constants.DataStoreConstants.VAKIT_TYPE_PAGE,
+            DashboardVakitPageType.DEFAULT.type
+        ).first())
+            ?: DashboardVakitPageType.DEFAULT
     }
 }

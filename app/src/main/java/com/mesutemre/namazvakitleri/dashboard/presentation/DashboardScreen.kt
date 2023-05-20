@@ -1,44 +1,40 @@
 package com.mesutemre.namazvakitleri.dashboard.presentation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.mesutemre.namazvakitleri.core.Constants
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.core.ext.shimmerEffect
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
+import com.mesutemre.namazvakitleri.dashboard.domain.model.DashboardVakitPageType
 import com.mesutemre.namazvakitleri.dashboard.domain.model.VakitType
 import com.mesutemre.namazvakitleri.dashboard.presentation.components.*
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import java.util.*
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DashboardScreen(
-    state: DashboardState
+    state: DashboardState,
+    onChangeVakitTypePage: suspend (DashboardVakitPageType) -> Unit
 ) {
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
-        var timer by remember { mutableStateOf(Calendar.getInstance().timeInMillis) }
-        LaunchedEffect(key1 = timer) {
-            if (timer > 0) {
-                delay(1000L)
-                timer -= 1000L
-            } else if ((timer % Constants.DashboardConstants.DAY_MIL_SEC % Constants.DashboardConstants.HOUR_MIL_SEC % Constants.DashboardConstants.MIN_MIL_SEC / Constants.DashboardConstants.SEC_MIL_SEC).toInt() == 0) {
-                timer = Calendar.getInstance().timeInMillis
-            }
-        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -46,33 +42,6 @@ fun DashboardScreen(
         ) {
             val lazyListState = rememberLazyListState()
             LazyColumn(state = lazyListState) {
-                item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(NamazvakitleriTheme.colors.vakitInfoBackgroundColor)
-                    ) {
-                        state.selectedDistrict?.let {
-                            Text(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 8.sdp, top = 32.sdp),
-                                text = it.districtName,
-                                style = NamazvakitleriTheme.typography.vakitInfo,
-                                color = NamazvakitleriTheme.colors.searchTextBackgroundColor
-                            )
-                        } ?: run {
-                            Text(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 8.sdp, top = 32.sdp),
-                                text = "",
-                                style = NamazvakitleriTheme.typography.vakitInfo,
-                                color = NamazvakitleriTheme.colors.searchTextBackgroundColor
-                            )
-                        }
-                    }
-                }
                 item {
                     Column(
                         modifier = Modifier
@@ -87,29 +56,46 @@ fun DashboardScreen(
                             is BaseResourceEvent.Success -> {
                                 val data = state.vakitInfo.data
                                 data?.let { vakitInfo ->
-                                    val sonrakiVakit = remember {
-                                        derivedStateOf {
-                                            if (timer >= data.bugunVakitInfo.imsak.date && timer < data.bugunVakitInfo.gunes.date)
-                                                data.bugunVakitInfo.gunes.date
-                                            else if (timer >= data.bugunVakitInfo.gunes.date && timer < data.bugunVakitInfo.ogle.date)
-                                                data.bugunVakitInfo.ogle.date
-                                            else if (timer >= data.bugunVakitInfo.ogle.date && timer < data.bugunVakitInfo.ikindi.date)
-                                                data.bugunVakitInfo.ikindi.date
-                                            else if (timer >= data.bugunVakitInfo.ikindi.date && timer < data.bugunVakitInfo.aksam.date)
-                                                data.bugunVakitInfo.aksam.date
-                                            else if (timer >= data.bugunVakitInfo.aksam.date && timer < data.bugunVakitInfo.yatsi.date)
-                                                data.bugunVakitInfo.yatsi.date
-                                            else if (timer > data.bugunVakitInfo.yatsi.date && timer < data.yarinVakitInfo.imsak.date)
-                                                data.yarinVakitInfo.imsak.date
-                                            else
-                                                data.yarinVakitInfo.imsak.date
+                                    val pageState = rememberPagerState(state.activeVakitPage.type)
+                                    LaunchedEffect(pageState) {
+                                        snapshotFlow { pageState.currentPage }.collectLatest {
+                                            onChangeVakitTypePage(
+                                                (DashboardVakitPageType from it)
+                                                    ?: DashboardVakitPageType.DEFAULT
+                                            )
                                         }
                                     }
-                                    VakitInfoArea(
-                                        sonrakiVakit = sonrakiVakit.value,
-                                        miladiTarihUzun = vakitInfo.bugunVakitInfo.miladiTakvimInfo,
-                                        hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo
-                                    )
+                                    HorizontalPager(pageCount = 3, state = pageState) { pager ->
+                                        Column(modifier = Modifier.fillMaxWidth()) {
+                                            Row(
+                                                modifier = Modifier
+                                                    .fillMaxSize()
+                                            ) {
+                                                when (pager) {
+                                                    DashboardVakitPageType.DEFAULT.type -> {
+                                                        VakitInfoArea(
+                                                            data = data,
+                                                            selectedDistrict = state.selectedDistrict,
+                                                            miladiTarihUzun = vakitInfo.bugunVakitInfo.miladiTakvimInfo,
+                                                            hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo
+                                                        )
+                                                    }
+                                                    DashboardVakitPageType.SULEYMANIYE.type -> {
+                                                        VakitInfoSuleymaniyeArea(
+                                                            data = data,
+                                                            selectedDistrict = state.selectedDistrict,
+                                                            miladiTarihUzun = vakitInfo.bugunVakitInfo.miladiTakvimInfo,
+                                                            hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo
+                                                        )
+                                                    }
+                                                    DashboardVakitPageType.CIRCLE.type -> {
+                                                        //Burada circle olan kısım olacak
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
                                 }
                             }
                             else -> Unit
@@ -242,5 +228,5 @@ fun DashboardScreen(
 @Preview
 @Composable
 fun DashboardScreenPreview() {
-    DashboardScreen(state = DashboardState())
+    DashboardScreen(state = DashboardState(), {})
 }

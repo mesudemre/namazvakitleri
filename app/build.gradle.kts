@@ -27,6 +27,21 @@ android {
         create("alphaRelease")
         create("betaRelease")
 
+        signingConfigs {
+            getByName("debug") {
+                keyAlias = "namazvakitleri"
+                keyPassword = "Msd19916"
+                storeFile = file("/Users/mesutemrecelenk/Documents/mesutandroid/namazvakitleri.jks")
+                storePassword = "Msd19916"
+            }
+            create("release") {
+                keyAlias = "namazvakitleri"
+                keyPassword = "Msd19916"
+                storeFile = file("/Users/mesutemrecelenk/Documents/mesutandroid/namazvakitleri.jks")
+                storePassword = "Msd19916"
+            }
+        }
+
         release {
             getByName("release") {
                 isMinifyEnabled = true
@@ -51,9 +66,9 @@ android {
                 buildConfigField("String", "tarihteBugunApiUrl", "\"https://api.ubilisim.com/\"")
             }
             getByName("betaRelease") {
-                isMinifyEnabled = true
+                isMinifyEnabled = false
                 isDebuggable = false
-                signingConfig = signingConfigs.getByName("debug")
+                signingConfig = signingConfigs.getByName("release")
                 proguardFiles(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
