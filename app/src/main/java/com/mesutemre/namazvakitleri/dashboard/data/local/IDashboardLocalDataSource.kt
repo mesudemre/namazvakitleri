@@ -2,6 +2,7 @@ package com.mesutemre.namazvakitleri.dashboard.data.local
 
 import com.mesutemre.namazvakitleri.dashboard.data.local.entity.TarihteBugunEntity
 import com.mesutemre.namazvakitleri.dashboard.data.local.entity.VakitInfoEntity
+import com.mesutemre.namazvakitleri.dashboard.domain.model.DashboardVakitPageType
 import kotlinx.coroutines.flow.Flow
 
 interface IDashboardLocalDataSource {
@@ -20,4 +21,6 @@ interface IDashboardLocalDataSource {
     suspend fun getTarihteBugunList(): List<TarihteBugunEntity>
     suspend fun saveDateForTarihteBugun()
     suspend fun checkTarihteBugunCallAPI(): Boolean
+    suspend fun getVakitPageType(): DashboardVakitPageType
+    suspend fun saveVakitPageType(type: DashboardVakitPageType)
 }

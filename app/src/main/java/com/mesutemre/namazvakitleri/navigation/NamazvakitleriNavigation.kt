@@ -118,7 +118,8 @@ fun NamazvakitleriNavigation(
             val viewModel = hiltViewModel<DashboardViewModel>()
             val state = viewModel.state.collectAsStateWithLifecycle()
             DashboardScreen(
-                state = state.value
+                state = state.value,
+                onChangeVakitTypePage = viewModel::setActiveVakitPage
             )
         }
     }

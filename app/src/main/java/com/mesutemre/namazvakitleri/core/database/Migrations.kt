@@ -20,3 +20,10 @@ val MIGRATION1_3TO1_4 = object : Migration(1_3, 1_4) {
         database.execSQL("CREATE TABLE IF NOT EXISTS `TarihteBugunEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `durum` TEXT NOT NULL, `olay` TEXT NOT NULL)")
     }
 }
+
+val MIGRATION1_4TO1_5 = object : Migration(1_4, 1_5) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("DROP TABLE `TarihteBugunEntity`")
+        database.execSQL("CREATE TABLE IF NOT EXISTS `TarihteBugunEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `durum` TEXT NOT NULL, `olay` TEXT NOT NULL,`tarih` TEXT NOT NULL)")
+    }
+}

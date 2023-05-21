@@ -14,13 +14,13 @@ import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun OnboardingStepper(activeStep: Int) {
+fun OnboardingStepper(activeStep: Int, stepSize: Int = 3) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        for (index in 0..3) {
+        for (index in 0..stepSize) {
             if (activeStep == index)
                 OnboardingActiveStepper()
             else

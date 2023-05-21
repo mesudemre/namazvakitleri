@@ -7,6 +7,7 @@ import com.mesutemre.namazvakitleri.dashboard.data.mapper.TarihteBugunDataMapper
 import com.mesutemre.namazvakitleri.dashboard.data.mapper.VakitDataMapper
 import com.mesutemre.namazvakitleri.dashboard.data.remote.IDashboardRemoteDataSource
 import com.mesutemre.namazvakitleri.dashboard.data.repository.IDashboardRepository
+import com.mesutemre.namazvakitleri.dashboard.domain.model.DashboardVakitPageType
 import com.mesutemre.namazvakitleri.dashboard.domain.model.TarihteBugunData
 import com.mesutemre.namazvakitleri.dashboard.domain.model.VakitInfoData
 import com.mesutemre.namazvakitleri.di.IoDispatcher
@@ -121,4 +122,11 @@ class DashboardRepository @Inject constructor(
                     }).toTypedArray()
         )
     }
+
+    override suspend fun saveVakitPageType(type: DashboardVakitPageType) {
+        dashboardLocalDataSource.saveVakitPageType(type)
+    }
+
+    override suspend fun getVakitPageType(): DashboardVakitPageType =
+        dashboardLocalDataSource.getVakitPageType()
 }

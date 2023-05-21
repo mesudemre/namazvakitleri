@@ -1,76 +1,74 @@
 package com.mesutemre.namazvakitleri.dashboard.presentation
 
+import android.content.Intent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.mesutemre.namazvakitleri.core.Constants
+import com.mesutemre.namazvakitleri.core.ext.isScrollingUp
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.core.ext.shimmerEffect
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
+import com.mesutemre.namazvakitleri.dashboard.domain.model.DashboardVakitPageType
 import com.mesutemre.namazvakitleri.dashboard.domain.model.VakitType
 import com.mesutemre.namazvakitleri.dashboard.presentation.components.*
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import java.util.*
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DashboardScreen(
-    state: DashboardState
+    state: DashboardState,
+    onChangeVakitTypePage: suspend (DashboardVakitPageType) -> Unit
 ) {
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
-        var timer by remember { mutableStateOf(Calendar.getInstance().timeInMillis) }
-        LaunchedEffect(key1 = timer) {
-            if (timer > 0) {
-                delay(1000L)
-                timer -= 1000L
-            } else if ((timer % Constants.DashboardConstants.DAY_MIL_SEC % Constants.DashboardConstants.HOUR_MIL_SEC % Constants.DashboardConstants.MIN_MIL_SEC / Constants.DashboardConstants.SEC_MIL_SEC).toInt() == 0) {
-                timer = Calendar.getInstance().timeInMillis
-            }
-        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = NamazvakitleriTheme.colors.uiBackground)
         ) {
             val lazyListState = rememberLazyListState()
+            val isScrollingDown = lazyListState.isScrollingUp()
+
+            val scrollOffset = remember {
+                derivedStateOf {
+                    lazyListState.firstVisibleItemScrollOffset
+                }
+            }
+            val showStickHeader = remember {
+                derivedStateOf {
+                    lazyListState.firstVisibleItemIndex == 2 && isScrollingDown
+                }
+            }
             LazyColumn(state = lazyListState) {
-                item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(NamazvakitleriTheme.colors.vakitInfoBackgroundColor)
-                    ) {
-                        state.selectedDistrict?.let {
-                            Text(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 8.sdp, top = 32.sdp),
-                                text = it.districtName,
-                                style = NamazvakitleriTheme.typography.vakitInfo,
-                                color = NamazvakitleriTheme.colors.searchTextBackgroundColor
-                            )
-                        } ?: run {
-                            Text(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 8.sdp, top = 32.sdp),
-                                text = "",
-                                style = NamazvakitleriTheme.typography.vakitInfo,
-                                color = NamazvakitleriTheme.colors.searchTextBackgroundColor
-                            )
+                stickyHeader {
+                    when (state.vakitInfo) {
+                        is BaseResourceEvent.Success -> {
+                            state.vakitInfo.data?.let { vakitInfo ->
+                                VakitStickyHeader(
+                                    isVisible = showStickHeader.value,
+                                    data = vakitInfo
+                                )
+                            }
                         }
+                        else -> Unit
                     }
                 }
                 item {
@@ -87,29 +85,47 @@ fun DashboardScreen(
                             is BaseResourceEvent.Success -> {
                                 val data = state.vakitInfo.data
                                 data?.let { vakitInfo ->
-                                    val sonrakiVakit = remember {
-                                        derivedStateOf {
-                                            if (timer >= data.bugunVakitInfo.imsak.date && timer < data.bugunVakitInfo.gunes.date)
-                                                data.bugunVakitInfo.gunes.date
-                                            else if (timer >= data.bugunVakitInfo.gunes.date && timer < data.bugunVakitInfo.ogle.date)
-                                                data.bugunVakitInfo.ogle.date
-                                            else if (timer >= data.bugunVakitInfo.ogle.date && timer < data.bugunVakitInfo.ikindi.date)
-                                                data.bugunVakitInfo.ikindi.date
-                                            else if (timer >= data.bugunVakitInfo.ikindi.date && timer < data.bugunVakitInfo.aksam.date)
-                                                data.bugunVakitInfo.aksam.date
-                                            else if (timer >= data.bugunVakitInfo.aksam.date && timer < data.bugunVakitInfo.yatsi.date)
-                                                data.bugunVakitInfo.yatsi.date
-                                            else if (timer > data.bugunVakitInfo.yatsi.date && timer < data.yarinVakitInfo.imsak.date)
-                                                data.yarinVakitInfo.imsak.date
-                                            else
-                                                data.yarinVakitInfo.imsak.date
+                                    val pageState = rememberPagerState(state.activeVakitPage.type)
+                                    LaunchedEffect(pageState) {
+                                        snapshotFlow { pageState.currentPage }.collectLatest {
+                                            onChangeVakitTypePage(
+                                                (DashboardVakitPageType from it)
+                                                    ?: DashboardVakitPageType.DEFAULT
+                                            )
                                         }
                                     }
-                                    VakitInfoArea(
-                                        sonrakiVakit = sonrakiVakit.value,
-                                        miladiTarihUzun = vakitInfo.bugunVakitInfo.miladiTakvimInfo,
-                                        hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo
-                                    )
+                                    HorizontalPager(pageCount = 2, state = pageState) { pager ->
+                                        Column(modifier = Modifier.fillMaxWidth()) {
+                                            Row(
+                                                modifier = Modifier
+                                                    .fillMaxSize()
+                                                    .graphicsLayer {
+                                                        this.alpha =
+                                                            (200.sdp.toPx() - scrollOffset.value) / 200.sdp.toPx()
+                                                    }
+                                            ) {
+                                                when (pager) {
+                                                    DashboardVakitPageType.DEFAULT.type -> {
+                                                        VakitInfoArea(
+                                                            data = data,
+                                                            selectedDistrict = state.selectedDistrict,
+                                                            miladiTarihUzun = vakitInfo.bugunVakitInfo.miladiTakvimInfo,
+                                                            hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo
+                                                        )
+                                                    }
+                                                    DashboardVakitPageType.SULEYMANIYE.type -> {
+                                                        VakitInfoSuleymaniyeArea(
+                                                            data = data,
+                                                            selectedDistrict = state.selectedDistrict,
+                                                            miladiTarihUzun = vakitInfo.bugunVakitInfo.miladiTakvimInfo,
+                                                            hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo
+                                                        )
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
                                 }
                             }
                             else -> Unit
@@ -206,9 +222,18 @@ fun DashboardScreen(
                             HadisCardShimmer()
                         }
                         is BaseResourceEvent.Success -> {
+                            val sendIntent: Intent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_TEXT, "Yüce Allah Kur'an-ı Kerim'de şöyle buyurmaktadır.\n"+state.gunlukAyet.data?.content ?: "")
+                                type = "text/plain"
+                            }
+                            val shareIntent = Intent.createChooser(sendIntent, null)
+                            val context = LocalContext.current
                             AyetCard(
                                 content = state.gunlukAyet.data?.content ?: "",
-                                onShare = {})
+                                onShare = {
+                                    context.startActivity(shareIntent)
+                                })
                         }
                         else -> Unit
                     }
@@ -219,9 +244,18 @@ fun DashboardScreen(
                             HadisCardShimmer()
                         }
                         is BaseResourceEvent.Success -> {
+                            val sendIntent: Intent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_TEXT, "Bir Hadis-i Şerifte Peygamber Efendimiz şöyle buyurmaktadır.\n"+state.gunlukHadis.data?.content ?: "")
+                                type = "text/plain"
+                            }
+                            val shareIntent = Intent.createChooser(sendIntent, null)
+                            val context = LocalContext.current
                             HadisCard(
                                 content = state.gunlukHadis.data?.content ?: "",
-                                onShare = {})
+                                onShare = {
+                                    context.startActivity(shareIntent)
+                                })
                             Spacer(modifier = Modifier.height(16.sdp))
                         }
                         else -> Unit
@@ -242,5 +276,5 @@ fun DashboardScreen(
 @Preview
 @Composable
 fun DashboardScreenPreview() {
-    DashboardScreen(state = DashboardState())
+    DashboardScreen(state = DashboardState(), {})
 }

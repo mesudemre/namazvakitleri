@@ -15,5 +15,8 @@ data class TarihteBugunEntity(
     val durum: String,
 
     @ColumnInfo(name = "olay")
-    val olay: String
+    val olay: String,
+
+    @ColumnInfo(name = "tarih")
+    val tarih: String
 )

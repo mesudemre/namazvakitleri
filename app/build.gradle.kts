@@ -14,8 +14,8 @@ android {
         applicationId = "com.mesutemre.namazvakitleri"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -26,6 +26,21 @@ android {
     buildTypes {
         create("alphaRelease")
         create("betaRelease")
+
+        signingConfigs {
+            getByName("debug") {
+                keyAlias = "namazvakitleri"
+                keyPassword = "Msd19916"
+                storeFile = file("/Users/mesutemrecelenk/Documents/mesutandroid/namazvakitleri.jks")
+                storePassword = "Msd19916"
+            }
+            create("release") {
+                keyAlias = "namazvakitleri"
+                keyPassword = "Msd19916"
+                storeFile = file("/Users/mesutemrecelenk/Documents/mesutandroid/namazvakitleri.jks")
+                storePassword = "Msd19916"
+            }
+        }
 
         release {
             getByName("release") {
@@ -51,9 +66,9 @@ android {
                 buildConfigField("String", "tarihteBugunApiUrl", "\"https://api.ubilisim.com/\"")
             }
             getByName("betaRelease") {
-                isMinifyEnabled = true
+                isMinifyEnabled = false
                 isDebuggable = false
-                signingConfig = signingConfigs.getByName("debug")
+                signingConfig = signingConfigs.getByName("release")
                 proguardFiles(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"

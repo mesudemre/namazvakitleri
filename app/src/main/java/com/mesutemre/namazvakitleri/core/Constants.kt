@@ -7,7 +7,8 @@ object Constants {
         val CITY_LIST_KEY = "citylist"
         val VAKIT_EXIST_KEY = "vakitinfo"
         val SELECTED_DISTRICT = "selecteddistrict"
-        val TARIHTE_BUGUN_KEY = "tarihtebugunkey"
+        val TARIHTE_BUGUN_KEY = "tarihtebugunkey2"
+        val VAKIT_TYPE_PAGE = "vakittypepage"
     }
 
     object DashboardConstants {
