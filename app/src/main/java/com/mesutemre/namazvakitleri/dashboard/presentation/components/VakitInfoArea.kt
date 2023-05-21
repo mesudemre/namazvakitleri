@@ -175,7 +175,7 @@ fun VakitInfoArea(
         }
         TarihArea(miladiTarihUzun = miladiTarihUzun, hicriTarihUzun = hicriTarihUzun)
         Spacer(modifier = Modifier.height(16.sdp))
-        OnboardingStepper(activeStep = 0, stepSize = 2)
+        OnboardingStepper(activeStep = 0, stepSize = 1)
         Spacer(modifier = Modifier.height(16.sdp))
     }
 }

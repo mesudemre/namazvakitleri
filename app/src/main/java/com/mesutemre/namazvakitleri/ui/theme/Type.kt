@@ -100,6 +100,14 @@ val TarihteBugunStyle = TextStyle(
     letterSpacing = 0.15.sp
 )
 
+val KalanSureSaatDakikaStickHeaderTextStyle = TextStyle(
+    fontFamily = Ubuntu,
+    fontSize = 16.sp,
+    fontWeight = FontWeight.Normal,
+    lineHeight = 28.sp,
+    letterSpacing = 0.15.sp
+)
+
 val namazVakitleriTypographyPalette = NamazVakitleriTypography(
     vakitInfo = VakitInfo,
     title = PageTitle,
@@ -111,7 +119,8 @@ val namazVakitleriTypographyPalette = NamazVakitleriTypography(
     kalanSureSaniyeTextStyle = KalanSureSaniyeTextStyle,
     ayetHadisContent = AyetHadisContent,
     tarihInfoStyle = TarihInfo,
-    tarihteBugunStyle = TarihteBugunStyle
+    tarihteBugunStyle = TarihteBugunStyle,
+    kalanSureSaatDakikaStickHeaderTextStyle = KalanSureSaatDakikaStickHeaderTextStyle
 )
 
 

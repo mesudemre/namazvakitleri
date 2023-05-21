@@ -1,5 +1,6 @@
 package com.mesutemre.namazvakitleri.dashboard.presentation
 
+import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,8 +15,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.mesutemre.namazvakitleri.core.ext.isScrollingUp
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.core.ext.shimmerEffect
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
@@ -41,7 +45,32 @@ fun DashboardScreen(
                 .background(color = NamazvakitleriTheme.colors.uiBackground)
         ) {
             val lazyListState = rememberLazyListState()
+            val isScrollingDown = lazyListState.isScrollingUp()
+
+            val scrollOffset = remember {
+                derivedStateOf {
+                    lazyListState.firstVisibleItemScrollOffset
+                }
+            }
+            val showStickHeader = remember {
+                derivedStateOf {
+                    lazyListState.firstVisibleItemIndex == 2 && isScrollingDown
+                }
+            }
             LazyColumn(state = lazyListState) {
+                stickyHeader {
+                    when (state.vakitInfo) {
+                        is BaseResourceEvent.Success -> {
+                            state.vakitInfo.data?.let { vakitInfo ->
+                                VakitStickyHeader(
+                                    isVisible = showStickHeader.value,
+                                    data = vakitInfo
+                                )
+                            }
+                        }
+                        else -> Unit
+                    }
+                }
                 item {
                     Column(
                         modifier = Modifier
@@ -65,11 +94,15 @@ fun DashboardScreen(
                                             )
                                         }
                                     }
-                                    HorizontalPager(pageCount = 3, state = pageState) { pager ->
+                                    HorizontalPager(pageCount = 2, state = pageState) { pager ->
                                         Column(modifier = Modifier.fillMaxWidth()) {
                                             Row(
                                                 modifier = Modifier
                                                     .fillMaxSize()
+                                                    .graphicsLayer {
+                                                        this.alpha =
+                                                            (200.sdp.toPx() - scrollOffset.value) / 200.sdp.toPx()
+                                                    }
                                             ) {
                                                 when (pager) {
                                                     DashboardVakitPageType.DEFAULT.type -> {
@@ -87,9 +120,6 @@ fun DashboardScreen(
                                                             miladiTarihUzun = vakitInfo.bugunVakitInfo.miladiTakvimInfo,
                                                             hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo
                                                         )
-                                                    }
-                                                    DashboardVakitPageType.CIRCLE.type -> {
-                                                        //Burada circle olan kısım olacak
                                                     }
                                                 }
                                             }
@@ -192,9 +222,18 @@ fun DashboardScreen(
                             HadisCardShimmer()
                         }
                         is BaseResourceEvent.Success -> {
+                            val sendIntent: Intent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_TEXT, "Yüce Allah Kur'an-ı Kerim'de şöyle buyurmaktadır.\n"+state.gunlukAyet.data?.content ?: "")
+                                type = "text/plain"
+                            }
+                            val shareIntent = Intent.createChooser(sendIntent, null)
+                            val context = LocalContext.current
                             AyetCard(
                                 content = state.gunlukAyet.data?.content ?: "",
-                                onShare = {})
+                                onShare = {
+                                    context.startActivity(shareIntent)
+                                })
                         }
                         else -> Unit
                     }
@@ -205,9 +244,18 @@ fun DashboardScreen(
                             HadisCardShimmer()
                         }
                         is BaseResourceEvent.Success -> {
+                            val sendIntent: Intent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_TEXT, "Bir Hadis-i Şerifte Peygamber Efendimiz şöyle buyurmaktadır.\n"+state.gunlukHadis.data?.content ?: "")
+                                type = "text/plain"
+                            }
+                            val shareIntent = Intent.createChooser(sendIntent, null)
+                            val context = LocalContext.current
                             HadisCard(
                                 content = state.gunlukHadis.data?.content ?: "",
-                                onShare = {})
+                                onShare = {
+                                    context.startActivity(shareIntent)
+                                })
                             Spacer(modifier = Modifier.height(16.sdp))
                         }
                         else -> Unit

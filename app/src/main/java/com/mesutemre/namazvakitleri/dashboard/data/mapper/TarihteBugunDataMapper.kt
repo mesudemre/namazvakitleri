@@ -19,7 +19,7 @@ class TarihteBugunDataMapper @Inject constructor() {
 
     fun convertTarihteBugunEntityToTarihteBugunData(tarihteBugunEntity: TarihteBugunEntity): TarihteBugunData {
         return TarihteBugunData(
-            tarih = SimpleDateFormat("dd.MM.yyyy").format(Date()),
+            tarih = tarihteBugunEntity.tarih,
             olay = tarihteBugunEntity.olay,
             durum = tarihteBugunEntity.durum
         )
@@ -28,7 +28,8 @@ class TarihteBugunDataMapper @Inject constructor() {
     fun convertTarihteBugunDataToTarihteBugunEntity(data: TarihteBugunData): TarihteBugunEntity {
         return TarihteBugunEntity(
             durum = data.durum,
-            olay = data.olay
+            olay = data.olay,
+            tarih = data.tarih
         )
     }
 }
