@@ -54,7 +54,7 @@ fun DashboardScreen(
             }
             val showStickHeader = remember {
                 derivedStateOf {
-                    lazyListState.firstVisibleItemIndex == 2 && isScrollingDown
+                    lazyListState.firstVisibleItemIndex > 1
                 }
             }
             LazyColumn(state = lazyListState) {

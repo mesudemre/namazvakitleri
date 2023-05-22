@@ -115,6 +115,7 @@ class DashboardRepository @Inject constructor(
     }
 
     override suspend fun saveTarihteBugunListToDb(tarihteBugunList: List<TarihteBugunData>) {
+        dashboardLocalDataSource.clearTarihteBugun()
         dashboardLocalDataSource.saveTarihteBugunList(
             *(
                     tarihteBugunList.map {
