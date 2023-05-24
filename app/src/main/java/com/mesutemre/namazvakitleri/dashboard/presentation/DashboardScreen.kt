@@ -45,7 +45,6 @@ fun DashboardScreen(
                 .background(color = NamazvakitleriTheme.colors.uiBackground)
         ) {
             val lazyListState = rememberLazyListState()
-            val isScrollingDown = lazyListState.isScrollingUp()
 
             val scrollOffset = remember {
                 derivedStateOf {
