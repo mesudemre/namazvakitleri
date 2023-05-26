@@ -1,6 +1,8 @@
 package com.mesutemre.namazvakitleri.dashboard.presentation
 
+import android.app.Activity
 import android.content.Intent
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,16 +21,13 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.mesutemre.namazvakitleri.core.ext.isScrollingUp
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.core.ext.shimmerEffect
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.dashboard.domain.model.DashboardVakitPageType
-import com.mesutemre.namazvakitleri.dashboard.domain.model.VakitType
 import com.mesutemre.namazvakitleri.dashboard.presentation.components.*
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import java.util.*
 
@@ -39,13 +38,16 @@ fun DashboardScreen(
     onChangeVakitTypePage: suspend (DashboardVakitPageType) -> Unit
 ) {
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
+        val context = LocalContext.current
+        BackHandler {
+            (context as Activity).finishAffinity()
+        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = NamazvakitleriTheme.colors.uiBackground)
         ) {
             val lazyListState = rememberLazyListState()
-            val isScrollingDown = lazyListState.isScrollingUp()
 
             val scrollOffset = remember {
                 derivedStateOf {
@@ -54,9 +56,10 @@ fun DashboardScreen(
             }
             val showStickHeader = remember {
                 derivedStateOf {
-                    lazyListState.firstVisibleItemIndex == 2 && isScrollingDown
+                    lazyListState.firstVisibleItemIndex > 1
                 }
             }
+
             LazyColumn(state = lazyListState) {
                 stickyHeader {
                     when (state.vakitInfo) {
@@ -64,7 +67,9 @@ fun DashboardScreen(
                             state.vakitInfo.data?.let { vakitInfo ->
                                 VakitStickyHeader(
                                     isVisible = showStickHeader.value,
-                                    data = vakitInfo
+                                    hours = state.kalanSaat,
+                                    minutes = state.kalanDakika,
+                                    seconds = state.kalanSaniye
                                 )
                             }
                         }
@@ -107,7 +112,9 @@ fun DashboardScreen(
                                                 when (pager) {
                                                     DashboardVakitPageType.DEFAULT.type -> {
                                                         VakitInfoArea(
-                                                            data = data,
+                                                            hours = state.kalanSaat,
+                                                            minutes = state.kalanDakika,
+                                                            seconds = state.kalanSaniye,
                                                             selectedDistrict = state.selectedDistrict,
                                                             miladiTarihUzun = vakitInfo.bugunVakitInfo.miladiTakvimInfo,
                                                             hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo
@@ -115,7 +122,9 @@ fun DashboardScreen(
                                                     }
                                                     DashboardVakitPageType.SULEYMANIYE.type -> {
                                                         VakitInfoSuleymaniyeArea(
-                                                            data = data,
+                                                            hours = state.kalanSaat,
+                                                            minutes = state.kalanDakika,
+                                                            seconds = state.kalanSaniye,
                                                             selectedDistrict = state.selectedDistrict,
                                                             miladiTarihUzun = vakitInfo.bugunVakitInfo.miladiTakvimInfo,
                                                             hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo
@@ -125,7 +134,6 @@ fun DashboardScreen(
                                             }
                                         }
                                     }
-
                                 }
                             }
                             else -> Unit
@@ -158,34 +166,12 @@ fun DashboardScreen(
                             )
                         }
                         is BaseResourceEvent.Success -> {
+                            val currentVakit = remember {
+                                derivedStateOf {
+                                    state.currentVakit
+                                }
+                            }
                             state.vakitInfo.data?.let { data ->
-                                var timer by remember { mutableStateOf(Calendar.getInstance().timeInMillis) }
-                                LaunchedEffect(key1 = timer) {
-                                    if (timer > 0) {
-                                        delay(1000L)
-                                        timer -= 1000L
-                                    } else if (timer.toInt() == 0) {
-                                        timer = Calendar.getInstance().timeInMillis
-                                    }
-                                }
-                                val currentVakit = remember {
-                                    derivedStateOf {
-                                        if (timer >= data.bugunVakitInfo.imsak.date && timer < data.bugunVakitInfo.gunes.date)
-                                            VakitType.IMSAK
-                                        else if (timer >= data.bugunVakitInfo.gunes.date && timer < data.bugunVakitInfo.ogle.date)
-                                            VakitType.GUNES
-                                        else if (timer >= data.bugunVakitInfo.ogle.date && timer < data.bugunVakitInfo.ikindi.date)
-                                            VakitType.OGLE
-                                        else if (timer >= data.bugunVakitInfo.ikindi.date && timer < data.bugunVakitInfo.aksam.date)
-                                            VakitType.IKINDI
-                                        else if (timer >= data.bugunVakitInfo.aksam.date && timer < data.bugunVakitInfo.yatsi.date)
-                                            VakitType.AKSAM
-                                        else if (timer > data.bugunVakitInfo.yatsi.date && timer < data.yarinVakitInfo.imsak.date)
-                                            VakitType.IMSAK
-                                        else
-                                            VakitType.IMSAK
-                                    }
-                                }
                                 LazyRow(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -224,7 +210,11 @@ fun DashboardScreen(
                         is BaseResourceEvent.Success -> {
                             val sendIntent: Intent = Intent().apply {
                                 action = Intent.ACTION_SEND
-                                putExtra(Intent.EXTRA_TEXT, "Yüce Allah Kur'an-ı Kerim'de şöyle buyurmaktadır.\n"+state.gunlukAyet.data?.content ?: "")
+                                putExtra(
+                                    Intent.EXTRA_TEXT,
+                                    "Yüce Allah Kur'an-ı Kerim'de şöyle buyurmaktadır.\n" + state.gunlukAyet.data?.content
+                                        ?: ""
+                                )
                                 type = "text/plain"
                             }
                             val shareIntent = Intent.createChooser(sendIntent, null)
@@ -246,7 +236,11 @@ fun DashboardScreen(
                         is BaseResourceEvent.Success -> {
                             val sendIntent: Intent = Intent().apply {
                                 action = Intent.ACTION_SEND
-                                putExtra(Intent.EXTRA_TEXT, "Bir Hadis-i Şerifte Peygamber Efendimiz şöyle buyurmaktadır.\n"+state.gunlukHadis.data?.content ?: "")
+                                putExtra(
+                                    Intent.EXTRA_TEXT,
+                                    "Bir Hadis-i Şerifte Peygamber Efendimiz şöyle buyurmaktadır.\n" + state.gunlukHadis.data?.content
+                                        ?: ""
+                                )
                                 type = "text/plain"
                             }
                             val shareIntent = Intent.createChooser(sendIntent, null)
@@ -269,7 +263,6 @@ fun DashboardScreen(
             }
         }
     }
-
 }
 
 
