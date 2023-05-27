@@ -119,7 +119,7 @@ private fun TarihteBugünCardShimmer() {
 }
 
 @Composable
-private fun TarihteBugunItem(item: TarihteBugunData) {
+fun TarihteBugunItem(item: TarihteBugunData) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -205,7 +205,7 @@ private fun TarihteBugünCardItemShimmer() {
 }
 
 @Composable
-private fun TarihteBugunDivider() {
+fun TarihteBugunDivider() {
     Divider(
         modifier = Modifier
             .fillMaxWidth()

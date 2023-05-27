@@ -38,6 +38,9 @@ private val DarkColorPalette = NamazvakitleriColors(
     ),
     vakitInfoBackgroundColor = Lacivert,
     shareButtonColor = White,
+    topBarIconColor = White,
+    topBarBackgroundColor = DarkOrange,
+    topBarTextColor = White,
     isDark = true
 )
 
@@ -65,6 +68,9 @@ private val LightColorPalette = NamazvakitleriColors(
     onboardingCompleteBackgroundColor = listOf(White, Neutral1, Neutral2, Neutral2, Orange),
     vakitInfoBackgroundColor = Lacivert,
     shareButtonColor = DarkGrey,
+    topBarIconColor = White,
+    topBarBackgroundColor = Orange,
+    topBarTextColor = White,
     isDark = false
 )
 
@@ -180,6 +186,9 @@ class NamazvakitleriColors(
     onboardingCompleteBackgroundColor: List<Color>,
     vakitInfoBackgroundColor: Color,
     shareButtonColor: Color,
+    topBarIconColor: Color,
+    topBarBackgroundColor: Color,
+    topBarTextColor: Color,
     isDark: Boolean
 ) {
     var gradientCircle by mutableStateOf(gradientCircle)
@@ -230,6 +239,12 @@ class NamazvakitleriColors(
         private set
     var shareButtonColor by mutableStateOf(shareButtonColor)
         private set
+    var topBarIconColor by mutableStateOf(topBarIconColor)
+        private set
+    var topBarBackgroundColor by mutableStateOf(topBarBackgroundColor)
+        private set
+    var topBarTextColor by mutableStateOf(topBarTextColor)
+        private set
 
     fun update(other: NamazvakitleriColors) {
         gradientCircle = other.gradientCircle
@@ -255,6 +270,9 @@ class NamazvakitleriColors(
         onboardingCompleteBackgroundColor = other.onboardingCompleteBackgroundColor
         vakitInfoBackgroundColor = other.vakitInfoBackgroundColor
         shareButtonColor = other.shareButtonColor
+        topBarIconColor = other.topBarIconColor
+        topBarBackgroundColor = other.topBarBackgroundColor
+        topBarTextColor = other.topBarTextColor
         isDark = other.isDark
     }
 
@@ -282,6 +300,9 @@ class NamazvakitleriColors(
         onboardingCompleteBackgroundColor = onboardingCompleteBackgroundColor,
         vakitInfoBackgroundColor = vakitInfoBackgroundColor,
         shareButtonColor = shareButtonColor,
+        topBarIconColor = topBarIconColor,
+        topBarBackgroundColor = topBarBackgroundColor,
+        topBarTextColor = topBarTextColor,
         isDark = isDark
     )
 }

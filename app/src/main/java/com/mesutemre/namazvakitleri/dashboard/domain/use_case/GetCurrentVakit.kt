@@ -18,7 +18,7 @@ class GetCurrentVakit @Inject constructor() {
         else if (timer >= data.bugunVakitInfo.aksam.date && timer < data.bugunVakitInfo.yatsi.date)
             VakitType.AKSAM
         else if (timer > data.bugunVakitInfo.yatsi.date && timer < data.yarinVakitInfo.imsak.date)
-            VakitType.IMSAK
+            VakitType.YATSI
         else
             VakitType.IMSAK
     }

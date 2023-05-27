@@ -1,6 +1,7 @@
 package com.mesutemre.namazvakitleri
 
 import android.content.res.Resources
+import android.util.Log
 import androidx.annotation.RawRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
@@ -50,7 +51,7 @@ class NamazvakitleriAppState(
             }.isNullOrEmpty().not()
 
     fun popBack(
-        route: String?,
+        route: String? = null,
         inclusive: Boolean = false
     ) {
         route?.let {
@@ -61,8 +62,14 @@ class NamazvakitleriAppState(
         } ?: run {
             navController.popBackStack()
         }
-
     }
+
+    val screenTitle: String
+        get() = getStringResource(screenList.filter {
+            it.screenRoute == currentRoute
+                    &&
+                    it.pageTitle != null
+        }[0].pageTitle ?: R.string.common_search)
 }
 
 /**
