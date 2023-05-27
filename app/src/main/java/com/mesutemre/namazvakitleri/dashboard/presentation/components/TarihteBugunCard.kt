@@ -95,7 +95,7 @@ fun TarihteBugunCard(
                         Column(modifier = Modifier.fillMaxWidth()) {
                             liste.value.forEachIndexed { index, tarihteBugunItem ->
                                 TarihteBugunItem(item = tarihteBugunItem)
-                                if (index<2)
+                                if (index < 2)
                                     TarihteBugunDivider()
                             }
                         }
@@ -119,7 +119,11 @@ private fun TarihteBugünCardShimmer() {
 }
 
 @Composable
-fun TarihteBugunItem(item: TarihteBugunData) {
+fun TarihteBugunItem(
+    item: TarihteBugunData,
+    isShareable: Boolean = false,
+    onShare: ((String) -> Unit)? = null
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -130,7 +134,7 @@ fun TarihteBugunItem(item: TarihteBugunData) {
             modifier = Modifier.size(32.sdp),
             contentDescription = item.olay
         )
-        Column(modifier = Modifier.padding(horizontal = 6.sdp)) {
+        Column(modifier = Modifier.padding(horizontal = 6.sdp).fillMaxWidth()) {
             Text(
                 text = "${item.tarih} , ${item.durum}",
                 style = NamazvakitleriTheme.typography.tarihteBugunStyle.copy(fontWeight = FontWeight.SemiBold),
@@ -142,6 +146,31 @@ fun TarihteBugunItem(item: TarihteBugunData) {
                 style = NamazvakitleriTheme.typography.tarihteBugunStyle,
                 color = NamazvakitleriTheme.colors.normalVakit
             )
+            if (isShareable) {
+                Row(modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(top = 8.sdp)
+                    .clickable {
+                        onShare?.let {
+                            it("${item.tarih} tarihinde : ${item.olay}")
+                        }
+                    }) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_share),
+                        contentDescription = "Share",
+                        modifier = Modifier
+                            .size(24.sdp),
+                        tint = NamazvakitleriTheme.colors.shareButtonColor
+                    )
+                    Text(
+                        text = "Paylaş",
+                        style = NamazvakitleriTheme.typography.ayetHadisContent,
+                        color = NamazvakitleriTheme.colors.shareButtonColor,
+                        modifier = Modifier.padding(start = 6.sdp)
+                    )
+                }
+            }
+
         }
     }
 }
