@@ -41,7 +41,7 @@ fun NamazvakitleriApp(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .statusBarsPadding()
-                                .padding(start = 12.sdp, bottom = 16.sdp, top = 8.sdp),
+                                .padding(start = 12.sdp, bottom = 6.sdp, top = 6.sdp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
