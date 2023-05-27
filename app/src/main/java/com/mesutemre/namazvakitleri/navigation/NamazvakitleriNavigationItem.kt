@@ -1,6 +1,7 @@
 package com.mesutemre.namazvakitleri.navigation
 
 import androidx.annotation.StringRes
+import com.mesutemre.namazvakitleri.R
 
 sealed class NamazvakitleriNavigationItem(
     val screenRoute: String,
@@ -25,5 +26,11 @@ sealed class NamazvakitleriNavigationItem(
 
     object DashboardScreen : NamazvakitleriNavigationItem(
         screenRoute = "namazvakitleri_dashboard_screen"
+    )
+
+    object TarihteBugunScreen: NamazvakitleriNavigationItem(
+        screenRoute = "namazvakitleri_tarihte_bugun_list",
+        showTopBar = true,
+        pageTitle = R.string.tarihte_bugun_list_screen_title
     )
 }

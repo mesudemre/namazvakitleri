@@ -35,7 +35,8 @@ import java.util.*
 @Composable
 fun DashboardScreen(
     state: DashboardState,
-    onChangeVakitTypePage: suspend (DashboardVakitPageType) -> Unit
+    onChangeVakitTypePage: suspend (DashboardVakitPageType) -> Unit,
+    onClickTarihteBugun: () -> Unit
 ) {
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
         val context = LocalContext.current
@@ -257,7 +258,7 @@ fun DashboardScreen(
                 }
                 item {
                     TarihteBugunCard(tarihteBugunData = state.tarihteBugunList) {
-
+                        onClickTarihteBugun()
                     }
                 }
             }
@@ -269,5 +270,5 @@ fun DashboardScreen(
 @Preview
 @Composable
 fun DashboardScreenPreview() {
-    DashboardScreen(state = DashboardState(), {})
+    DashboardScreen(state = DashboardState(), {},{})
 }

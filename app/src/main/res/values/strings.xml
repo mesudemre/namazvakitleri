@@ -16,4 +16,5 @@
     <string name="vakit_aksam">Akşam</string>
     <string name="vakit_yatsi">Yatsı</string>
     <string name="dashboard_vakit_cikmasi">Vaktin Çıkmasına</string>
+    <string name="tarihte_bugun_list_screen_title">Tarihte Bugün</string>
 </resources>

@@ -30,5 +30,6 @@ val uiBackground = Color(0x1fffffff)
 val Neutral7 = Color(0xde000000)
 val Error = Color(0xFFF44336)
 val Lacivert = Color(0xFF191970)
+val DarkOrange = Color(0xFF885407)
 
 const val AlphaNearOpaque = 0.95f
