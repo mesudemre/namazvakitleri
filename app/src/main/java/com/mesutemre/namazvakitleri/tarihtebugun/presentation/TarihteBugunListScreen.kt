@@ -35,12 +35,12 @@ fun TarihteBugunListScreen(state: TarihteBugunListState) {
                     )
                 }
                 is BaseResourceEvent.Success -> {
+
+                    val context = LocalContext.current
                     val sendIntent: Intent = Intent().apply {
                         action = Intent.ACTION_SEND
                         type = "text/plain"
                     }
-                    val shareIntent = Intent.createChooser(sendIntent, null)
-                    val context = LocalContext.current
                     state.tarihteBugunList.data?.let { list ->
                         val size = list.size
                         LazyColumn(
@@ -52,13 +52,13 @@ fun TarihteBugunListScreen(state: TarihteBugunListState) {
                                 index
                             }) { index, item ->
                                 TarihteBugunItem(item = item, isShareable = true) {
-                                    shareIntent.apply {
+                                    sendIntent.apply {
                                         putExtra(
                                             Intent.EXTRA_TEXT,
                                             it
                                         )
                                     }
-                                    context.startActivity(shareIntent)
+                                    context.startActivity(Intent.createChooser(sendIntent, null))
                                 }
                                 if (index < size - 1)
                                     TarihteBugunDivider()
