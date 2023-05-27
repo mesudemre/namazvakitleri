@@ -3,12 +3,14 @@ package com.mesutemre.namazvakitleri.tarihtebugun.presentation
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.dashboard.presentation.components.TarihteBugunDivider
 import com.mesutemre.namazvakitleri.dashboard.presentation.components.TarihteBugunItem
@@ -33,8 +35,12 @@ fun TarihteBugunListScreen(state: TarihteBugunListState) {
                 is BaseResourceEvent.Success -> {
                     state.tarihteBugunList.data?.let { list ->
                         val size = list.size
-                        LazyColumn(modifier = Modifier.fillMaxSize()) {
-                            itemsIndexed(list) { index, item ->
+                        LazyColumn(modifier = Modifier
+                            .fillMaxSize()
+                            .padding(vertical = 8.sdp)) {
+                            itemsIndexed(list, key = { index, item ->
+                                index
+                            }) { index, item ->
                                 TarihteBugunItem(item = item)
                                 if (index < size - 1)
                                     TarihteBugunDivider()
