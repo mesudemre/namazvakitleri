@@ -11,13 +11,16 @@ import com.mesutemre.namazvakitleri.onboarding.data.mapper.CityDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.DistrictDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.mapper.HadisAssetDataMapper
 import com.mesutemre.namazvakitleri.onboarding.data.remote.IOnboardingRemoteDataSource
+import com.mesutemre.namazvakitleri.onboarding.data.remote.dto.FirebaseNotificationToken
 import com.mesutemre.namazvakitleri.onboarding.data.repository.IOnboardingRepository
 import com.mesutemre.namazvakitleri.onboarding.domain.model.AyetData
 import com.mesutemre.namazvakitleri.onboarding.domain.model.CityData
 import com.mesutemre.namazvakitleri.onboarding.domain.model.DistrictData
 import com.mesutemre.namazvakitleri.onboarding.domain.model.HadisData
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import java.util.*
 import javax.inject.Inject
 
@@ -160,5 +163,25 @@ class OnboardingRepository @Inject constructor(
                 ayetDataMapper.convertAyetEntityToAyetData(it)
             }
         )
+    }
+
+    override suspend fun getAndSaveNotificationToken(ilceId: String) {
+        val notificationToken = onboardingRemoteDataSource.getNotificationTokenFromFirebase()
+        if (notificationToken.isSuccessful) {
+            val token = notificationToken.result
+            withContext(ioDispatcher) {
+                async {
+                    onboardingLocalDataSource.savePushTokenToDataStore(token)
+                }
+                async {
+                    onboardingRemoteDataSource.saveTokenIlceToFirebase(
+                        FirebaseNotificationToken(
+                            token = token,
+                            ilceId = ilceId
+                        )
+                    )
+                }
+            }
+        }
     }
 }

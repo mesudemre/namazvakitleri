@@ -1,13 +1,21 @@
 package com.mesutemre.namazvakitleri
 
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
+import com.mesutemre.namazvakitleri.core.ext.createCumaHatirlaticiNotification
 import com.mesutemre.namazvakitleri.navigation.NamazvakitleriNavigationItem
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,6 +36,25 @@ class MainActivity : ComponentActivity() {
         }
         setContent {
             val startDashboard = viewModel.startDashboard.collectAsState()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                val context = LocalContext.current
+                var hasNotificationPermission by remember {
+                    mutableStateOf(
+                        ContextCompat.checkSelfPermission(
+                            context,
+                            android.Manifest.permission.POST_NOTIFICATIONS
+                        ) == PackageManager.PERMISSION_GRANTED
+                    )
+                }
+                val permissionLauncher = rememberLauncherForActivityResult(
+                    contract = ActivityResultContracts.RequestPermission(),
+                    onResult = { isGranted ->
+                        hasNotificationPermission = isGranted
+                    })
+                if (hasNotificationPermission.not()) {
+                    permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
             startDashboard.value?.let {
                 NamazvakitleriApp(
                     if (it) NamazvakitleriNavigationItem.DashboardScreen

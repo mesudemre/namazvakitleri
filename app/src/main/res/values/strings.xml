@@ -17,4 +17,8 @@
     <string name="vakit_yatsi">Yatsı</string>
     <string name="dashboard_vakit_cikmasi">Vaktin Çıkmasına</string>
     <string name="tarihte_bugun_list_screen_title">Tarihte Bugün</string>
+    <string name="notification_channel_vakit_info_description">Ezana 40 dk kala gelen notification.</string>
+    <string name="notification_channel_cuma_hatirlatici_description">Her cuma gelen notification.</string>
+    <string name="notification_cuma_hatirlatici_title">Hayırlı Cumalar</string>
+    <string name="notification_cuma_hatirlatici_content">Cumanız mübarek olsun</string>
 </resources>

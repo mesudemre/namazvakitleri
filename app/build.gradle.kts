@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -106,6 +107,8 @@ android {
 
 dependencies {
 
+    implementation("com.google.firebase:firebase-database-ktx:20.1.0")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.1.2")
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
@@ -150,6 +153,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.hilt.compiler)
     kapt(libs.hilt.common)
+    implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.work.hilt)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 

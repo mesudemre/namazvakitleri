@@ -21,6 +21,8 @@ androidx-window = "1.1.0-alpha04"
 androidxHiltNavigationCompose = "1.0.0"
 androix-test-uiautomator = "2.2.0"
 androidx-compose-foundation = "1.4.1"
+androidx-work = "2.7.1"
+androidx-work-hilt = "1.0.0"
 
 compileSdk = "33"
 compose-compiler = "1.4.0"
@@ -111,6 +113,8 @@ retrofit-rxjava = { module = "com.squareup.retrofit2:adapter-rxjava2", version.r
 retrofit-converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "retrofitVersion" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofitVersion" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gsonVersion" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
+androidx-work-hilt = { module = "androidx.hilt:hilt-work", version.ref = "androidx-work-hilt" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
