@@ -85,4 +85,8 @@ class OnboardingLocalDataSource @Inject constructor(
         val listAyetType = object : TypeToken<List<AyetAssetData>>() {}.type
         return gson.fromJson(jsonString, listAyetType)
     }
+
+    override suspend fun savePushTokenToDataStore(token: String) {
+        dataStore.saveData(Constants.DataStoreConstants.PUSH_TOKEN, token)
+    }
 }

@@ -29,4 +29,5 @@ interface IOnboardingRepository {
     suspend fun saveAyetList(list: List<AyetAssetData>)
     suspend fun getAndSaveAyetList(jsonString: String)
     suspend fun getAyetByDayOfMonth(): Flow<BaseResourceEvent<AyetData>>
+    suspend fun getAndSaveNotificationToken(ilceId: String)
 }

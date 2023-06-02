@@ -27,4 +27,5 @@ interface IOnboardingLocalDataSource {
     suspend fun getAyetAssetDataList(jsonString: String): List<AyetAssetData>
     suspend fun saveAyetList(vararg ayetEntity: AyetEntity)
     suspend fun getAyetById(id: Int): AyetEntity
+    suspend fun savePushTokenToDataStore(token: String)
 }

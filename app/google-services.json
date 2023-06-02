@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "515496550025",
+    "project_id": "namazvakitleri-b182f",
+    "storage_bucket": "namazvakitleri-b182f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515496550025:android:4377e821254ee13cfcf058",
+        "android_client_info": {
+          "package_name": "com.mesutemre.namazvakitleri"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515496550025-eibag82hki068odqtpq70n7n26hvigjt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO4fP2dIWVqiA8YwgKsWQhpUWwoPZ1c5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515496550025-eibag82hki068odqtpq70n7n26hvigjt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
