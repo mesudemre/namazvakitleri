@@ -52,7 +52,9 @@ class MainActivity : ComponentActivity() {
                         hasNotificationPermission = isGranted
                     })
                 if (hasNotificationPermission.not()) {
-                    permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                    SideEffect {
+                        permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                    }
                 }
             }
             startDashboard.value?.let {

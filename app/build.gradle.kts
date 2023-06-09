@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
-    id("com.google.gms.google-services")
+    //id("com.google.gms.google-services")
 }
 
 android {
@@ -15,8 +15,8 @@ android {
         applicationId = "com.mesutemre.namazvakitleri"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 3
-        versionName = "1.3"
+        versionCode = 5
+        versionName = "1.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -107,8 +107,6 @@ android {
 
 dependencies {
 
-    implementation("com.google.firebase:firebase-database-ktx:20.1.0")
-    implementation("com.google.firebase:firebase-messaging-ktx:23.1.2")
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
@@ -155,6 +153,8 @@ dependencies {
     kapt(libs.hilt.common)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.work.hilt)
+    implementation(libs.google.services.firebase.database)
+    implementation(libs.google.services.firebase.messaging)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 
