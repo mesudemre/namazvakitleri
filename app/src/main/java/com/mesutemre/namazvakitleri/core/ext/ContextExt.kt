@@ -10,10 +10,12 @@ import android.content.ContextWrapper
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
+import android.widget.RemoteViews
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.*
+import com.mesutemre.namazvakitleri.BuildConfig
 import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.Constants
 import java.util.concurrent.TimeUnit
@@ -97,4 +99,40 @@ inline fun <reified W : ListenableWorker>
     WorkManager.getInstance(this)
         .enqueueUniquePeriodicWork(workTag, ExistingPeriodicWorkPolicy.KEEP, pwr);
 
+}
+
+
+fun Context.createVakitHatirlaticiNotification(
+    title: String,
+    description: String
+) {
+    val notificationLayout = RemoteViews(this.packageName,R.layout.notification_vakit_hatirlatici)
+    val notificationLayoutExpanded = RemoteViews(this.packageName, R.layout.notification_vakit_hatirlatici_expand)
+
+    notificationLayout.setTextViewText(R.id.notificationCollapseTitleId,title)
+    notificationLayout.setTextViewText(R.id.notificationCollapseDescriptionId,description)
+
+    notificationLayoutExpanded.setTextViewText(R.id.notificataionExpandTitleId,title)
+    notificationLayoutExpanded.setTextViewText(R.id.notificataionExpandDescriptionId,description)
+
+    val notification = NotificationCompat.Builder(
+        this,
+        Constants.ChannelConstants.VAKIT_PUSH_CHANNEL_ID
+    ).setSmallIcon(R.mipmap.ic_launcher)
+        .setContentTitle(title)
+        .setContentText(description)
+        .setPriority(NotificationCompat.PRIORITY_HIGH)
+        .setSound(
+            Uri.parse(
+                ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
+                        packageName + "/" + R.raw.cuma_sound
+            )
+        )
+        .setVibrate(longArrayOf(0, 100, 200, 300))
+        .setStyle(NotificationCompat.DecoratedCustomViewStyle())
+        .setCustomContentView(notificationLayout)
+        .setCustomBigContentView(notificationLayoutExpanded)
+        .build()
+
+    NotificationManagerCompat.from(this).notify(73196, notification)
 }

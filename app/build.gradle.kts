@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
-    //id("com.google.gms.google-services")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -155,6 +155,7 @@ dependencies {
     implementation(libs.androidx.work.hilt)
     implementation(libs.google.services.firebase.database)
     implementation(libs.google.services.firebase.messaging)
+    implementation(libs.androidx.constraintlayout.legacy)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 

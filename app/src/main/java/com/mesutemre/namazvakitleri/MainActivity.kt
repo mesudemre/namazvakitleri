@@ -14,8 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.lifecycleScope
-import com.mesutemre.namazvakitleri.core.ext.createCumaHatirlaticiNotification
 import com.mesutemre.namazvakitleri.navigation.NamazvakitleriNavigationItem
 import dagger.hilt.android.AndroidEntryPoint
 
