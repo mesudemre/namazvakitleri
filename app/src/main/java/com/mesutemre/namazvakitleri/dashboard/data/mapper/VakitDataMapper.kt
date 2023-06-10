@@ -17,37 +17,37 @@ class VakitDataMapper @Inject constructor() {
                 vakitLabel = R.string.vakit_imsak,
                 type = VakitType.IMSAK,
                 saat = vakitInfoDto.imsak,
-                date = getDateOfVakit(vakitInfoDto.imsak)
+                date = getDateOfVakit(vakitInfoDto.imsak, vakitInfoDto.miladiTarihKisa)
             ),
             gunes = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_gunes,
                 type = VakitType.GUNES,
                 saat = vakitInfoDto.gunes,
-                date = getDateOfVakit(vakitInfoDto.gunes)
+                date = getDateOfVakit(vakitInfoDto.gunes, vakitInfoDto.miladiTarihKisa)
             ),
             ogle = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_ogle,
                 type = VakitType.OGLE,
                 saat = vakitInfoDto.ogle,
-                date = getDateOfVakit(vakitInfoDto.ogle)
+                date = getDateOfVakit(vakitInfoDto.ogle, vakitInfoDto.miladiTarihKisa)
             ),
             ikindi = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_ikindi,
                 type = VakitType.IKINDI,
                 saat = vakitInfoDto.ikindi,
-                date = getDateOfVakit(vakitInfoDto.ikindi)
+                date = getDateOfVakit(vakitInfoDto.ikindi, vakitInfoDto.miladiTarihKisa)
             ),
             aksam = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_aksam,
                 type = VakitType.AKSAM,
                 saat = vakitInfoDto.aksam,
-                date = getDateOfVakit(vakitInfoDto.aksam)
+                date = getDateOfVakit(vakitInfoDto.aksam, vakitInfoDto.miladiTarihKisa)
             ),
             yatsi = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_yatsi,
                 type = VakitType.YATSI,
                 saat = vakitInfoDto.yatsi,
-                date = getDateOfVakit(vakitInfoDto.yatsi)
+                date = getDateOfVakit(vakitInfoDto.yatsi, vakitInfoDto.miladiTarihKisa)
             ),
             hicriTakvimInfo = vakitInfoDto.hicriTarihUzun,
             miladiTakvimInfo = vakitInfoDto.miladiTarihUzun,
@@ -75,37 +75,37 @@ class VakitDataMapper @Inject constructor() {
                 vakitLabel = R.string.vakit_imsak,
                 type = VakitType.IMSAK,
                 saat = vakitInfoEntity.imsak,
-                date = getDateOfVakit(vakitInfoEntity.imsak)
+                date = getDateOfVakit(vakitInfoEntity.imsak, vakitInfoEntity.miladiTarih)
             ),
             gunes = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_gunes,
                 type = VakitType.GUNES,
                 saat = vakitInfoEntity.gunes,
-                date = getDateOfVakit(vakitInfoEntity.gunes)
+                date = getDateOfVakit(vakitInfoEntity.gunes, vakitInfoEntity.miladiTarih)
             ),
             ogle = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_ogle,
                 type = VakitType.OGLE,
                 saat = vakitInfoEntity.ogle,
-                date = getDateOfVakit(vakitInfoEntity.ogle)
+                date = getDateOfVakit(vakitInfoEntity.ogle, vakitInfoEntity.miladiTarih)
             ),
             ikindi = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_ikindi,
                 type = VakitType.IKINDI,
                 saat = vakitInfoEntity.ikindi,
-                date = getDateOfVakit(vakitInfoEntity.ikindi)
+                date = getDateOfVakit(vakitInfoEntity.ikindi, vakitInfoEntity.miladiTarih)
             ),
             aksam = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_aksam,
                 type = VakitType.AKSAM,
                 saat = vakitInfoEntity.aksam,
-                date = getDateOfVakit(vakitInfoEntity.aksam)
+                date = getDateOfVakit(vakitInfoEntity.aksam, vakitInfoEntity.miladiTarih)
             ),
             yatsi = VakitInfoTypeData(
                 vakitLabel = R.string.vakit_yatsi,
                 type = VakitType.YATSI,
                 saat = vakitInfoEntity.yatsi,
-                date = getDateOfVakit(vakitInfoEntity.yatsi)
+                date = getDateOfVakit(vakitInfoEntity.yatsi, vakitInfoEntity.miladiTarih)
             ),
             hicriTakvimInfo = vakitInfoEntity.hicriTarihUzun,
             miladiTakvimInfo = vakitInfoEntity.miladiTarihUzun,
@@ -114,15 +114,17 @@ class VakitDataMapper @Inject constructor() {
     }
 
     private fun getDateOfVakit(
-        vakit: String
+        vakit: String,
+        tarih: String
     ): Long {
         val saat = vakit.split(":")[0]
         val dakika = vakit.split(":")[1]
+        val gun = tarih.split(".")[0]
         val cal = Calendar.getInstance()
         cal.set(
             Calendar.getInstance().get(Calendar.YEAR),
             Calendar.getInstance().get(Calendar.MONTH),
-            Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
+            gun.toInt(),
             saat.toInt(),
             dakika.toInt(),
             0
