@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_200sdp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/notificataionExpandImageId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/suleymaniye"/>
+
+    <TextView
+        android:id="@+id/notificataionExpandTitleId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        style="@style/TextAppearance.Compat.Notification.Title"
+        android:text="Başlık"/>
+
+    <TextView
+        android:id="@+id/notificataionExpandDescriptionId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.Compat.Notification.Info"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:text="Detay detay detay içerik detay detay"/>
+
+</LinearLayout>

@@ -2,7 +2,10 @@ package com.mesutemre.namazvakitleri.onboarding.data.remote
 
 import android.util.Log
 import com.google.android.gms.tasks.Task
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.mesutemre.namazvakitleri.core.Constants
 import com.mesutemre.namazvakitleri.onboarding.data.remote.dto.CityDto
@@ -35,5 +38,21 @@ class OnboardingRemoteDataSource @Inject constructor(
         val refPushNotification =
             fireBaseDataBase.getReference(Constants.FirebaseConstants.PUSH_TOKEN_DB)
         refPushNotification.push().setValue(notificationToken)
+    }
+
+    override fun isTokenExistInFirebase(token: String,onComplete:(Boolean) -> Unit) {
+        val firebaseDatabase = FirebaseDatabase.getInstance(Constants.FirebaseConstants.DB_INSTANCE_URL)
+        val refPushNotification =
+            firebaseDatabase.getReference(Constants.FirebaseConstants.PUSH_TOKEN_DB)
+        val query = refPushNotification.orderByChild(Constants.FirebaseConstants.PUSH_TOKEN_DB_ORDERBY_CHILD).equalTo(token)
+        query.addListenerForSingleValueEvent(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                onComplete(snapshot.exists())
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                onComplete(false)
+            }
+        })
     }
 }

@@ -17,7 +17,10 @@ class CumaNotificationWorker @AssistedInject constructor(
 
     override fun doWork(): Result {
         val calendar = Calendar.getInstance()
-        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+        val canCreateNotification = (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY)
+                &&
+                calendar.get(Calendar.HOUR_OF_DAY)  in 11..12
+        if (canCreateNotification) {
             appContext.createCumaHatirlaticiNotification()
         }
         return Result.success()

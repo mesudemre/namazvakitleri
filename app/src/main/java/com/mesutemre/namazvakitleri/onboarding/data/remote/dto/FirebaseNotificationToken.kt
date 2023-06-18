@@ -5,5 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 @IgnoreExtraProperties
 data class FirebaseNotificationToken(
     val token: String,
-    val ilceId: String
+    val ilceId: String,
+    val androidVersion: String,
+    val deviceModel: String
 )

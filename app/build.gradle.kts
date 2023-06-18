@@ -15,8 +15,8 @@ android {
         applicationId = "com.mesutemre.namazvakitleri"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = 3
-        versionName = "1.3"
+        versionCode = 6
+        versionName = "1.6"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -107,8 +107,6 @@ android {
 
 dependencies {
 
-    implementation("com.google.firebase:firebase-database-ktx:20.1.0")
-    implementation("com.google.firebase:firebase-messaging-ktx:23.1.2")
     val composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
     androidTestImplementation(composeBom)
@@ -153,8 +151,12 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.hilt.compiler)
     kapt(libs.hilt.common)
+    kapt(libs.hilt.ext.compiler)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.work.hilt)
+    implementation(libs.google.services.firebase.database)
+    implementation(libs.google.services.firebase.messaging)
+    implementation(libs.androidx.constraintlayout.legacy)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 

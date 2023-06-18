@@ -69,8 +69,10 @@ class OnboardingLocalDataSource @Inject constructor(
         )
     }
 
-    override suspend fun getSelectedDistrictFromDataStore(): DistrictData {
+    override suspend fun getSelectedDistrictFromDataStore(): DistrictData? {
         val json = dataStore.readString(Constants.DataStoreConstants.SELECTED_DISTRICT)
+        if (json.first().isNullOrEmpty())
+            return null
         val type = object : TypeToken<DistrictData>() {}.type
         return gson.fromJson(json.first(), type)
     }
@@ -88,5 +90,9 @@ class OnboardingLocalDataSource @Inject constructor(
 
     override suspend fun savePushTokenToDataStore(token: String) {
         dataStore.saveData(Constants.DataStoreConstants.PUSH_TOKEN, token)
+    }
+
+    override suspend fun getSavedPushTokenFromDataStore(): String {
+        return dataStore.readString(Constants.DataStoreConstants.PUSH_TOKEN).first()
     }
 }

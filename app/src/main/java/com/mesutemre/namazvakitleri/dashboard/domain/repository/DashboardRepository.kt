@@ -66,7 +66,7 @@ class DashboardRepository @Inject constructor(
         )
     }
 
-    override suspend fun getSelectedDistrictFromStore(): DistrictData =
+    override suspend fun getSelectedDistrictFromStore(): DistrictData? =
         onboardingLocalDataSource.getSelectedDistrictFromDataStore()
 
     override suspend fun getVakitInfoOutOfCollection(

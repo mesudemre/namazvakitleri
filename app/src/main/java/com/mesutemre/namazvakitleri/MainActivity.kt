@@ -14,8 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.lifecycleScope
-import com.mesutemre.namazvakitleri.core.ext.createCumaHatirlaticiNotification
 import com.mesutemre.namazvakitleri.navigation.NamazvakitleriNavigationItem
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,7 +50,9 @@ class MainActivity : ComponentActivity() {
                         hasNotificationPermission = isGranted
                     })
                 if (hasNotificationPermission.not()) {
-                    permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                    SideEffect {
+                        permissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+                    }
                 }
             }
             startDashboard.value?.let {

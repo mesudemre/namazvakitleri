@@ -1,5 +1,7 @@
 package com.mesutemre.namazvakitleri.onboarding.domain.repository
 
+import android.os.Build
+import com.mesutemre.namazvakitleri.BuildConfig
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.core.repository.BaseRepository
 import com.mesutemre.namazvakitleri.di.IoDispatcher
@@ -174,14 +176,29 @@ class OnboardingRepository @Inject constructor(
                     onboardingLocalDataSource.savePushTokenToDataStore(token)
                 }
                 async {
-                    onboardingRemoteDataSource.saveTokenIlceToFirebase(
-                        FirebaseNotificationToken(
-                            token = token,
-                            ilceId = ilceId
-                        )
-                    )
+                    saveTokenIlceToFirebase(token,ilceId)
                 }
             }
         }
+    }
+
+    override suspend fun isTokenExistInFirebase(token: String,onComplete:(Boolean) -> Unit) {
+        onboardingRemoteDataSource.isTokenExistInFirebase(token,onComplete)
+    }
+
+    override suspend fun getSavedPushTokenFromDataStore(): String =
+        onboardingLocalDataSource.getSavedPushTokenFromDataStore()
+
+    override fun saveTokenIlceToFirebase(
+        token: String, ilceId: String
+    ) {
+        onboardingRemoteDataSource.saveTokenIlceToFirebase(
+            FirebaseNotificationToken(
+                token = token,
+                ilceId = ilceId,
+                androidVersion = "API "+Build.VERSION.SDK_INT+" | Android "+Build.VERSION.RELEASE,
+                deviceModel = Build.MANUFACTURER+" "+ Build.MODEL
+            )
+        )
     }
 }
