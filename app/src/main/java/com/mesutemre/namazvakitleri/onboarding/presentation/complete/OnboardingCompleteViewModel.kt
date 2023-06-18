@@ -5,7 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.onboarding.domain.model.DistrictData
-import com.mesutemre.namazvakitleri.onboarding.domain.use_case.*
+import com.mesutemre.namazvakitleri.onboarding.domain.use_case.GetDistrictDataByDistrictId
+import com.mesutemre.namazvakitleri.onboarding.domain.use_case.SaveAyetList
+import com.mesutemre.namazvakitleri.onboarding.domain.use_case.SaveHadisList
+import com.mesutemre.namazvakitleri.onboarding.domain.use_case.SaveSelectedDistrictToDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,8 +24,7 @@ class OnboardingCompleteViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val getDistrictDataByDistrictId: GetDistrictDataByDistrictId,
     private val saveSelectedDistrictToDataStore: SaveSelectedDistrictToDataStore,
-    private val saveAyetList: SaveAyetList,
-    private val savePushNotificationData: SavePushNotificationData
+    private val saveAyetList: SaveAyetList
 ) : ViewModel() {
 
     val districtId = savedStateHandle.get<String>("districtId")
@@ -49,11 +51,6 @@ class OnboardingCompleteViewModel @Inject constructor(
                             districtData = response
                         )
                     }
-                }
-            }
-            async {
-                districtId?.let { ilceId ->
-                    savePushNotificationData(ilceId)
                 }
             }
         }

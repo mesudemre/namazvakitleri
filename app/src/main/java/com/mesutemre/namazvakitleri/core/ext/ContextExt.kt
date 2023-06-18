@@ -8,6 +8,8 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.BitmapFactory
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.widget.RemoteViews
@@ -15,7 +17,6 @@ import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.*
-import com.mesutemre.namazvakitleri.BuildConfig
 import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.Constants
 import java.util.concurrent.TimeUnit
@@ -90,30 +91,34 @@ inline fun <reified W : ListenableWorker>
 inline fun <reified W : ListenableWorker>
         Context.enqueePeriodicTimeWorkManager(
     workTag: String,
+    repeatInterval: Int = 1,
+    period: TimeUnit = TimeUnit.DAYS,
+    existingPeriodicWorkPolicy: ExistingPeriodicWorkPolicy = ExistingPeriodicWorkPolicy.KEEP,
     constraints: Constraints = Constraints.Builder()
         .build()
 ) {
-    val pwr = PeriodicWorkRequestBuilder<W>(1, TimeUnit.DAYS)
+    val pwr = PeriodicWorkRequestBuilder<W>(repeatInterval.toLong(), period)
         .setConstraints(constraints)
+        .addTag(workTag)
         .build();
     WorkManager.getInstance(this)
-        .enqueueUniquePeriodicWork(workTag, ExistingPeriodicWorkPolicy.KEEP, pwr);
+        .enqueueUniquePeriodicWork(workTag, existingPeriodicWorkPolicy, pwr)
 
 }
-
 
 fun Context.createVakitHatirlaticiNotification(
     title: String,
     description: String
 ) {
-    val notificationLayout = RemoteViews(this.packageName,R.layout.notification_vakit_hatirlatici)
-    val notificationLayoutExpanded = RemoteViews(this.packageName, R.layout.notification_vakit_hatirlatici_expand)
+    val notificationLayout = RemoteViews(this.packageName, R.layout.notification_vakit_hatirlatici)
+    val notificationLayoutExpanded =
+        RemoteViews(this.packageName, R.layout.notification_vakit_hatirlatici_expand)
 
-    notificationLayout.setTextViewText(R.id.notificationCollapseTitleId,title)
-    notificationLayout.setTextViewText(R.id.notificationCollapseDescriptionId,description)
+    notificationLayout.setTextViewText(R.id.notificationCollapseTitleId, title)
+    notificationLayout.setTextViewText(R.id.notificationCollapseDescriptionId, description)
 
-    notificationLayoutExpanded.setTextViewText(R.id.notificataionExpandTitleId,title)
-    notificationLayoutExpanded.setTextViewText(R.id.notificataionExpandDescriptionId,description)
+    notificationLayoutExpanded.setTextViewText(R.id.notificataionExpandTitleId, title)
+    notificationLayoutExpanded.setTextViewText(R.id.notificataionExpandDescriptionId, description)
 
     val notification = NotificationCompat.Builder(
         this,
@@ -135,4 +140,23 @@ fun Context.createVakitHatirlaticiNotification(
         .build()
 
     NotificationManagerCompat.from(this).notify(73196, notification)
+}
+
+fun Context.isNetworkAvaliable(): Boolean {
+    val connectivityManager =
+        getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    if (connectivityManager != null) {
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                return true
+            }
+        }
+    }
+    return false
 }

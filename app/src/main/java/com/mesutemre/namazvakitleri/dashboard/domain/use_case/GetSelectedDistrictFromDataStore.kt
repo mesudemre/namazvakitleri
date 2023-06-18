@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetSelectedDistrictFromDataStore @Inject constructor(
     private val dashboardRepository: IDashboardRepository
 ) {
-    suspend operator fun invoke(): DistrictData {
+    suspend operator fun invoke(): DistrictData? {
         return dashboardRepository.getSelectedDistrictFromStore()
     }
 }

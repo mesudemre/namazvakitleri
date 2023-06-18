@@ -151,6 +151,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.hilt.compiler)
     kapt(libs.hilt.common)
+    kapt(libs.hilt.ext.compiler)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.work.hilt)
     implementation(libs.google.services.firebase.database)

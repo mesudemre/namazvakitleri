@@ -12,4 +12,5 @@ interface IOnboardingRemoteDataSource {
     suspend fun getDistrictList(cityId: Int): Response<List<DistrictDto>>
     fun getNotificationTokenFromFirebase(): Task<String>
     fun saveTokenIlceToFirebase(notificationToken: FirebaseNotificationToken)
+    fun isTokenExistInFirebase(token: String, onComplete:(Boolean) -> Unit)
 }

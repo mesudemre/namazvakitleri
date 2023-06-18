@@ -23,9 +23,10 @@ interface IOnboardingLocalDataSource {
     suspend fun getHadisById(id: Int): HadisEntity
     suspend fun getDistrictByDistrictId(districtId: Int): DistrictEntity
     suspend fun saveSelectedDistrictToDataStore(districtData: DistrictData)
-    suspend fun getSelectedDistrictFromDataStore(): DistrictData
+    suspend fun getSelectedDistrictFromDataStore(): DistrictData?
     suspend fun getAyetAssetDataList(jsonString: String): List<AyetAssetData>
     suspend fun saveAyetList(vararg ayetEntity: AyetEntity)
     suspend fun getAyetById(id: Int): AyetEntity
     suspend fun savePushTokenToDataStore(token: String)
+    suspend fun getSavedPushTokenFromDataStore(): String
 }

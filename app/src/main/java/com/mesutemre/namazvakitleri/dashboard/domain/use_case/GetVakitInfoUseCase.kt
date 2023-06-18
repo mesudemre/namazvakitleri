@@ -32,7 +32,7 @@ class GetVakitInfoUseCase @Inject constructor(
             val vakitList = dashboardRepository.getVakitInfoOutOfCollection(bugunTar, yarinTar)
             if (vakitList.size < 2) {
                 val district = dashboardRepository.getSelectedDistrictFromStore()
-                val response = dashboardRepository.getVakitListe(district.districtId.toString())
+                val response = dashboardRepository.getVakitListe(district?.districtId.toString())
                 withContext(ioDispatcher) {
                     async {
                         response.collectLatest { res ->
@@ -67,7 +67,7 @@ class GetVakitInfoUseCase @Inject constructor(
             }
         } else {
             val district = dashboardRepository.getSelectedDistrictFromStore()
-            val response = dashboardRepository.getVakitListe(district.districtId.toString())
+            val response = dashboardRepository.getVakitListe(district?.districtId.toString())
             withContext(ioDispatcher) {
                 async {
                     response.collectLatest { res ->

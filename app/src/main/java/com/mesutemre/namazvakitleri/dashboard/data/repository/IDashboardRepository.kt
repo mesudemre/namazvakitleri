@@ -14,7 +14,7 @@ interface IDashboardRepository {
     suspend fun checkVakitListSaved(): Flow<Boolean>
     suspend fun saveCheckVakitListSaved(isExist: Boolean)
     suspend fun saveVakitListToDb(vakitList: List<VakitInfoData>)
-    suspend fun getSelectedDistrictFromStore(): DistrictData
+    suspend fun getSelectedDistrictFromStore(): DistrictData?
     suspend fun getVakitInfoOutOfCollection(bugun: String, yarin: String): List<VakitInfoData>
     suspend fun saveTarihteBugunTarih()
     suspend fun checkTarihteBugunCallAPI(): Boolean
