@@ -32,8 +32,9 @@ fun SettingsScreen() {
             ) {
                 SettingsItem(
                     modifier = Modifier.align(Alignment.Start),
-                    title = stringResource(id = com.mesutemre.namazvakitleri.R.string.settings_item_change_city),
-                    icon = com.mesutemre.namazvakitleri.R.drawable.ic_settings_location
+                    title = stringResource(id = com.mesutemre.namazvakitleri.R.string.settings_item_cuma_mesaj),
+                    isImage = true,
+                    icon = com.mesutemre.namazvakitleri.R.drawable.ic_settings_cuma_mesaj
                 ) {
                 }
                 SettingsItem(
@@ -44,8 +45,8 @@ fun SettingsScreen() {
                 }
                 SettingsItem(
                     modifier = Modifier.align(Alignment.Start),
-                    title = stringResource(id = com.mesutemre.namazvakitleri.R.string.settings_item_cuma_mesaj),
-                    icon = com.mesutemre.namazvakitleri.R.drawable.ic_settings_message
+                    title = stringResource(id = com.mesutemre.namazvakitleri.R.string.settings_item_change_city),
+                    icon = com.mesutemre.namazvakitleri.R.drawable.ic_settings_location
                 ) {
                 }
                 SettingsItem(

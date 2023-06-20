@@ -1,6 +1,7 @@
 package com.mesutemre.namazvakitleri.settings.presentation.components
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
@@ -15,6 +16,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import com.mesutemre.namazvakitleri.core.ext.sdp
@@ -25,6 +27,7 @@ fun SettingsItem(
     modifier: Modifier,
     title: String,
     @DrawableRes icon: Int,
+    isImage: Boolean = false,
     onClick: () -> Unit
 ) {
     val color = NamazvakitleriTheme.colors.topBarBackgroundColor
@@ -46,15 +49,26 @@ fun SettingsItem(
                 )
             }
     ) {
-        Icon(
-            imageVector = ImageVector.vectorResource(id = icon),
-            tint = Color.Unspecified,
-            contentDescription = null, modifier = Modifier
-                .size(48.sdp)
-                .padding(top = 24.sdp)
-                .weight(1f)
-                .align(Alignment.CenterHorizontally)
-        )
+        if (isImage) {
+            Image(
+                painter = painterResource(id = icon), contentDescription = "", modifier = Modifier
+                    .size(48.sdp)
+                    .padding(top = 24.sdp)
+                    .weight(1f)
+                    .align(Alignment.CenterHorizontally)
+            )
+        } else {
+            Icon(
+                imageVector = ImageVector.vectorResource(id = icon),
+                tint = Color.Unspecified,
+                contentDescription = null, modifier = Modifier
+                    .size(48.sdp)
+                    .padding(top = 24.sdp)
+                    .weight(1f)
+                    .align(Alignment.CenterHorizontally)
+            )
+        }
+
 
         Text(
             modifier = Modifier
