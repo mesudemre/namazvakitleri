@@ -134,7 +134,8 @@ data class NamazVakitleriTypography(
     val ayetHadisContent: TextStyle,
     val tarihInfoStyle: TextStyle,
     val tarihteBugunStyle: TextStyle,
-    val kalanSureSaatDakikaStickHeaderTextStyle: TextStyle
+    val kalanSureSaatDakikaStickHeaderTextStyle: TextStyle,
+    val settingsDesignedByStyle: TextStyle
 )
 
 @Immutable

@@ -2,15 +2,20 @@ package com.mesutemre.namazvakitleri.dashboard.presentation.components
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
@@ -29,7 +34,8 @@ fun VakitInfoSuleymaniyeArea(
     seconds: Int,
     selectedDistrict: DistrictData?,
     miladiTarihUzun: String,
-    hicriTarihUzun: String
+    hicriTarihUzun: String,
+    navigateToSettings:()->Unit
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -44,12 +50,13 @@ fun VakitInfoSuleymaniyeArea(
         ) {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 selectedDistrict?.let {
                     Text(
                         modifier = Modifier
-                            .fillMaxWidth()
                             .padding(start = 8.sdp, top = 8.sdp),
                         text = it.districtName,
                         style = NamazvakitleriTheme.typography.vakitInfo,
@@ -58,13 +65,21 @@ fun VakitInfoSuleymaniyeArea(
                 } ?: run {
                     Text(
                         modifier = Modifier
-                            .fillMaxWidth()
                             .padding(start = 8.sdp, top = 8.sdp),
                         text = "",
                         style = NamazvakitleriTheme.typography.vakitInfo,
                         color = NamazvakitleriTheme.colors.searchTextBackgroundColor
                     )
                 }
+
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_options),
+                    modifier = Modifier.padding(end = 8.sdp, top = 8.sdp).clickable {
+                        navigateToSettings()
+                    },
+                    contentDescription = stringResource(id = R.string.dashboard_settings),
+                    tint = NamazvakitleriTheme.colors.vakitInfo
+                )
             }
             Spacer(modifier = Modifier.height(12.sdp))
             Text(

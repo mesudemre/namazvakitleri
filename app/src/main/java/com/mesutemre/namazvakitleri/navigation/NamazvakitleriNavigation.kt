@@ -24,6 +24,7 @@ import com.mesutemre.namazvakitleri.onboarding.presentation.complete.OnboardingC
 import com.mesutemre.namazvakitleri.onboarding.presentation.district.OnboardingDistrictSelectionScreen
 import com.mesutemre.namazvakitleri.onboarding.presentation.district.OnboardingDistrictSelectionViewModel
 import com.mesutemre.namazvakitleri.onboarding.presentation.welcome.OnboardingWelcomeScreen
+import com.mesutemre.namazvakitleri.settings.presentation.SettingsScreen
 import com.mesutemre.namazvakitleri.tarihtebugun.presentation.TarihteBugunListScreen
 import com.mesutemre.namazvakitleri.tarihtebugun.presentation.TarihteBugunListViewModel
 import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
@@ -124,6 +125,9 @@ fun NamazvakitleriNavigation(
                 onChangeVakitTypePage = viewModel::setActiveVakitPage,
                 onClickTarihteBugun = {
                     navController.navigate(NamazvakitleriNavigationItem.TarihteBugunScreen.screenRoute)
+                },
+                onClickSettings = {
+                    navController.navigate(NamazvakitleriNavigationItem.SettingsScreen.screenRoute)
                 }
             )
         }
@@ -134,6 +138,12 @@ fun NamazvakitleriNavigation(
             val viewModel = hiltViewModel<TarihteBugunListViewModel>()
             val state = viewModel.state.collectAsStateWithLifecycle()
             TarihteBugunListScreen(state = state.value)
+        }
+
+        composable(
+            route = NamazvakitleriNavigationItem.SettingsScreen.screenRoute
+        ) {
+            SettingsScreen()
         }
     }
 }

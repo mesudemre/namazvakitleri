@@ -108,6 +108,14 @@ val KalanSureSaatDakikaStickHeaderTextStyle = TextStyle(
     letterSpacing = 0.15.sp
 )
 
+val SettingsDesginedBy = TextStyle(
+    fontFamily = Ubuntu,
+    fontSize = 10.sp,
+    fontWeight = FontWeight.Bold,
+    lineHeight = 18.sp,
+    letterSpacing = 0.12.sp
+)
+
 val namazVakitleriTypographyPalette = NamazVakitleriTypography(
     vakitInfo = VakitInfo,
     title = PageTitle,
@@ -120,7 +128,8 @@ val namazVakitleriTypographyPalette = NamazVakitleriTypography(
     ayetHadisContent = AyetHadisContent,
     tarihInfoStyle = TarihInfo,
     tarihteBugunStyle = TarihteBugunStyle,
-    kalanSureSaatDakikaStickHeaderTextStyle = KalanSureSaatDakikaStickHeaderTextStyle
+    kalanSureSaatDakikaStickHeaderTextStyle = KalanSureSaatDakikaStickHeaderTextStyle,
+    settingsDesignedByStyle = SettingsDesginedBy
 )
 
 

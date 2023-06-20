@@ -36,7 +36,8 @@ import java.util.*
 fun DashboardScreen(
     state: DashboardState,
     onChangeVakitTypePage: suspend (DashboardVakitPageType) -> Unit,
-    onClickTarihteBugun: () -> Unit
+    onClickTarihteBugun: () -> Unit,
+    onClickSettings: () -> Unit
 ) {
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
         val context = LocalContext.current
@@ -81,7 +82,7 @@ fun DashboardScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(240.sdp)
+                            .height(260.sdp)
                             .background(NamazvakitleriTheme.colors.vakitInfoBackgroundColor)
                     ) {
                         when (state.vakitInfo) {
@@ -107,7 +108,7 @@ fun DashboardScreen(
                                                     .fillMaxSize()
                                                     .graphicsLayer {
                                                         this.alpha =
-                                                            (200.sdp.toPx() - scrollOffset.value) / 200.sdp.toPx()
+                                                            (220.sdp.toPx() - scrollOffset.value) / 220.sdp.toPx()
                                                     }
                                             ) {
                                                 when (pager) {
@@ -118,7 +119,8 @@ fun DashboardScreen(
                                                             seconds = state.kalanSaniye,
                                                             selectedDistrict = state.selectedDistrict,
                                                             miladiTarihUzun = vakitInfo.bugunVakitInfo.miladiTakvimInfo,
-                                                            hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo
+                                                            hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo,
+                                                            navigateToSettings = onClickSettings
                                                         )
                                                     }
                                                     DashboardVakitPageType.SULEYMANIYE.type -> {
@@ -128,7 +130,8 @@ fun DashboardScreen(
                                                             seconds = state.kalanSaniye,
                                                             selectedDistrict = state.selectedDistrict,
                                                             miladiTarihUzun = vakitInfo.bugunVakitInfo.miladiTakvimInfo,
-                                                            hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo
+                                                            hicriTarihUzun = vakitInfo.bugunVakitInfo.hicriTakvimInfo,
+                                                            navigateToSettings = onClickSettings
                                                         )
                                                     }
                                                 }
@@ -270,5 +273,5 @@ fun DashboardScreen(
 @Preview
 @Composable
 fun DashboardScreenPreview() {
-    DashboardScreen(state = DashboardState(), {},{})
+    DashboardScreen(state = DashboardState(), {}, {}, {})
 }

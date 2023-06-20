@@ -33,4 +33,10 @@ sealed class NamazvakitleriNavigationItem(
         showTopBar = true,
         pageTitle = R.string.tarihte_bugun_list_screen_title
     )
+
+    object SettingsScreen: NamazvakitleriNavigationItem(
+        screenRoute = "namazvakitleri_settings_screen",
+        showTopBar = true,
+        pageTitle = R.string.settings_page_title
+    )
 }
