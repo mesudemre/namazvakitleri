@@ -4,12 +4,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import coil.compose.AsyncImagePainter
@@ -17,13 +19,15 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.ext.sdp
+import com.mesutemre.namazvakitleri.core.ext.shareTextAndImageContent
 import com.mesutemre.namazvakitleri.core.ext.shimmerEffect
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 
 @Composable
 fun CumaMesajItem(
     mesaj: String,
-    resimUrl: String
+    resimUrl: String,
+    onShare: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -60,7 +64,7 @@ fun CumaMesajItem(
         Row(modifier = Modifier
             .align(Alignment.End)
             .clickable {
-
+                onShare()
             }) {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_share),

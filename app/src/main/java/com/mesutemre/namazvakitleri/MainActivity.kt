@@ -3,6 +3,7 @@ package com.mesutemre.namazvakitleri
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -24,6 +25,10 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val builder: StrictMode.VmPolicy.Builder = StrictMode.VmPolicy.Builder()
+        StrictMode.setVmPolicy(builder.build())
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen().apply {
             this.setKeepOnScreenCondition(object : SplashScreen.KeepOnScreenCondition {

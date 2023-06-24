@@ -158,6 +158,7 @@ dependencies {
     implementation(libs.google.services.firebase.messaging)
     implementation(libs.androidx.constraintlayout.legacy)
     implementation(libs.coil)
+    implementation(libs.picasso)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 

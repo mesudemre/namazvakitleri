@@ -7,7 +7,10 @@ import android.app.NotificationManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
@@ -19,6 +22,10 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.work.*
 import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.Constants
+import com.squareup.picasso.Picasso
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 fun Context.findActivity(): Activity {
@@ -159,4 +166,47 @@ fun Context.isNetworkAvaliable(): Boolean {
         }
     }
     return false
+}
+
+fun Context.shareTextAndImageContent(
+    imageUrl: String,
+    message: String,
+    title: String,
+    onPrepareLoad:(Boolean) -> Unit
+) {
+    Picasso.get().load(imageUrl).into(object : com.squareup.picasso.Target {
+        override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_STREAM, getBitmapFromView(bitmap))
+            intent.putExtra(Intent.EXTRA_TEXT, message)
+            onPrepareLoad(false)
+            startActivity(Intent.createChooser(intent, title))
+        }
+
+        override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+            onPrepareLoad(false)
+        }
+
+        override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+            onPrepareLoad(true)
+        }
+
+    })
+}
+
+fun Context.getBitmapFromView(bmp: Bitmap?): Uri? {
+    var bmpUri: Uri? = null
+    try {
+        val file = File(this.externalCacheDir, System.currentTimeMillis().toString() + ".jpg")
+
+        val out = FileOutputStream(file)
+        bmp?.compress(Bitmap.CompressFormat.JPEG, 90, out)
+        out.close()
+        bmpUri = Uri.fromFile(file)
+
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+    return bmpUri
 }

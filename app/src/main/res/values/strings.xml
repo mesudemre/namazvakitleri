@@ -35,4 +35,5 @@
     <string name="settings_item_cuma_mesaj">Cuma Mesajları</string>
     <string name="settings_item_tercihler">Tercihler</string>
     <string name="settings_cuma_mesaj_not_found">Bir sorun oluştu. Maalesef mesajları getiremedik.</string>
+    <string name="settings_cuma_mesaj_share_title">Cuma mesajı paylaş</string>
 </resources>

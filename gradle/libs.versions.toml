@@ -52,6 +52,7 @@ firebase-database = "20.1.0"
 firebase-messaging = "23.1.2"
 google-services = "4.3.15"
 coilVersion = "2.4.0"
+picassoVersion = "2.8"
 
 [libraries]
 
@@ -124,6 +125,7 @@ google-services-gms = { module = "com.google.gms:google-services", version.ref =
 google-services-firebase-database = { module = "com.google.firebase:firebase-database-ktx", version.ref = "firebase-database" }
 google-services-firebase-messaging = { module = "com.google.firebase:firebase-messaging-ktx", version.ref = "firebase-messaging" }
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coilVersion" }
+picasso = { module = "com.squareup.picasso:picasso", version.ref = "picassoVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

@@ -41,6 +41,7 @@ private val DarkColorPalette = NamazvakitleriColors(
     topBarIconColor = White,
     topBarBackgroundColor = DarkOrange,
     topBarTextColor = White,
+    loadingIndicatorColor = White,
     isDark = true
 )
 
@@ -71,6 +72,7 @@ private val LightColorPalette = NamazvakitleriColors(
     topBarIconColor = White,
     topBarBackgroundColor = Orange,
     topBarTextColor = White,
+    loadingIndicatorColor = PurpleGrey40,
     isDark = false
 )
 
@@ -190,6 +192,7 @@ class NamazvakitleriColors(
     topBarIconColor: Color,
     topBarBackgroundColor: Color,
     topBarTextColor: Color,
+    loadingIndicatorColor: Color,
     isDark: Boolean
 ) {
     var gradientCircle by mutableStateOf(gradientCircle)
@@ -246,6 +249,8 @@ class NamazvakitleriColors(
         private set
     var topBarTextColor by mutableStateOf(topBarTextColor)
         private set
+    var loadingIndicatorColor by mutableStateOf(loadingIndicatorColor)
+        private set
 
     fun update(other: NamazvakitleriColors) {
         gradientCircle = other.gradientCircle
@@ -274,6 +279,7 @@ class NamazvakitleriColors(
         topBarIconColor = other.topBarIconColor
         topBarBackgroundColor = other.topBarBackgroundColor
         topBarTextColor = other.topBarTextColor
+        loadingIndicatorColor = other.loadingIndicatorColor
         isDark = other.isDark
     }
 
@@ -304,6 +310,7 @@ class NamazvakitleriColors(
         topBarIconColor = topBarIconColor,
         topBarBackgroundColor = topBarBackgroundColor,
         topBarTextColor = topBarTextColor,
+        loadingIndicatorColor = loadingIndicatorColor,
         isDark = isDark
     )
 }
