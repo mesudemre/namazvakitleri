@@ -9,10 +9,14 @@ class NamazVakitleriFirebaseNotificationService : FirebaseMessagingService() {
 
     override fun handleIntent(intent: Intent?) {
         intent?.let {
-            this.createVakitHatirlaticiNotification(
-                title = it.getStringExtra("gcm.notification.title") ?: "",
-                description = it.getStringExtra("gcm.notification.body") ?: ""
-            )
+            it.getStringExtra("gcm.notification.title")?.let { title ->
+                if (title.isNotEmpty()) {
+                    this.createVakitHatirlaticiNotification(
+                        title = title,
+                        description = it.getStringExtra("gcm.notification.body") ?: ""
+                    )
+                }
+            }
         }
     }
 
@@ -21,10 +25,12 @@ class NamazVakitleriFirebaseNotificationService : FirebaseMessagingService() {
         message.notification?.let { notification ->
             val title = notification.title
             val description = notification.body
-            this.createVakitHatirlaticiNotification(
-                title = title ?: "",
-                description = description ?: ""
-            )
+            title?.let { t ->
+                this.createVakitHatirlaticiNotification(
+                    title = t,
+                    description = description ?: ""
+                )
+            }
         }
     }
 }
