@@ -15,17 +15,20 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.widget.RemoteViews
 import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.FileProvider
 import androidx.work.*
+import com.mesutemre.namazvakitleri.BuildConfig
 import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.Constants
 import com.squareup.picasso.Picasso
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
+import java.io.OutputStream
 import java.util.concurrent.TimeUnit
 
 fun Context.findActivity(): Activity {
@@ -172,16 +175,32 @@ fun Context.shareTextAndImageContent(
     imageUrl: String,
     message: String,
     title: String,
-    onPrepareLoad:(Boolean) -> Unit
+    onPrepareLoad: (Boolean) -> Unit
 ) {
     Picasso.get().load(imageUrl).into(object : com.squareup.picasso.Target {
         override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_STREAM, getBitmapFromView(bitmap))
-            intent.putExtra(Intent.EXTRA_TEXT, message)
-            onPrepareLoad(false)
-            startActivity(Intent.createChooser(intent, title))
+            bitmap?.let {
+                val isSaved = saveImageToDownloadFolder(it)
+                if (isSaved) {
+                    val uri: Uri? = FileProvider.getUriForFile(
+                        this@shareTextAndImageContent.findActivity(),
+                        BuildConfig.APPLICATION_ID + ".provider",
+                        File(
+                            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                            "/cuma_mesaj.png"
+                        )
+                    )
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.type = "image/png"
+                    intent.putExtra(Intent.EXTRA_TITLE, title)
+                    intent.putExtra(Intent.EXTRA_STREAM, uri)
+                    intent.putExtra(Intent.EXTRA_TEXT, message)
+                    onPrepareLoad(false)
+                    startActivity(Intent.createChooser(intent, title))
+                } else {
+                    onPrepareLoad(false)
+                }
+            }
         }
 
         override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
@@ -195,18 +214,19 @@ fun Context.shareTextAndImageContent(
     })
 }
 
-fun Context.getBitmapFromView(bmp: Bitmap?): Uri? {
-    var bmpUri: Uri? = null
-    try {
-        val file = File(this.externalCacheDir, System.currentTimeMillis().toString() + ".jpg")
-
-        val out = FileOutputStream(file)
-        bmp?.compress(Bitmap.CompressFormat.JPEG, 90, out)
-        out.close()
-        bmpUri = Uri.fromFile(file)
-
-    } catch (e: IOException) {
+private fun saveImageToDownloadFolder(ibitmap: Bitmap): Boolean {
+    return try {
+        val filePath = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+            "/cuma_mesaj.png"
+        )
+        val outputStream: OutputStream = FileOutputStream(filePath)
+        ibitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+        outputStream.flush()
+        outputStream.close()
+        true
+    } catch (e: java.lang.Exception) {
         e.printStackTrace()
+        false
     }
-    return bmpUri
 }
