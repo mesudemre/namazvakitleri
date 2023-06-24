@@ -2,6 +2,8 @@
     <string name="app_name">Namaz Vakitleri</string>
     <string name="common_clear">Temizle</string>
     <string name="common_search">Ara...</string>
+    <string name="common_tryAgain">Tekrar Deneyin</string>
+    <string name="common_share">Paylaş</string>
     <string name="onboarding_welcome_screen_welcome">Namazvakti uygulamasına hoş geldiniz</string>
     <string name="onboarding_welcome_screen_start">Başla</string>
     <string name="common_close">Kapat</string>
@@ -28,8 +30,9 @@
     <string name="settings_page_title">Tercihler ve Ayarlar</string>
     <string name="settings_bottom_desgined_by">Mesut Emre Çelenk tarafından geliştirildi</string>
     <string name="settings_bottom_copyright">© 2023</string>
-    <string name="settings_item_change_city">Şehir Değiştir</string>
+    <string name="settings_item_change_city">Konum Değiştir</string>
     <string name="settings_item_kible">Kıble</string>
     <string name="settings_item_cuma_mesaj">Cuma Mesajları</string>
     <string name="settings_item_tercihler">Tercihler</string>
+    <string name="settings_cuma_mesaj_not_found">Bir sorun oluştu. Maalesef mesajları getiremedik.</string>
 </resources>

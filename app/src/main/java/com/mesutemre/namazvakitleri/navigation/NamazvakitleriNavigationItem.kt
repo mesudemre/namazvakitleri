@@ -28,15 +28,21 @@ sealed class NamazvakitleriNavigationItem(
         screenRoute = "namazvakitleri_dashboard_screen"
     )
 
-    object TarihteBugunScreen: NamazvakitleriNavigationItem(
+    object TarihteBugunScreen : NamazvakitleriNavigationItem(
         screenRoute = "namazvakitleri_tarihte_bugun_list",
         showTopBar = true,
         pageTitle = R.string.tarihte_bugun_list_screen_title
     )
 
-    object SettingsScreen: NamazvakitleriNavigationItem(
+    object SettingsScreen : NamazvakitleriNavigationItem(
         screenRoute = "namazvakitleri_settings_screen",
         showTopBar = true,
         pageTitle = R.string.settings_page_title
+    )
+
+    object CumaMesajListeScreen : NamazvakitleriNavigationItem(
+        screenRoute = "namazvakitleri_cuma_mesajlar_screen",
+        showTopBar = true,
+        pageTitle = R.string.settings_item_cuma_mesaj
     )
 }

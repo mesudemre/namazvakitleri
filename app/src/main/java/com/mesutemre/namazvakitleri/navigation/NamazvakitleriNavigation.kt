@@ -15,6 +15,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.mesutemre.namazvakitleri.cumamesaj.presentation.CumaMesajListeScreen
+import com.mesutemre.namazvakitleri.cumamesaj.presentation.CumaMesajListeViewModel
 import com.mesutemre.namazvakitleri.dashboard.presentation.DashboardScreen
 import com.mesutemre.namazvakitleri.dashboard.presentation.DashboardViewModel
 import com.mesutemre.namazvakitleri.onboarding.presentation.city.OnboardingCitySelectionScreen
@@ -143,7 +145,19 @@ fun NamazvakitleriNavigation(
         composable(
             route = NamazvakitleriNavigationItem.SettingsScreen.screenRoute
         ) {
-            SettingsScreen()
+            SettingsScreen(
+                navigateToCumaMesajListe = {
+                    navController.navigate(NamazvakitleriNavigationItem.CumaMesajListeScreen.screenRoute)
+                }
+            )
+        }
+
+        composable(
+            route = NamazvakitleriNavigationItem.CumaMesajListeScreen.screenRoute
+        ) {
+            val viewModel = hiltViewModel<CumaMesajListeViewModel>()
+            val state = viewModel.cumaMesajListeState.collectAsStateWithLifecycle()
+            CumaMesajListeScreen(state = state.value, tryAgain = viewModel::getCumaMesajList)
         }
     }
 }

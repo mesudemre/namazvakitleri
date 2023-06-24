@@ -3,6 +3,8 @@ package com.mesutemre.namazvakitleri.di
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.google.gson.Gson
+import com.mesutemre.namazvakitleri.cumamesaj.data.remote.CumaMesajRemoteDataSource
+import com.mesutemre.namazvakitleri.cumamesaj.data.remote.ICumaMesajRemoteDataSource
 import com.mesutemre.namazvakitleri.dashboard.data.local.DashboardLocalDataSource
 import com.mesutemre.namazvakitleri.dashboard.data.local.IDashboardDao
 import com.mesutemre.namazvakitleri.dashboard.data.local.IDashboardLocalDataSource
@@ -72,5 +74,11 @@ object DataSourceModule {
             dao = dao,
             dataStore = dataStore
         )
+    }
+
+    @Singleton
+    @Provides
+    fun provideCumaMesajRemoteDataSource(): ICumaMesajRemoteDataSource {
+        return CumaMesajRemoteDataSource()
     }
 }

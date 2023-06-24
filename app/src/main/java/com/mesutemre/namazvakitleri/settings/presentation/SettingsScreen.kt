@@ -15,9 +15,10 @@ import com.mesutemre.namazvakitleri.ui.components.NamazvakitleriSurface
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(
+    navigateToCumaMesajListe: () -> Unit
+) {
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
-
         Column(
             Modifier
                 .fillMaxSize()
@@ -34,9 +35,9 @@ fun SettingsScreen() {
                     modifier = Modifier.align(Alignment.Start),
                     title = stringResource(id = com.mesutemre.namazvakitleri.R.string.settings_item_cuma_mesaj),
                     isImage = true,
-                    icon = com.mesutemre.namazvakitleri.R.drawable.ic_settings_cuma_mesaj
-                ) {
-                }
+                    icon = com.mesutemre.namazvakitleri.R.drawable.ic_settings_cuma_mesaj,
+                    onClick = navigateToCumaMesajListe
+                )
                 SettingsItem(
                     modifier = Modifier.align(Alignment.End),
                     title = stringResource(id = com.mesutemre.namazvakitleri.R.string.settings_item_kible),

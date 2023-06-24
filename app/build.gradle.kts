@@ -157,6 +157,7 @@ dependencies {
     implementation(libs.google.services.firebase.database)
     implementation(libs.google.services.firebase.messaging)
     implementation(libs.androidx.constraintlayout.legacy)
+    implementation(libs.coil)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
 

@@ -1,5 +1,9 @@
 package com.mesutemre.namazvakitleri.di
 
+import com.mesutemre.namazvakitleri.cumamesaj.data.mapper.CumaMesajDataMapper
+import com.mesutemre.namazvakitleri.cumamesaj.data.remote.ICumaMesajRemoteDataSource
+import com.mesutemre.namazvakitleri.cumamesaj.data.repository.ICumaMesajRepository
+import com.mesutemre.namazvakitleri.cumamesaj.domain.repository.CumaMesajRepository
 import com.mesutemre.namazvakitleri.dashboard.data.local.IDashboardLocalDataSource
 import com.mesutemre.namazvakitleri.dashboard.data.mapper.TarihteBugunDataMapper
 import com.mesutemre.namazvakitleri.dashboard.data.mapper.VakitDataMapper
@@ -64,6 +68,18 @@ class RepositoryModule {
             onboardingLocalDataSource = onboardingLocalDataSource,
             vakitDataMapper = vakitDataMapper,
             tarihteBugunDataMapper = tarihteBugunDataMapper
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideCumaMesajRepository(
+        @IoDispatcher ioDispatcher: CoroutineDispatcher,
+        cumaMesajRemoteDataSource: ICumaMesajRemoteDataSource,
+        cumaMesajDataMapper: CumaMesajDataMapper
+    ): ICumaMesajRepository {
+        return CumaMesajRepository(
+            ioDispatcher, cumaMesajRemoteDataSource, cumaMesajDataMapper
         )
     }
 }

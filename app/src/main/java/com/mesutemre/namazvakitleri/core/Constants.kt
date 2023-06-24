@@ -20,9 +20,11 @@ object Constants {
     }
 
     object FirebaseConstants {
-        val DB_INSTANCE_URL = "https://namazvakitleri-b182f-default-rtdb.europe-west1.firebasedatabase.app/"
+        val DB_INSTANCE_URL =
+            "https://namazvakitleri-b182f-default-rtdb.europe-west1.firebasedatabase.app/"
         val PUSH_TOKEN_DB = "push_notification"
         val PUSH_TOKEN_DB_ORDERBY_CHILD = "token"
+        val CUMA_MESAJ_DB = "cuma_mesajlar"
     }
 
     object ChannelConstants {

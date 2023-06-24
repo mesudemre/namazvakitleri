@@ -51,6 +51,7 @@ gsonVersion = "2.9.0"
 firebase-database = "20.1.0"
 firebase-messaging = "23.1.2"
 google-services = "4.3.15"
+coilVersion = "2.4.0"
 
 [libraries]
 
@@ -119,9 +120,10 @@ retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", ve
 gson = { module = "com.google.code.gson:gson", version.ref = "gsonVersion" }
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidx-work" }
 androidx-work-hilt = { module = "androidx.hilt:hilt-work", version.ref = "androidx-work-hilt" }
-google-services-gms = {module = "com.google.gms:google-services", version.ref = "google-services"}
-google-services-firebase-database = {module = "com.google.firebase:firebase-database-ktx", version.ref = "firebase-database"}
-google-services-firebase-messaging = {module = "com.google.firebase:firebase-messaging-ktx", version.ref = "firebase-messaging"}
+google-services-gms = { module = "com.google.gms:google-services", version.ref = "google-services" }
+google-services-firebase-database = { module = "com.google.firebase:firebase-database-ktx", version.ref = "firebase-database" }
+google-services-firebase-messaging = { module = "com.google.firebase:firebase-messaging-ktx", version.ref = "firebase-messaging" }
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coilVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
