@@ -45,4 +45,10 @@ sealed class NamazvakitleriNavigationItem(
         showTopBar = true,
         pageTitle = R.string.settings_item_cuma_mesaj
     )
+
+    object KibleScreen : NamazvakitleriNavigationItem(
+        screenRoute = "namazvakitleri_kible_screen",
+        showTopBar = true,
+        pageTitle = R.string.settings_item_kible
+    )
 }

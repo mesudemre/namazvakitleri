@@ -19,6 +19,7 @@ import com.mesutemre.namazvakitleri.cumamesaj.presentation.CumaMesajListeScreen
 import com.mesutemre.namazvakitleri.cumamesaj.presentation.CumaMesajListeViewModel
 import com.mesutemre.namazvakitleri.dashboard.presentation.DashboardScreen
 import com.mesutemre.namazvakitleri.dashboard.presentation.DashboardViewModel
+import com.mesutemre.namazvakitleri.kible.presentation.KibleScreen
 import com.mesutemre.namazvakitleri.onboarding.presentation.city.OnboardingCitySelectionScreen
 import com.mesutemre.namazvakitleri.onboarding.presentation.city.OnboardingCitySelectionViewModel
 import com.mesutemre.namazvakitleri.onboarding.presentation.complete.OnboardingCompleteScreen
@@ -148,6 +149,9 @@ fun NamazvakitleriNavigation(
             SettingsScreen(
                 navigateToCumaMesajListe = {
                     navController.navigate(NamazvakitleriNavigationItem.CumaMesajListeScreen.screenRoute)
+                },
+                navigateToKible = {
+                    navController.navigate(NamazvakitleriNavigationItem.KibleScreen.screenRoute)
                 }
             )
         }
@@ -158,6 +162,12 @@ fun NamazvakitleriNavigation(
             val viewModel = hiltViewModel<CumaMesajListeViewModel>()
             val state = viewModel.cumaMesajListeState.collectAsStateWithLifecycle()
             CumaMesajListeScreen(state = state.value, tryAgain = viewModel::getCumaMesajList)
+        }
+
+        composable(
+            route = NamazvakitleriNavigationItem.KibleScreen.screenRoute
+        ) {
+            KibleScreen()
         }
     }
 }

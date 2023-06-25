@@ -1,5 +1,6 @@
 package com.mesutemre.namazvakitleri
 
+import android.os.StrictMode
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -19,9 +20,14 @@ class NamazvakitleriApplication : NamazVakitleriBaseApplication(), Configuration
 
     override fun onCreate() {
         super.onCreate()
-        enqueePeriodicTimeWorkManager<CumaNotificationWorker>("cumaNotification",
+        val builder: StrictMode.VmPolicy.Builder = StrictMode.VmPolicy.Builder()
+        StrictMode.setVmPolicy(builder.build())
+
+        enqueePeriodicTimeWorkManager<CumaNotificationWorker>(
+            "cumaNotification",
             repeatInterval = 1,
-            period = TimeUnit.HOURS)
+            period = TimeUnit.HOURS
+        )
         enqueePeriodicTimeWorkManager<CheckFirebaseSaveWorker>(
             "firebaseSaveWorker",
             repeatInterval = 20,

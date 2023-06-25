@@ -16,7 +16,8 @@ import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 
 @Composable
 fun SettingsScreen(
-    navigateToCumaMesajListe: () -> Unit
+    navigateToCumaMesajListe: () -> Unit,
+    navigateToKible: () -> Unit
 ) {
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -41,9 +42,9 @@ fun SettingsScreen(
                 SettingsItem(
                     modifier = Modifier.align(Alignment.End),
                     title = stringResource(id = com.mesutemre.namazvakitleri.R.string.settings_item_kible),
-                    icon = com.mesutemre.namazvakitleri.R.drawable.ic_settings_kabe
-                ) {
-                }
+                    icon = com.mesutemre.namazvakitleri.R.drawable.ic_settings_kabe,
+                    onClick = navigateToKible
+                )
                 SettingsItem(
                     modifier = Modifier.align(Alignment.Start),
                     title = stringResource(id = com.mesutemre.namazvakitleri.R.string.settings_item_change_city),
