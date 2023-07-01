@@ -23,4 +23,5 @@ interface IDashboardLocalDataSource {
     suspend fun checkTarihteBugunCallAPI(): Boolean
     suspend fun getVakitPageType(): DashboardVakitPageType
     suspend fun saveVakitPageType(type: DashboardVakitPageType)
+    suspend fun clearVakitInfo()
 }

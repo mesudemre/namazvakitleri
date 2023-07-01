@@ -74,4 +74,8 @@ class DashboardLocalDataSource @Inject constructor(
         ).first())
             ?: DashboardVakitPageType.DEFAULT
     }
+
+    override suspend fun clearVakitInfo() {
+        dao.clearVakitInfo()
+    }
 }

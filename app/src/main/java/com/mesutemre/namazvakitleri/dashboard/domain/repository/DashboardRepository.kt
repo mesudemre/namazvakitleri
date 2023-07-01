@@ -130,4 +130,8 @@ class DashboardRepository @Inject constructor(
 
     override suspend fun getVakitPageType(): DashboardVakitPageType =
         dashboardLocalDataSource.getVakitPageType()
+
+    override suspend fun clearVakitInfo() {
+        dashboardLocalDataSource.clearVakitInfo()
+    }
 }

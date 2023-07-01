@@ -27,4 +27,7 @@ interface IDashboardDao {
 
     @Query("SELECT * FROM TarihteBugunEntity")
     suspend fun getTarihteBugunList(): List<TarihteBugunEntity>
+
+    @Query("DELETE FROM VakitInfoEntity")
+    suspend fun clearVakitInfo()
 }

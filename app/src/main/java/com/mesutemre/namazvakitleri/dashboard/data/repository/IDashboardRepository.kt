@@ -23,4 +23,5 @@ interface IDashboardRepository {
     suspend fun getTarihteBugunListFromDB(): Flow<BaseResourceEvent<List<TarihteBugunData>>>
     suspend fun getVakitPageType(): DashboardVakitPageType
     suspend fun saveVakitPageType(type: DashboardVakitPageType)
+    suspend fun clearVakitInfo()
 }

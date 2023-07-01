@@ -5,10 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.onboarding.domain.model.DistrictData
-import com.mesutemre.namazvakitleri.onboarding.domain.use_case.GetDistrictDataByDistrictId
-import com.mesutemre.namazvakitleri.onboarding.domain.use_case.SaveAyetList
-import com.mesutemre.namazvakitleri.onboarding.domain.use_case.SaveHadisList
-import com.mesutemre.namazvakitleri.onboarding.domain.use_case.SaveSelectedDistrictToDataStore
+import com.mesutemre.namazvakitleri.onboarding.domain.use_case.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +21,9 @@ class OnboardingCompleteViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val getDistrictDataByDistrictId: GetDistrictDataByDistrictId,
     private val saveSelectedDistrictToDataStore: SaveSelectedDistrictToDataStore,
-    private val saveAyetList: SaveAyetList
+    private val saveAyetList: SaveAyetList,
+    private val checkAnyLocationVakitExist: CheckAnyLocationExist,
+    private val clearVakitInfo: ClearVakitInfo
 ) : ViewModel() {
 
     val districtId = savedStateHandle.get<String>("districtId")
@@ -34,24 +33,36 @@ class OnboardingCompleteViewModel @Inject constructor(
 
     fun saveHadisListWithJson(jsonHadis: String, jsonAyet: String) {
         viewModelScope.launch {
-            async { saveHadisList(jsonHadis) }
-            async { saveAyetList(jsonAyet) }
-            async {
-                getDistrictDataByDistrictId(districtId?.toInt() ?: 0).collectLatest { response ->
-                    if (response is BaseResourceEvent.Success) {
-                        saveSelectedDistrictToDataStore(
-                            response.data ?: DistrictData(
-                                districtId = 0,
-                                districtName = ""
-                            )
-                        )
-                    }
-                    _state.update {
-                        it.copy(
-                            districtData = response
-                        )
-                    }
+            if (checkAnyLocationVakitExist()) {
+                getAndSaveDistrict(isChangeLocation = true)
+            } else {
+                async { saveHadisList(jsonHadis) }
+                async { saveAyetList(jsonAyet) }
+                async {
+                    getAndSaveDistrict()
                 }
+            }
+
+        }
+    }
+
+    private suspend fun getAndSaveDistrict(isChangeLocation: Boolean = false) {
+        getDistrictDataByDistrictId(districtId?.toInt() ?: 0).collectLatest { response ->
+            if (response is BaseResourceEvent.Success) {
+                saveSelectedDistrictToDataStore(
+                    response.data ?: DistrictData(
+                        districtId = 0,
+                        districtName = ""
+                    )
+                )
+                if (isChangeLocation) {
+                    clearVakitInfo()
+                }
+            }
+            _state.update {
+                it.copy(
+                    districtData = response
+                )
             }
         }
     }

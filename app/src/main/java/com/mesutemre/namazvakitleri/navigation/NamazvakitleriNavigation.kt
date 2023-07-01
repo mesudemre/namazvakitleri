@@ -154,6 +154,9 @@ fun NamazvakitleriNavigation(
                 },
                 navigateToKible = {
                     navController.navigate(NamazvakitleriNavigationItem.KibleScreen.screenRoute)
+                },
+                navigateToKonumDegistir = {
+                    navController.navigate(NamazvakitleriNavigationItem.OnboardingCitySelectionScreen.screenRoute)
                 }
             )
         }
