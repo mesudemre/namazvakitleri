@@ -20,7 +20,7 @@ class SensorDataManager(context: Context) : SensorEventListener {
     val data: Channel<SensorData> = Channel(Channel.UNLIMITED)
 
     fun init() {
-        val accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY)
+        val accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         val magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
 
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI)
@@ -28,7 +28,7 @@ class SensorDataManager(context: Context) : SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        if (event?.sensor?.type == Sensor.TYPE_GRAVITY)
+        if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER)
             gravity = event.values
 
         if (event?.sensor?.type == Sensor.TYPE_MAGNETIC_FIELD)

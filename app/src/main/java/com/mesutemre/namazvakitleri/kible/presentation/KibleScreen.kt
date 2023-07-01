@@ -40,7 +40,9 @@ fun KibleScreen() {
             val job = scope.launch {
                 dataManager.data
                     .receiveAsFlow()
-                    .onEach { data = it }
+                    .onEach {
+                        data = it
+                    }
                     .collect()
             }
 
