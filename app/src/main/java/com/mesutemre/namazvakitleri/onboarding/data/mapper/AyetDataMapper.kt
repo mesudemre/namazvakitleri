@@ -10,11 +10,17 @@ class AyetDataMapper @Inject constructor() {
     fun convertAyetAssetDataToAyetEntity(ayetAssetData: AyetAssetData): AyetEntity {
         return AyetEntity(
             ayetId = ayetAssetData.id,
-            ayetContent = ayetAssetData.content
+            ayetContent = ayetAssetData.content,
+            sureAd = ayetAssetData.sureAdi,
+            ayetNo = ayetAssetData.ayetNo
         )
     }
 
     fun convertAyetEntityToAyetData(ayetEntity: AyetEntity): AyetData {
-        return AyetData(content = ayetEntity.ayetContent)
+        return AyetData(
+            content = ayetEntity.ayetContent,
+            sureAd = ayetEntity.sureAd ?: "",
+            ayetNo = ayetEntity.ayetNo ?: 0
+        )
     }
 }

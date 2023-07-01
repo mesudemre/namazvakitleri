@@ -1,126 +1,188 @@
 [
   {
     "id": 1,
-    "content": "Allah, şüphesiz bütün varlıkları yaratan Rabb'dir. Gökleri ve yeri altı günde yaratan sonra da Arş'a istiva eden O'dur. Güneşe, ay'a ve her biri bir yörüngede yüzen yıldızlara hükmeden O'dur. İyi bilin ki, yaratma yetkisi ve hükümranlık yalnızca O'na aittir. Alemlerin Rabbi olan Allah ne yücedir!"
+    "sureAdi": "Bakara",
+    "ayetNumarasi": 255,
+    "content": "Allah! O'ndan başka hiçbir ilah yoktur, hayy ve kayyum olan O'dur. Ne uyuklama, ne de uyku Onu tutmaz. Göklerde ve yerde olan her şey O'nundur. İzni olmadan O'nun katında şefaatte bulunacak kimdir? O, kulların önlerindekini ve arkalarındakini bilir. Kullar, O'nun dilediği kadarından başkasını (O'nun ilim ve kudreti dışında hiçbir şeyi) bilemezler. O'nun kürsüsü gökleri ve yeri kaplamıştır. Onların korunması O'na zor gelmez. O, yücedir, büyüktür."
   },
   {
     "id": 2,
-    "content": "Allah, insanları hiçbir haksızlık yapmadan yaratandır. Ama insanlar, kendi nefislerine zulmederek haksızlıklarına sürdükçe, Allah onların hallerini değiştirmez."
+    "sureAdi": "Maide",
+    "ayetNumarasi": 6,
+    "content": "Ey iman edenler! Namaza kalktığınız zaman yüzlerinizi ve dirseklere kadar ellerinizi yıkayın, başlarınızı meshedin ve ayaklarınızı da (topuklara kadar) meshedin. Eğer cünüp iseniz temizlenin. Eğer hasta veya yolculukta olursanız yahut biriniz tuvalette veya kadınlara temas eder de su bulamazsanız, temiz bir toprağa yönelip onunla yüzlerinizi ve ellerinizi meshedin. Allah size zorluk çıkarmak istemez, fakat sizi tertemiz kılmak ve üzerinizdeki nimetini tamamlamak ister, umulur ki şükredersiniz."
   },
   {
     "id": 3,
-    "content": "Allah, kendisinden başka hiçbir ilah olmayan ve mutlak güç sahibi olan Allah'tır. O, hayatta tutmak ve öldürmek yetkisine sahiptir. O'nun, ölüleri diriltme yetkisi de vardır."
+    "sureAdi": "Enam",
+    "ayetNumarasi": 59,
+    "content": "Ve O, geceyi gündüzün içine sokar, gündüzü de gecenin içine sokar. Güneşi ve ayı buyruğu altına alandır. Her biri bir süreye kadar akıp gitmektedir. İşte Rabbiniz Allah budur, mülk O'nundur. O'ndan başka hiçbir ilah yoktur. Böyle iken nasıl oluyor da (gerçekleri) çevirip duruyorsunuz?"
   },
   {
     "id": 4,
-    "content": "Ey iman edenler! Allah'a karşı gelmekten sakının ve herkes yarın için ne hazırlamış olduğunu gözeterek takva sahibi olun. Şüphesiz Allah, yaptıklarınızdan haberdardır."
+    "sureAdi": "Tevbe",
+    "ayetNumarasi": 119,
+    "content": "Ey iman edenler! Eğer kâfirlerden bir grup size saldırırsa, hemen bir başka grupla birleşin (güç birliği yapın). Allah'ın nimetiyle kazandığınız kuvvetle onlara karşı cihad edin. (Böylece düşmanlarınıza karşı) onlara bir ders vermiş olursunuz ki, onlar iyice anlasınlar."
   },
   {
     "id": 5,
-    "content": "Allah, rızık veren kimsedir, güçlüdür, hüküm ve hikmet sahibidir."
+    "sureAdi": "Nur",
+    "ayetNumarasi": 35,
+    "content": "Allah, göklerin ve yerin nurudur. Onun nurunun misali, içinde lamba bulunan bir kandil gibidir. O lamba bir ağaç kabuğuna konulmuştur. Ağaç da sanki kudretli bir yıldıza benzer ki, nişaneye lâyık olmayan bir doğuya da, batıya da bakmaksızın parlar. Allah, dilediğini nuruna iletir. Allah insanlara misaller verir. Allah her şeyi bilir."
   },
   {
     "id": 6,
-    "content": "Ey insanlar! Sizi ve sizden öncekileri yaratan Rabbinize ibadet edin ki, takva sahibi olasınız."
+    "sureAdi": "Rum",
+    "ayetNumarasi": 21,
+    "content": "Sizin içinizden kendileriyle huzur bulasınız diye eşler yaratması ve aranıza sevgi ve merhamet koyması da O'nun âyetlerindendir. Şüphesiz bunda düşünen bir kavim için elbette ibretler vardır."
   },
   {
     "id": 7,
-    "content": "Allah, müminlere karşı sevgisini tamamlamış, onları her türlü kötülükten koruyan ve onlara hidayet rehberi olarak İslam'ı seçmiştir."
+    "sureAdi": "Araf",
+    "ayetNumarasi": 54,
+    "content": "Allah, şüphesiz bütün varlıkları yaratan Rabb'dir. Gökleri ve yeri altı günde yaratan sonra da Arş'a istiva eden O'dur. Güneşe, ay'a ve her biri bir yörüngede yüzen yıldızlara hükmeden O'dur. İyi bilin ki, yaratma yetkisi ve hükümranlık yalnızca O'na aittir. Alemlerin Rabbi olan Allah ne yücedir!"
   },
   {
     "id": 8,
-    "content": "Ey iman edenler! Allah'a gereği gibi teslim olun ve ölümünüzü ancak müslüman olarak verin."
+    "sureAdi": "Haşr",
+    "ayetNumarasi": 18,
+    "content": "Ey iman edenler! Allah'a karşı gelmekten sakının ve herkes yarın için ne hazırlamış olduğunu gözeterek takva sahibi olun. Şüphesiz Allah, yaptıklarınızdan haberdardır."
   },
   {
     "id": 9,
+    "sureAdi": "Nisa",
+    "ayetNumarasi": 1,
     "content": "Ey insanlar! Sizi bir tek nefisten yaratan ve ondan da eşini yaratan, ikisinden birçok erkekler ve kadınlar türeten Rabbinize karşı gelmekten sakının. Kendisi adına birbirinizden dilekte bulunduğunuz Allah'a karşı gelmekten sakının. Akrabalık bağlarını kesmeyin. Şüphesiz Allah, üzerinizde gözetleyicidir."
   },
   {
     "id": 10,
-    "content": "Şüphesiz ki Allah'a ortak koşanlar, Allah katında sanki gökten düşüp kuşları kapmaya çalışan ve onu rüzgar sürükleyip bir yere atıveren kimsenin durumu gibidir. Gerçekten onlar boş bir şey peşindedirler."
+    "sureAdi": "Kehf",
+    "ayetNumarasi": 58,
+    "content": "Bununla beraber rahmet sahibi olan Rabbin çok bağışlayıcıdır, tevbe eden kullarına rahmeti boldur. Eğer Allah, işledikleri günahlar yüzünden onları hemen cezalandıracak olsaydı, onlara hemen azab ederdi. Fakat onlara vaad edilen bir zaman vardır ki, o geldiğinde Allah'ın azabından bir kurtuluş yeri bulamazlar."
   },
   {
     "id": 11,
-    "content": "Andolsun ki Biz, insanı anne-babasına iyi davranması için öğütte bulunmaları için yaratmışızdır. Eğer onlar seni, Allah'a ortak koşman için zorlarlarsa, hakkında bilgin olmayan bir şeyi Bana ortak koşma konusunda onlara itaat etme. Sonunda dönüşünüz Banadır, size yaptıklarınızı haber vereceğim."
+    "sureAdi": "Enfal",
+    "ayetNumarasi": 2,
+    "content": "Mü'minler öyle kimselerdir ki, Allah anıldığı zaman kalpleri ürperir. Kendilerine O'nun ayetleri okunduğunda bu onların imanlarını artırır ve ancak Rabblerine dayanıp güvenirler."
   },
   {
     "id": 12,
-    "content": "Rabbin, rahmet sahibidir. Eğer O dileseydi, insanları saptırır ve yeryüzünde olanların tamamına mutlaka hükmederdi. Artık sen, onları, Allah'tan başka bir dost ve yardımcı edinme."
-  },
-  {
-    "id": 13,
-    "content": "Kendilerine ayetlerimiz açıkça okunduğu zaman, Allah'a karşı gelmekten sakınanlar, ayetlerimiz onlara okunduğunda, onlara iman ettiklerini artırır ve onlar Rablerine tevekkül ederler."
-  },
-  {
-    "id": 14,
+    "sureAdi": "Hucurat",
+    "ayetNumarasi": 13,
     "content": "Ey insanlar! Şüphesiz Biz, sizi bir erkek ve bir dişiden yarattık. Sizi milletler ve kabileler halinde tanışmanız için böyle yaptık. Şüphesiz ki Allah katında sizin en değerliniz, takva bakımından en ileri olanınızdır. Şüphesiz Allah, hakkıyla bilen ve her şeyden haberdar olandır."
   },
   {
+    "id": 13,
+    "sureAdi": "Bakara",
+    "ayetNumarasi": 286,
+    "content": "Allah hiçbir kimseyi, gücünün yetmediği bir şeyle yükümlü kılmaz; lehinde olanı da kendi kazandığıdır, aleyhinde olanı da kendi kazandığıdır. Rabbimiz! Unutur veya yanılırsak bizi cezalandırma! Bizden öncekilere yüklediğin gibi bize de ağır yük yükleme! Üstesinden gelemeyeceğimiz şeyleri boynumuza borç kılma! Bizi bağışla, ayıplarımızı ört ve bize rahmetinle muamele buyur! Sen bizim sahibimiz ve yardımcımızsın; artık inkârcı topluluğa karşı bize yardım et!"
+  },
+  {
+    "id": 14,
+    "sureAdi": "İsra",
+    "ayetNumarasi": 33,
+    "content": "Haklı bir sebep olmadıkça, Allah’ın, öldürülmesini haram kıldığı cana kıymayın. Kim haksız yere öldürülürse, biz onun velisine yetki vermişizdir. Ancak o da (kısas yoluyla) öldürmede meşru ölçüleri aşmasın. Çünkü kendisine yardım edilmiştir."
+  },
+  {
     "id": 15,
-    "content": "Allah, hiç kimseye gücünün yetmediği şeyi yüklemez. Herkes için kazandığı hayır işleri ve yaptığı kötülükler vardır. Sonunda dönüşünüz Rabbinizedir, O da sizin aranızdaki anlaşmazlıkları hükme bağlayacaktır."
+    "sureAdi": "Nisa",
+    "ayetNumarasi": 59,
+    "content": "Ey iman edenler! Allah’a itaat edin, peygambere itaat edin, sizden olan ülü’l-emre de. Eğer bir hususta anlaşmazlığa düşerseniz -Allah’a ve âhirete gerçekten inanıyorsanız- onu, Allah’a ve peygambere götürün. Bu, elde edilecek sonuç bakımından hem hayırlıdır hem de en güzelidir."
   },
   {
     "id": 16,
-    "content": "Şüphesiz ki namaz, insanı hayasızlıktan ve kötülükten alıkoyar. Allah'ı anmak ise elbette en büyük ibadettir. Allah, yaptıklarınızı bilir."
+    "sureAdi": "Âl-i İmrân",
+    "ayetNumarasi": 100,
+    "content": "Ey iman edenler! Kendilerine kitap verilenlerden herhangi bir gruba uyarsanız, imanınızdan sonra sizi döndürüp kâfir yaparlar."
   },
   {
     "id": 17,
-    "content": "Allah, size nankörlük etmenizi ne yapar? Şüphesiz Allah, şükrün karşılığını verendir, hakkıyla bilendir."
+    "sureAdi": "Yunus",
+    "ayetNumarasi": 107,
+    "content": "Eğer Allah sana herhangi bir zarar verecek olursa, bil ki onu, O’ndan başka giderebilecek yoktur. Eğer sana bir hayır dilerse, O’nun lütfunu engelleyebilecek de yoktur. O, bunu kullarından dilediğine eriştirir. O, çok bağışlayıcıdır, çok merhamet edicidir."
   },
   {
     "id": 18,
-    "content": "Rabbinizin, rahmetinden dolayı çocuklarınızı, yakınlarınızı ve akrabalarınızı ayırmasından endişe edip, onları Allah'a karşı müttefikleriniz yapmak istemezsiniz."
+    "sureAdi": "Nahl",
+    "ayetNumarasi": 106,
+    "content": "Kalbi imanla dolu olduğu hâlde zorlanan kimse hariç, inandıktan sonra Allah’ı inkâr eden ve böylece göğsünü küfre açanlara Allah’tan gazap iner ve onlar için büyük bir azap vardır."
   },
   {
     "id": 19,
-    "content": "Ey insanlar! Sizi ve sizden öncekileri yaratan Rabbinize kulluk edin ki, takva sahibi olasınız."
+    "sureAdi": "Lokman",
+    "ayetNumarasi": 6,
+    "content": "İnsanlardan öylesi vardır ki, bilgisizce Allah yolundan saptırmak ve o yolu eğlenceye almak için, eğlencelik asılsız ve faydasız sözleri satın alır. İşte onlar için aşağılayıcı bir azap vardır."
   },
   {
     "id": 20,
-    "content": "Ey iman edenler! Allah'a itaat edin, Peygambere itaat edin ve sizden olan emir sahiplerine de. Eğer bir hususta anlaşmazlığa düşerseniz, onu Allah'a ve ahiret gününe inanıyorsanız Peygamber'e götürün. İşte bu, daha hayırlı ve sonuç bakımından daha güzeldir."
+    "sureAdi": "Mümin",
+    "ayetNumarasi": 5,
+    "content": "Onlardan önce Nûh’un kavmi ve onlardan sonra gelen topluluklar da yalanlamıştı. Her ümmet kendi peygamberini yakalayıp cezalandırmaya azmetmişti. Hakkı yok etmek için batıl şeyler ileri sürerek tartışmışlardı. Bu yüzden onları kıskıvrak yakaladım. Benim cezalandırmam nasılmış, (gördüler)!"
   },
   {
     "id": 21,
-    "content": "Allah, şüphesiz iyilik yapanları ve kötülükten sakınanları sever."
+    "sureAdi": "Şûrâ",
+    "ayetNumarasi": 5,
+    "content": "Neredeyse gökler (O’nun azametinden) üstlerinden çatlayacaklar. Melekler ise, Rablerini hamd ile tespih ederler ve yeryüzündekiler için bağışlanma dilerler. İyi bilin ki Allah, çok bağışlayandır, çok merhamet edendir."
   },
   {
     "id": 22,
-    "content": "Allah, kendisine ortak koşulmasını asla affetmez. Bunun dışında dilediği kimseyi affeder. Kim Allah'a ortak koşarsa, elbette büyük bir günahla iftira etmiş olur."
+    "sureAdi": "Muhammed",
+    "ayetNumarasi": 12,
+    "content": "Şüphesiz Allah, inanıp salih ameller işleyenleri, içinden ırmaklar akan cennetlere koyacaktır. İnkâr edenler ise (dünya zevklerinden) yararlanırlar ve hayvanların yediği gibi yerler. Onların kalacakları yer ateştir."
   },
   {
     "id": 23,
-    "content": "Ey iman edenler! Allah'a karşı gelmekten sakının, müminlerle beraber olun."
+    "sureAdi": "Ra’d",
+    "ayetNumarasi": 19,
+    "content": "Rabbinden sana indirilenin gerçek olduğunu bilen kimse, (onu bilemeyen) kör gibi olur mu? (Bunu) ancak akıl sahipleri anlar."
   },
   {
     "id": 24,
-    "content": "Allah, rızkı genişleten ve daraltandır. Kendisi, kullarından dilediğine rızık verir. Şüphesiz Allah, her şeyi hakkıyla bilendir."
+    "sureAdi": "Tevbe",
+    "ayetNumarasi": 34,
+    "content": "Ey iman edenler! Hahamlardan ve rahiplerden birçoğu, insanların mallarını haksız yollarla yiyorlar ve Allah’ın yolundan alıkoyuyorlar. Altın ve gümüşü biriktirip gizleyerek onları Allah yolunda harcamayanları elem dolu bir azapla müjdele."
   },
   {
     "id": 25,
-    "content": "Ey iman edenler! Allah'a ve Peygamber'e itaat edin, işlerinize ve davranışlarınıza aykırı düşecek şeylerde çekişip durmayın. Sabırlı olun, çünkü Allah sabredenlerle beraberdir."
+    "sureAdi": "İbrahim",
+    "ayetNumarasi": 32,
+    "content": "Allah, gökleri ve yeri yaratan, gökten yağmur indiren ve onunla size rızık olarak türlü meyveler çıkaran, emri gereğince denizde yüzmek üzere gemileri emrinize veren, nehirleri de hizmetinize sunandır."
   },
   {
     "id": 26,
-    "content": "Şüphesiz Allah, iyilik yapmayı, insanlara yakınlık ve komşuluğu öğütler. Kötülüklerden ve kötü insanlardan sakındırır. İşte bu, düşünüp anlayan kimseler için bir öğüttür."
+    "sureAdi": "Hac",
+    "ayetNumarasi": 54,
+    "content": "Bir de kendilerine ilim verilmiş olanlar onun, Rabbinden gelen hak olduğunu bilsinler, böylece ona iman etsinler ve sonuçta da kalpleri ona saygı duysun diye Allah böyle yapar. Hiç şüphe yok ki Allah, iman edenleri doğru yola iletir."
   },
   {
     "id": 27,
-    "content": "Ey iman edenler! Haksız yere birbirinizin malını yemeyin. Ancak karşılıklı rıza ile yapılan ticaret müstesna. Kendinizi öldürmeyin, Allah size karşı merhametlidir."
+    "sureAdi": "Secde",
+    "ayetNumarasi": 12,
+    "content": "Suçlular, Rablerinin huzurunda boyunlarını büküp, “Rabbimiz! (Gerçeği) gördük ve işittik. Artık şimdi bizi (dünyaya) döndür ki, salih amel işleyelim. Biz artık kesin olarak inanmaktayız” dedikleri vakit, (onları) bir görsen!"
   },
   {
     "id": 28,
-    "content": "Allah, haksız yere yere kan dökmeyi, insanları yoldan çıkarmayı ve Allah'a karşı isyan etmeyi kesinlikle hoş görmez."
+    "sureAdi": "Ankebût",
+    "ayetNumarasi": 12,
+    "content": "İnkâr edenler iman edenlere, “Yolumuza uyun da sizin günahlarınızı yüklenelim” derler. Hâlbuki onların günahlarından hiçbir şey yüklenecek değillerdir. Şüphesiz onlar kesinlikle yalancılardır."
   },
   {
     "id": 29,
-    "content": "Şüphesiz Allah, adaleti, iyiliği, akrabaya yardım etmeyi emreder; hayasızlığı, kötülüğü ve zulmü de yasaklar. O, size böyle öğüt veriyor ki düşünüp anlayasınız."
+    "sureAdi": "Yunus",
+    "ayetNumarasi": 36,
+    "content": "Onların çoğu ancak zannın ardından gider. Oysa zan, hak namına hiçbir şeyin yerini tutmaz. Şüphesiz Allah, onların yapmakta olduklarını hakkıyla bilendir."
   },
   {
     "id": 30,
-    "content": "Allah, gerçeği anlatan ve adaletle hükmeden adalet sahiplerini sever."
+    "sureAdi": "Ahzâb",
+    "ayetNumarasi": 36,
+    "content": "Allah ve Resûlü bir iş hakkında hüküm verdikleri zaman, hiçbir mü’min erkek ve hiçbir mü’min kadın için kendi işleri konusunda tercih kullanma hakları yoktur. Kim Allah’a ve Resûlüne karşı gelirse, şüphesiz ki o apaçık bir şekilde sapmıştır."
   },
   {
     "id": 31,
-    "content": "Allah, iman edenlere, dünya hayatında da ahirette de yol gösterici olan bir nur indirmiştir. İnkarcılara gelince, onların dostları karanlıklardır. Onlar, asla çıkmazlar."
+    "sureAdi": "Fussilet",
+    "ayetNumarasi": 37,
+    "content": "Gece, gündüz, güneş ve ay Allah’ın varlığının delillerindendir. Güneşe ve aya secde etmeyin. Eğer gerçekten Allah’a kulluk ediyorsanız, onları yaratan Allah’a secde edin."
   }
 ]

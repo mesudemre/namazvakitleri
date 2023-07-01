@@ -30,7 +30,9 @@ interface IOnboardingRepository {
     suspend fun getAndSaveAyetList(jsonString: String)
     suspend fun getAyetByDayOfMonth(): Flow<BaseResourceEvent<AyetData>>
     suspend fun getAndSaveNotificationToken(ilceId: String)
-    suspend fun isTokenExistInFirebase(token: String,onComplete:(Boolean) -> Unit)
+    suspend fun isTokenExistInFirebase(token: String, onComplete: (Boolean) -> Unit)
     suspend fun getSavedPushTokenFromDataStore(): String
     fun saveTokenIlceToFirebase(token: String, ilceId: String)
+    suspend fun deleteAyetList()
+    suspend fun deleteHadisList()
 }

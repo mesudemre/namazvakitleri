@@ -7,5 +7,11 @@ data class AyetAssetData(
     val id: Int,
 
     @SerializedName("content")
-    val content: String
+    val content: String,
+
+    @SerializedName("sureAdi")
+    val sureAdi: String,
+
+    @SerializedName("ayetNumarasi")
+    val ayetNo: Int
 )

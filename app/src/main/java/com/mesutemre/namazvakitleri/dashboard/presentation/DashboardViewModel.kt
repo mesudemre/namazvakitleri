@@ -8,6 +8,8 @@ import com.mesutemre.namazvakitleri.dashboard.domain.model.DashboardVakitPageTyp
 import com.mesutemre.namazvakitleri.dashboard.domain.use_case.*
 import com.mesutemre.namazvakitleri.onboarding.domain.use_case.GetDailyAyet
 import com.mesutemre.namazvakitleri.onboarding.domain.use_case.GetDailyHadis
+import com.mesutemre.namazvakitleri.onboarding.domain.use_case.SaveAyetList
+import com.mesutemre.namazvakitleri.onboarding.domain.use_case.SaveHadisList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -29,7 +31,11 @@ class DashboardViewModel @Inject constructor(
     private val getActiveVakitPage: GetActiveVakitPage,
     private val saveActiveVakitPage: SaveActiveVakitPage,
     private val getSonrakiVakit: GetSonrakiVakit,
-    private val getCurrentVakit: GetCurrentVakit
+    private val getCurrentVakit: GetCurrentVakit,
+    private val deleteAyetList: DeleteAyetList,
+    private val saveAyetList: SaveAyetList,
+    private val deleteHadisList: DeleteHadisList,
+    private val saveHadisList: SaveHadisList
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(DashboardState())
@@ -60,20 +66,79 @@ class DashboardViewModel @Inject constructor(
 
     suspend fun loadDailyHadis() {
         getDailyHadis().collectLatest { response ->
-            _state.update {
-                it.copy(
-                    gunlukHadis = response
-                )
+            when (response) {
+                is BaseResourceEvent.Success -> {
+                    response.data?.let {
+                        if (it.kaynak.isNullOrEmpty()) {
+                            _state.update { dsState ->
+                                dsState.copy(
+                                    hadisListJsonAl = true
+                                )
+                            }
+                        } else {
+                            _state.update { dsState ->
+                                dsState.copy(
+                                    gunlukHadis = response
+                                )
+                            }
+                        }
+                    }
+                }
+                is BaseResourceEvent.Error -> {
+                    _state.update { dsState ->
+                        dsState.copy(
+                            hadisListJsonAl = true
+                        )
+                    }
+                }
+                else -> {
+                    _state.update { dsState ->
+                        dsState.copy(
+                            gunlukHadis = response
+                        )
+                    }
+                }
             }
+
         }
     }
 
     suspend fun loadDailyAyet() {
         getDailyAyet().collectLatest { response ->
-            _state.update {
-                it.copy(
-                    gunlukAyet = response
-                )
+            when (response) {
+                is BaseResourceEvent.Success -> {
+                    response.data?.let {
+                        if (it.sureAd == null || it.ayetNo == 0) {
+                            _state.update { dsState ->
+                                dsState.copy(
+                                    ayetListJsonAl = true,
+                                    gunlukAyet = BaseResourceEvent.Loading()
+                                )
+                            }
+                        } else {
+                            _state.update { dsState ->
+                                dsState.copy(
+                                    gunlukAyet = response
+                                )
+                            }
+                        }
+                    }
+                }
+                is BaseResourceEvent.Error -> {
+                    _state.update { dsState ->
+                        dsState.copy(
+                            ayetListJsonAl = true,
+                            gunlukAyet = BaseResourceEvent.Loading()
+                        )
+                    }
+                }
+                else -> {
+                    _state.update {
+                        it.copy(
+                            gunlukAyet = response
+                        )
+                    }
+                }
             }
         }
     }
@@ -141,5 +206,33 @@ class DashboardViewModel @Inject constructor(
             )
         }
         saveActiveVakitPage(type)
+    }
+
+    fun getAndSaveAyetList(json: String) {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    ayetListJsonAl = false
+                )
+            }
+            deleteAyetList()
+            saveAyetList(json)
+            delay(300)
+            loadDailyAyet()
+        }
+    }
+
+    fun getAndSaveHadisList(json: String) {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    hadisListJsonAl = false
+                )
+            }
+            deleteHadisList()
+            saveHadisList(json)
+            delay(300)
+            loadDailyHadis()
+        }
     }
 }

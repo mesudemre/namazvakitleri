@@ -12,7 +12,7 @@ import com.mesutemre.namazvakitleri.onboarding.data.local.entity.DistrictEntity
 import com.mesutemre.namazvakitleri.onboarding.data.local.entity.HadisEntity
 
 @Database(
-    version = 1_5,
+    version = 2_0,
     entities = [CityEntity::class, DistrictEntity::class, HadisEntity::class, VakitInfoEntity::class, AyetEntity::class, TarihteBugunEntity::class],
 )
 abstract class NamazvakitleriDatabase : RoomDatabase() {

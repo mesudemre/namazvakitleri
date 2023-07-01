@@ -95,4 +95,12 @@ class OnboardingLocalDataSource @Inject constructor(
     override suspend fun getSavedPushTokenFromDataStore(): String {
         return dataStore.readString(Constants.DataStoreConstants.PUSH_TOKEN).first()
     }
+
+    override suspend fun deleteAyetList() {
+        dao.deleteAyetList()
+    }
+
+    override suspend fun deleteHadisList() {
+        dao.deleteHadisList()
+    }
 }

@@ -1,7 +1,6 @@
 package com.mesutemre.namazvakitleri.onboarding.domain.repository
 
 import android.os.Build
-import com.mesutemre.namazvakitleri.BuildConfig
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import com.mesutemre.namazvakitleri.core.repository.BaseRepository
 import com.mesutemre.namazvakitleri.di.IoDispatcher
@@ -176,14 +175,14 @@ class OnboardingRepository @Inject constructor(
                     onboardingLocalDataSource.savePushTokenToDataStore(token)
                 }
                 async {
-                    saveTokenIlceToFirebase(token,ilceId)
+                    saveTokenIlceToFirebase(token, ilceId)
                 }
             }
         }
     }
 
-    override suspend fun isTokenExistInFirebase(token: String,onComplete:(Boolean) -> Unit) {
-        onboardingRemoteDataSource.isTokenExistInFirebase(token,onComplete)
+    override suspend fun isTokenExistInFirebase(token: String, onComplete: (Boolean) -> Unit) {
+        onboardingRemoteDataSource.isTokenExistInFirebase(token, onComplete)
     }
 
     override suspend fun getSavedPushTokenFromDataStore(): String =
@@ -196,9 +195,17 @@ class OnboardingRepository @Inject constructor(
             FirebaseNotificationToken(
                 token = token,
                 ilceId = ilceId,
-                androidVersion = "API "+Build.VERSION.SDK_INT+" | Android "+Build.VERSION.RELEASE,
-                deviceModel = Build.MANUFACTURER+" "+ Build.MODEL
+                androidVersion = "API " + Build.VERSION.SDK_INT + " | Android " + Build.VERSION.RELEASE,
+                deviceModel = Build.MANUFACTURER + " " + Build.MODEL
             )
         )
+    }
+
+    override suspend fun deleteAyetList() {
+        onboardingLocalDataSource.deleteAyetList()
+    }
+
+    override suspend fun deleteHadisList() {
+        onboardingLocalDataSource.deleteHadisList()
     }
 }

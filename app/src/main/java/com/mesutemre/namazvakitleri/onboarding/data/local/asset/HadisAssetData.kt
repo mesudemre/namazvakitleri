@@ -9,5 +9,8 @@ data class HadisAssetData(
     val id: Int,
 
     @SerializedName("content")
-    val content: String
+    val content: String,
+
+    @SerializedName("source")
+    val source: String
 )

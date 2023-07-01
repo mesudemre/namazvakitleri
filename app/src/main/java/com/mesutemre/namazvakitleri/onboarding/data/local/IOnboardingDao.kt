@@ -30,7 +30,7 @@ interface IOnboardingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveHadis(vararg hadisEntity: HadisEntity)
 
-    @Query("SELECT h.id,h.content FROM HadisEntity h WHERE h.id=:id")
+    @Query("SELECT h.id,h.content,h.source FROM HadisEntity h WHERE h.id=:id")
     suspend fun getHadisById(id: Int): HadisEntity
 
     @Query("SELECT * FROM DistrictEntity d WHERE d.ilceId=:districtId")
@@ -39,6 +39,12 @@ interface IOnboardingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveAyet(vararg ayetEntity: AyetEntity)
 
-    @Query("SELECT h.id,h.content FROM AyetEntity h WHERE h.id=:id")
+    @Query("SELECT h.id,h.content,h.ayetNo,h.sureAd FROM AyetEntity h WHERE h.id=:id")
     suspend fun getAyetById(id: Int): AyetEntity
+
+    @Query("DELETE FROM AyetEntity")
+    suspend fun deleteAyetList()
+
+    @Query("DELETE FROM HadisEntity")
+    suspend fun deleteHadisList()
 }

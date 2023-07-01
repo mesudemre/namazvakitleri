@@ -131,7 +131,9 @@ fun NamazvakitleriNavigation(
                 },
                 onClickSettings = {
                     navController.navigate(NamazvakitleriNavigationItem.SettingsScreen.screenRoute)
-                }
+                },
+                getAndSaveAyetList = viewModel::getAndSaveAyetList,
+                getAndSaveHadisList = viewModel::getAndSaveHadisList
             )
         }
 

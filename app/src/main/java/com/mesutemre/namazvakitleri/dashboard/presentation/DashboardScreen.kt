@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.core.ext.shimmerEffect
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
@@ -37,10 +38,34 @@ fun DashboardScreen(
     state: DashboardState,
     onChangeVakitTypePage: suspend (DashboardVakitPageType) -> Unit,
     onClickTarihteBugun: () -> Unit,
-    onClickSettings: () -> Unit
+    onClickSettings: () -> Unit,
+    getAndSaveAyetList: (String) -> Unit,
+    getAndSaveHadisList: (String) -> Unit
 ) {
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
         val context = LocalContext.current
+        LaunchedEffect(key1 = state.ayetListJsonAl) {
+            if (state.ayetListJsonAl) {
+                val jsonAyet = context.assets
+                    .open("ayet.json")
+                    .bufferedReader()
+                    .use {
+                        it.readText()
+                    }
+                getAndSaveAyetList(jsonAyet)
+            }
+        }
+        LaunchedEffect(key1 = state.hadisListJsonAl) {
+            if (state.hadisListJsonAl) {
+                val jsonHadis = context.assets
+                    .open("hadis.json")
+                    .bufferedReader()
+                    .use {
+                        it.readText()
+                    }
+                getAndSaveHadisList(jsonHadis)
+            }
+        }
         BackHandler {
             (context as Activity).finishAffinity()
         }
@@ -217,17 +242,21 @@ fun DashboardScreen(
                                 putExtra(
                                     Intent.EXTRA_TEXT,
                                     "Yüce Allah Kur'an-ı Kerim'de şöyle buyurmaktadır.\n" + state.gunlukAyet.data?.content
-                                        ?: ""
+                                            + "\n( ${state.gunlukAyet.data?.sureAd} suresi, ${state.gunlukAyet.data?.ayetNo}. ayet )"
                                 )
                                 type = "text/plain"
                             }
                             val shareIntent = Intent.createChooser(sendIntent, null)
-                            val context = LocalContext.current
-                            AyetCard(
+
+                            AyetHadisCard(
+                                title = R.string.dashboard_gunun_ayet,
                                 content = state.gunlukAyet.data?.content ?: "",
+                                subContent = "${state.gunlukAyet.data?.sureAd} , ${state.gunlukAyet.data?.ayetNo}",
+                                icon = R.drawable.ic_god,
                                 onShare = {
                                     context.startActivity(shareIntent)
-                                })
+                                }
+                            )
                         }
                         else -> Unit
                     }
@@ -243,17 +272,19 @@ fun DashboardScreen(
                                 putExtra(
                                     Intent.EXTRA_TEXT,
                                     "Bir Hadis-i Şerifte Peygamber Efendimiz şöyle buyurmaktadır.\n" + state.gunlukHadis.data?.content
-                                        ?: ""
                                 )
                                 type = "text/plain"
                             }
                             val shareIntent = Intent.createChooser(sendIntent, null)
-                            val context = LocalContext.current
-                            HadisCard(
+                            AyetHadisCard(
+                                title = R.string.dashboard_gunun_hadis,
                                 content = state.gunlukHadis.data?.content ?: "",
+                                subContent = state.gunlukHadis.data?.kaynak ?: "",
+                                icon = R.drawable.mohammad,
                                 onShare = {
                                     context.startActivity(shareIntent)
-                                })
+                                }
+                            )
                             Spacer(modifier = Modifier.height(16.sdp))
                         }
                         else -> Unit
@@ -270,8 +301,8 @@ fun DashboardScreen(
 }
 
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun DashboardScreenPreview() {
-    DashboardScreen(state = DashboardState(), {}, {}, {})
+    DashboardScreen(state = DashboardState(), {}, {}, {}, {}, {})
 }

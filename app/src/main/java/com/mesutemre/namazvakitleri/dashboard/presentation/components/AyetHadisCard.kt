@@ -1,5 +1,7 @@
 package com.mesutemre.namazvakitleri.dashboard.presentation.components
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -12,13 +14,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.ext.sdp
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 
 @Composable
-fun HadisCard(content: String, onShare: (String) -> Unit) {
+fun AyetHadisCard(
+    @StringRes title: Int,
+    content: String,
+    subContent: String,
+    @DrawableRes icon: Int,
+    onShare: (String) -> Unit
+) {
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,12 +50,12 @@ fun HadisCard(content: String, onShare: (String) -> Unit) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.mohammad),
-                    contentDescription = "Prophet",
+                    painter = painterResource(id = icon),
+                    contentDescription = stringResource(id = title),
                     modifier = Modifier.size(32.sdp)
                 )
                 Text(
-                    text = "Günün Hadisi",
+                    text = stringResource(id = title),
                     style = NamazvakitleriTheme.typography.ayetHadisTitle,
                     color = NamazvakitleriTheme.colors.normalVakit,
                     modifier = Modifier
@@ -59,26 +70,45 @@ fun HadisCard(content: String, onShare: (String) -> Unit) {
                 color = NamazvakitleriTheme.colors.normalVakit,
                 modifier = Modifier.fillMaxWidth()
             )
-            Row(modifier = Modifier
-                .align(Alignment.End)
-                .padding(top = 12.sdp)
-                .clickable {
-                    onShare(content)
-                }) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_share),
-                    contentDescription = "Share",
-                    modifier = Modifier
-                        .size(24.sdp),
-                    tint = NamazvakitleriTheme.colors.shareButtonColor
-                )
+            Row(
+                Modifier
+                    .padding(top = 12.sdp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
-                    text = "Paylaş",
-                    style = NamazvakitleriTheme.typography.ayetHadisContent,
-                    color = NamazvakitleriTheme.colors.shareButtonColor,
-                    modifier = Modifier.padding(start = 6.sdp)
+                    text = subContent,
+                    style = NamazvakitleriTheme.typography.ayetHadisContent.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    color = NamazvakitleriTheme.colors.normalVakit,
+                    modifier = Modifier
+                        .padding(start = 6.sdp)
+                        .weight(1f)
                 )
+
+                Row(
+                    modifier = Modifier
+                        .padding(end = 6.sdp)
+                        .clickable {
+                            onShare(content)
+                        }, verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_share),
+                        contentDescription = stringResource(id = R.string.common_share),
+                        modifier = Modifier
+                            .size(24.sdp),
+                        tint = NamazvakitleriTheme.colors.shareButtonColor
+                    )
+                    Text(
+                        text = stringResource(id = R.string.common_share),
+                        style = NamazvakitleriTheme.typography.ayetHadisContent,
+                        color = NamazvakitleriTheme.colors.shareButtonColor,
+                        modifier = Modifier.padding(start = 6.sdp)
+                    )
+                }
             }
+
         }
     }
 }

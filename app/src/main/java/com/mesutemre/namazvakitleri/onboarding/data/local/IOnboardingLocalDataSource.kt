@@ -29,4 +29,6 @@ interface IOnboardingLocalDataSource {
     suspend fun getAyetById(id: Int): AyetEntity
     suspend fun savePushTokenToDataStore(token: String)
     suspend fun getSavedPushTokenFromDataStore(): String
+    suspend fun deleteAyetList()
+    suspend fun deleteHadisList()
 }

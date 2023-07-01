@@ -29,5 +29,10 @@ class DatabaseModule {
         .addMigrations(MIGRATION1_2TO1_3)
         .addMigrations(MIGRATION1_3TO1_4)
         .addMigrations(MIGRATION1_4TO1_5)
+        .addMigrations(MIGRATION1_5TO1_6)
+        .addMigrations(MIGRATION1_6TO1_7)
+        .addMigrations(MIGRATION1_7TO1_8)
+        .addMigrations(MIGRATION1_8TO1_9)
+        .addMigrations(MIGRATION1_9TO2_0)
         .build()
 }

@@ -12,5 +12,8 @@ data class HadisEntity(
     val hadisId: Int,
 
     @ColumnInfo(name = "content")
-    val hadisContent:String
+    val hadisContent: String,
+
+    @ColumnInfo(name = "source")
+    val hadisSource: String? = null
 )

@@ -10,13 +10,15 @@ class HadisAssetDataMapper @Inject constructor() {
     fun convertHadisAssetDataToHadisEntity(hadisAssetData: HadisAssetData): HadisEntity {
         return HadisEntity(
             hadisId = hadisAssetData.id,
-            hadisContent = hadisAssetData.content
+            hadisContent = hadisAssetData.content,
+            hadisSource = hadisAssetData.source
         )
     }
 
     fun convertHadisEntityToHadisData(entity: HadisEntity): HadisData {
         return HadisData(
-            content = entity.hadisContent
+            content = entity.hadisContent,
+            kaynak = entity.hadisSource ?: ""
         )
     }
 }

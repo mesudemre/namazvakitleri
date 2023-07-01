@@ -20,5 +20,7 @@ data class DashboardState(
     val kalanSaat: Int = 0,
     val kalanDakika: Int = 0,
     val kalanSaniye: Int = 0,
-    val currentVakit: VakitType? = null
+    val currentVakit: VakitType? = null,
+    val ayetListJsonAl: Boolean = false,
+    val hadisListJsonAl: Boolean = false
 )
