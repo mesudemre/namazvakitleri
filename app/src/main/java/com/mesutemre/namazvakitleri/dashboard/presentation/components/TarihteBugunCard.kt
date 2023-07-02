@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import com.mesutemre.namazvakitleri.R
@@ -51,18 +52,21 @@ fun TarihteBugunCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.sdp, vertical = 8.sdp),
+                    .padding(horizontal = 8.sdp, vertical = 8.sdp)
+                    .clickable {
+                        onClickAll()
+                    },
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_history),
-                        contentDescription = "Tarihte Bugün",
+                        contentDescription = stringResource(id = R.string.tarihte_bugun_list_screen_title),
                         modifier = Modifier.size(32.sdp)
                     )
                     Text(
-                        text = "Tarihte Bugün",
+                        text = stringResource(id = R.string.tarihte_bugun_list_screen_title),
                         style = NamazvakitleriTheme.typography.ayetHadisTitle,
                         color = NamazvakitleriTheme.colors.normalVakit,
                         modifier = Modifier.padding(start = 12.sdp)
@@ -70,13 +74,10 @@ fun TarihteBugunCard(
                 }
                 Icon(
                     imageVector = Icons.Default.ChevronRight,
-                    contentDescription = "Tarihte Bugün",
+                    contentDescription = stringResource(id = R.string.tarihte_bugun_list_screen_title),
                     tint = NamazvakitleriTheme.colors.ayetHadisInfo,
                     modifier = Modifier
-                        .size(32.sdp)
-                        .clickable {
-                            onClickAll()
-                        })
+                        .size(32.sdp))
             }
             when (tarihteBugunData) {
                 is BaseResourceEvent.Loading -> {
@@ -134,7 +135,9 @@ fun TarihteBugunItem(
             modifier = Modifier.size(32.sdp),
             contentDescription = item.olay
         )
-        Column(modifier = Modifier.padding(horizontal = 6.sdp).fillMaxWidth()) {
+        Column(modifier = Modifier
+            .padding(horizontal = 6.sdp)
+            .fillMaxWidth()) {
             Text(
                 text = "${item.tarih} , ${item.durum}",
                 style = NamazvakitleriTheme.typography.tarihteBugunStyle.copy(fontWeight = FontWeight.SemiBold),
