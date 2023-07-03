@@ -33,27 +33,36 @@ fun SettingsScreen(
                     .verticalScroll(rememberScrollState())
                     .weight(1f)
             ) {
+                Spacer(modifier = Modifier.height(8.sdp))
                 SettingsItem(
-                    modifier = Modifier.align(Alignment.Start),
+                    modifier = Modifier
+                        .align(Alignment.Start)
+                        .padding(start = 48.sdp),
                     title = stringResource(id = com.mesutemre.namazvakitleri.R.string.settings_item_cuma_mesaj),
                     isImage = true,
                     icon = com.mesutemre.namazvakitleri.R.drawable.ic_settings_cuma_mesaj,
                     onClick = navigateToCumaMesajListe
                 )
                 SettingsItem(
-                    modifier = Modifier.align(Alignment.End),
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .padding(end = 48.sdp),
                     title = stringResource(id = com.mesutemre.namazvakitleri.R.string.settings_item_kible),
                     icon = com.mesutemre.namazvakitleri.R.drawable.ic_settings_kabe,
                     onClick = navigateToKible
                 )
                 SettingsItem(
-                    modifier = Modifier.align(Alignment.Start),
+                    modifier = Modifier
+                        .align(Alignment.Start)
+                        .padding(start = 48.sdp),
                     title = stringResource(id = com.mesutemre.namazvakitleri.R.string.settings_item_change_city),
                     icon = com.mesutemre.namazvakitleri.R.drawable.ic_settings_location,
                     onClick = navigateToKonumDegistir
                 )
                 SettingsItem(
-                    modifier = Modifier.align(Alignment.End),
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .padding(end = 48.sdp),
                     title = stringResource(id = com.mesutemre.namazvakitleri.R.string.settings_item_tercihler),
                     icon = com.mesutemre.namazvakitleri.R.drawable.ic_options
                 ) {

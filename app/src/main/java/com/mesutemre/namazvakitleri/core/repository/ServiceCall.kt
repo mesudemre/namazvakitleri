@@ -1,9 +1,11 @@
 package com.mesutemre.namazvakitleri.core.repository
 
+import android.accounts.NetworkErrorException
 import com.mesutemre.namazvakitleri.core.model.BaseResourceEvent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
+import java.net.ConnectException
 
 class ServiceCall : IServiceCall {
 
@@ -13,8 +15,19 @@ class ServiceCall : IServiceCall {
             var response: Response<T>? = null
             try {
                 response = call()
-            } catch (t: Throwable) {
-                emit(BaseResourceEvent.Error(t.message!!))
+            } catch (exception: Exception) {
+                when (exception) {
+                    is ConnectException -> {
+                        emit(BaseResourceEvent.Error(exception.message!!))
+                    }
+                    is NetworkErrorException -> {
+                        emit(BaseResourceEvent.Error(exception.message!!))
+                    }
+                    else -> {
+                        emit(BaseResourceEvent.Error(exception.message!!))
+                    }
+                }
+
             }
             if (response != null) {
                 if (!response.isSuccessful) {

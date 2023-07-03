@@ -78,4 +78,11 @@ class DashboardLocalDataSource @Inject constructor(
     override suspend fun clearVakitInfo() {
         dao.clearVakitInfo()
     }
+
+    override suspend fun checkCumaSnackBarVisibility(): Flow<Boolean> =
+        dataStore.readBoolean(Constants.DataStoreConstants.CUMA_SNACK_MESSAGE, true)
+
+    override suspend fun saveStateOfCumaSnackBarMessage(visibility: Boolean) {
+        dataStore.saveData(Constants.DataStoreConstants.CUMA_SNACK_MESSAGE, visibility)
+    }
 }

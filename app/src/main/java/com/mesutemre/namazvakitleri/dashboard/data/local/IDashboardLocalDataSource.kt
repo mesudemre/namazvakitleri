@@ -24,4 +24,6 @@ interface IDashboardLocalDataSource {
     suspend fun getVakitPageType(): DashboardVakitPageType
     suspend fun saveVakitPageType(type: DashboardVakitPageType)
     suspend fun clearVakitInfo()
+    suspend fun checkCumaSnackBarVisibility(): Flow<Boolean>
+    suspend fun saveStateOfCumaSnackBarMessage(visibility: Boolean)
 }

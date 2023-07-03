@@ -26,6 +26,7 @@
     <string name="notification_channel_cuma_hatirlatici_description">Her cuma gelen notification.</string>
     <string name="notification_cuma_hatirlatici_title">Hayırlı Cumalar</string>
     <string name="notification_cuma_hatirlatici_content">Cumanız mübarek olsun</string>
+    <string name="dashboard_cuma_message">Hayırlı cumalar. Cumanız mübarek olsun.</string>
     <string name="notification_vakit_info_title">Namaz Vakti</string>
     <string name="notification_vakit_info_description">Namaz Vakti Hatırlatıcı</string>
     <string name="default_notification_channel_id" translatable="false">vakit_push_channel_id</string>

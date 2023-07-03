@@ -22,5 +22,6 @@ data class DashboardState(
     val kalanSaniye: Int = 0,
     val currentVakit: VakitType? = null,
     val ayetListJsonAl: Boolean = false,
-    val hadisListJsonAl: Boolean = false
+    val hadisListJsonAl: Boolean = false,
+    val showCumaSnack: Boolean = false
 )

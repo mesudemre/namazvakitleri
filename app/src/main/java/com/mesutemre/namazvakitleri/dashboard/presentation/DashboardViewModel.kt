@@ -35,7 +35,9 @@ class DashboardViewModel @Inject constructor(
     private val deleteAyetList: DeleteAyetList,
     private val saveAyetList: SaveAyetList,
     private val deleteHadisList: DeleteHadisList,
-    private val saveHadisList: SaveHadisList
+    private val saveHadisList: SaveHadisList,
+    private val checkCumaSnackMessage: CheckCumaSnackMessage,
+    private val saveCumaSnackMessageState: SaveCumaSnackMessageState
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(DashboardState())
@@ -60,6 +62,14 @@ class DashboardViewModel @Inject constructor(
             }
             async {
                 loadTarihteBugun()
+            }
+            async {
+                _state.update {
+                    it.copy(
+                        showCumaSnack = checkCumaSnackMessage()
+                    )
+                }
+                saveCumaSnackMessageState()
             }
         }
     }

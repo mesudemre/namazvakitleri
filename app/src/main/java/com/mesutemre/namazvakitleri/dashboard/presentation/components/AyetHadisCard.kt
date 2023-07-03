@@ -19,6 +19,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import com.mesutemre.namazvakitleri.R
 import com.mesutemre.namazvakitleri.core.ext.sdp
+import com.mesutemre.namazvakitleri.core.ext.ssp
 import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 
 @Composable
@@ -78,7 +79,8 @@ fun AyetHadisCard(
                 Text(
                     text = subContent,
                     style = NamazvakitleriTheme.typography.ayetHadisContent.copy(
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 10.ssp
                     ),
                     color = NamazvakitleriTheme.colors.normalVakit,
                     modifier = Modifier
@@ -97,12 +99,15 @@ fun AyetHadisCard(
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_share),
                         contentDescription = stringResource(id = R.string.common_share),
                         modifier = Modifier
-                            .size(24.sdp),
+                            .size(16.sdp),
                         tint = NamazvakitleriTheme.colors.shareButtonColor
                     )
                     Text(
                         text = stringResource(id = R.string.common_share),
-                        style = NamazvakitleriTheme.typography.ayetHadisContent,
+                        style = NamazvakitleriTheme.typography.ayetHadisContent.copy(
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.ssp
+                        ),
                         color = NamazvakitleriTheme.colors.shareButtonColor,
                         modifier = Modifier.padding(start = 6.sdp)
                     )

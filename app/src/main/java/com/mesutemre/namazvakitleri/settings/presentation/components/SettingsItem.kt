@@ -33,8 +33,8 @@ fun SettingsItem(
     val color = NamazvakitleriTheme.colors.topBarBackgroundColor
     Column(
         modifier = modifier
-            .width(160.sdp)
-            .height(160.sdp)
+            .width(140.sdp)
+            .height(140.sdp)
             .clickable {
                 onClick()
             }

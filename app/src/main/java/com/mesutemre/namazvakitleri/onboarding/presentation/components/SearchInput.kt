@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -27,6 +27,9 @@ fun SearchInput(
     text: String,
     onChange: (String) -> Unit
 ) {
+    var textstate by remember {
+        mutableStateOf(text)
+    }
     OutlinedTextField(
         modifier = modifier
             .fillMaxWidth()
@@ -63,40 +66,14 @@ fun SearchInput(
                     contentDescription = stringResource(id = R.string.common_clear),
                     tint = NamazvakitleriTheme.colors.searchTextColor,
                     modifier = Modifier.clickable {
-                        //onClearSearch()
                     })
             }
         },
         textStyle = NamazvakitleriTheme.typography.searchTextStyle.copy(color = NamazvakitleriTheme.colors.searchTextColor),
-        value = text,
-        onValueChange = onChange
+        value = textstate,
+        onValueChange = {
+            textstate = it
+            onChange(it)
+        }
     )
 }
-
-/*modifier = modifier
-            .fillMaxWidth()
-            .height(42.sdp)
-            .clip(shape = MaterialTheme.shapes.medium)
-            .background(color = MaterialTheme.colorPalette.white)
-            .border(
-                width = 1.sdp,
-                color = MaterialTheme.colorPalette.otherGrayLight,
-                shape = MaterialTheme.shapes.medium
-            ),
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Outlined.Search,
-                contentDescription = null,
-                tint = MaterialTheme.colorPalette.transparent
-            )
-        },
-        trailingIcon = {
-            if (searchInput.isNotEmpty()) {
-                Icon(imageVector = Icons.Filled.Close,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorPalette.transparent,
-                    modifier = Modifier.rippleClick {
-                        onClearSearch()
-                    })
-            }
-        }*/

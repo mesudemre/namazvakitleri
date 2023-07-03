@@ -3,6 +3,7 @@ package com.mesutemre.namazvakitleri.dashboard.presentation
 import android.app.Activity
 import android.content.Intent
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.*
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,6 +14,8 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.SnackbarDuration
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,6 +39,7 @@ import java.util.*
 @Composable
 fun DashboardScreen(
     state: DashboardState,
+    snackbarHostState: SnackbarHostState,
     onChangeVakitTypePage: suspend (DashboardVakitPageType) -> Unit,
     onClickTarihteBugun: () -> Unit,
     onClickSettings: () -> Unit,
@@ -44,6 +48,15 @@ fun DashboardScreen(
 ) {
     NamazvakitleriSurface(modifier = Modifier.fillMaxSize()) {
         val context = LocalContext.current
+        LaunchedEffect(key1 = state.showCumaSnack) {
+            if (state.showCumaSnack) {
+                snackbarHostState.showSnackbar(
+                    message = context.getString(R.string.dashboard_cuma_message),
+                    duration = SnackbarDuration.Short
+                )
+            }
+        }
+
         LaunchedEffect(key1 = state.ayetListJsonAl) {
             if (state.ayetListJsonAl) {
                 val jsonAyet = context.assets
@@ -304,5 +317,5 @@ fun DashboardScreen(
 @Preview(showBackground = true)
 @Composable
 fun DashboardScreenPreview() {
-    DashboardScreen(state = DashboardState(), {}, {}, {}, {}, {})
+    DashboardScreen(state = DashboardState(), SnackbarHostState(), {}, {}, {}, {}, {})
 }

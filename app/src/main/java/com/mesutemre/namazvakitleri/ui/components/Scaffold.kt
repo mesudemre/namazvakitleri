@@ -2,11 +2,7 @@ package com.mesutemre.namazvakitleri.ui.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.material.FabPosition
-import androidx.compose.material.Scaffold
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,7 +11,8 @@ import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 @Composable
 fun NamazvakitleriScaffold(
     modifier: Modifier = Modifier,
-    scaffoldState: ScaffoldState = rememberScaffoldState(),
+    scaffoldState: ScaffoldState,
+    snackbarHost: @Composable (SnackbarHostState) -> Unit = { SnackbarHost(it) },
     topBar: @Composable (() -> Unit) = {},
     floatingActionButton: @Composable (() -> Unit) = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
@@ -26,6 +23,7 @@ fun NamazvakitleriScaffold(
         modifier = modifier.navigationBarsPadding(),
         scaffoldState = scaffoldState,
         topBar = topBar,
+        snackbarHost = snackbarHost,
         floatingActionButton = floatingActionButton,
         floatingActionButtonPosition = floatingActionButtonPosition,
         backgroundColor = backgroundColor,

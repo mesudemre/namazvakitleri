@@ -15,6 +15,8 @@ import com.mesutemre.namazvakitleri.onboarding.data.local.IOnboardingLocalDataSo
 import com.mesutemre.namazvakitleri.onboarding.domain.model.DistrictData
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import java.util.*
 import javax.inject.Inject
 
 class DashboardRepository @Inject constructor(
@@ -133,5 +135,18 @@ class DashboardRepository @Inject constructor(
 
     override suspend fun clearVakitInfo() {
         dashboardLocalDataSource.clearVakitInfo()
+    }
+
+    override suspend fun checkCumaSnackBarVisibility(): Boolean {
+        val calendar = Calendar.getInstance()
+        val canCreateMessage = (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY)
+                &&
+                calendar.get(Calendar.HOUR_OF_DAY) > 10
+        val isMessageVisible = dashboardLocalDataSource.checkCumaSnackBarVisibility().first()
+        return canCreateMessage && isMessageVisible
+    }
+
+    override suspend fun saveStateOfCumaSnackBarMessage(visibility: Boolean) {
+        dashboardLocalDataSource.saveStateOfCumaSnackBarMessage(visibility)
     }
 }

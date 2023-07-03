@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -37,6 +38,7 @@ import com.mesutemre.namazvakitleri.ui.theme.NamazvakitleriTheme
 fun NamazvakitleriNavigation(
     modifier: Modifier,
     navController: NavHostController,
+    snackbarHostState: SnackbarHostState,
     startDestinition: NamazvakitleriNavigationItem,
     popBack: (
         route: String?,
@@ -125,6 +127,7 @@ fun NamazvakitleriNavigation(
             val state = viewModel.state.collectAsStateWithLifecycle()
             DashboardScreen(
                 state = state.value,
+                snackbarHostState = snackbarHostState,
                 onChangeVakitTypePage = viewModel::setActiveVakitPage,
                 onClickTarihteBugun = {
                     navController.navigate(NamazvakitleriNavigationItem.TarihteBugunScreen.screenRoute)

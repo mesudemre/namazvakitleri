@@ -10,6 +10,7 @@ object Constants {
         val TARIHTE_BUGUN_KEY = "tarihtebugunkey2"
         val VAKIT_TYPE_PAGE = "vakittypepage"
         val PUSH_TOKEN = "pushtoken"
+        val CUMA_SNACK_MESSAGE = "cumasnackmessage"
     }
 
     object DashboardConstants {

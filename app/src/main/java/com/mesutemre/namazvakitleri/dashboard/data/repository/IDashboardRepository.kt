@@ -24,4 +24,6 @@ interface IDashboardRepository {
     suspend fun getVakitPageType(): DashboardVakitPageType
     suspend fun saveVakitPageType(type: DashboardVakitPageType)
     suspend fun clearVakitInfo()
+    suspend fun checkCumaSnackBarVisibility(): Boolean
+    suspend fun saveStateOfCumaSnackBarMessage(visibility: Boolean)
 }
